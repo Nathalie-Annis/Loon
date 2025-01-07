@@ -2,7 +2,7 @@
 #!desc = 去除开屏广告、首页无用选项，精简我的界面。
 #!author = Nathalie Annis
 #!homepage = https://github.com/Nathalie-Annis/Loon/
-#!icon = https://github.com/Nathalie-Annis/Loon/raw/3a26aa39e92c5710a34b5abc3be2b807346ce5d6/Icon/369cx.png
+#!icon = https://github.com/Nathalie-Annis/Loon/raw/main/Icon/369cx.png
 
 [rewrite]
 ^https:\/\/api\.369cx\.cn\/v2\/Integral\/GetDaylySign reject-dict
