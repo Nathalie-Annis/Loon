@@ -4,7 +4,7 @@
 #!homepage = https://github.com/Nathalie-Annis/Loon/
 #!icon = https://github.com/Nathalie-Annis/Loon/raw/main/Icon/369cx.png
 
-[rewrite]
+[Rewrite]
 ^https:\/\/api\.369cx\.cn\/v2\/Integral\/GetDaylySign reject-dict
 ^https:\/\/api\.369cx\.cn\/v2\/Home\/GetHomePageData response-body-json-jq 'del(.result.banner)' '.result.searchBarText = ["Ciallo～(∠・ω< )⌒★"]' '.result.homeButton = [.result.homeButton[10], .result.homeButton[1], .result.homeButton[3], .result.homeButton[13]]'
 ^https:\/\/api\.369cx\.cn\/v2\/Splash\/GetSplashAd reject-dict
