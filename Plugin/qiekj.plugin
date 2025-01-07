@@ -1,0 +1,16 @@
+#!name = 胖乖生活去广告
+#!desc = 我们从大量的广告中找到了少量能用的功能。
+#!author = Nathalie Annis
+#!homepage = https://github.com/Nathalie-Annis/Loon/
+#!icon = https://github.com/Nathalie-Annis/Loon/raw/main/Icon/qiekj.png
+
+[rewrite]
+^https:\/\/userapi\.qiekj\.com\/user\/checkUserPortrait reject-dict
+^https:\/\/userapi\.qiekj\.com\/appTitle\/get reject-dict
+^https:\/\/userapi\.qiekj\.com\/integralRecord\/integralDailStatistics reject-dict
+^https:\/\/userapi\.qiekj\.com\/local-life reject-dict
+^https:\/\/userapi\.qiekj\.com\/task reject-dict
+^https:\/\/userapi\.qiekj\.com\/slot\/get reject-dict
+
+[mitm]
+userapi.qiekj.com
