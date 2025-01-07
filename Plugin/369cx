@@ -10,4 +10,4 @@
 ^https:\/\/api\.369cx\.cn\/v2\/Splash\/GetSplashAd reject-dict
 
 [mitm]
-api.369cx.cn
+hostname = api.369cx.cn
