@@ -3,6 +3,7 @@
 #!author = Nathalie Annis
 #!homepage = https://github.com/Nathalie-Annis/Loon/
 #!icon = https://github.com/Nathalie-Annis/Loon/raw/3a26aa39e92c5710a34b5abc3be2b807346ce5d6/Icon/369cx.png
+
 [rewrite]
 ^https:\/\/api\.369cx\.cn\/v2\/Integral\/GetDaylySign reject-dict
 ^https:\/\/api\.369cx\.cn\/v2\/Home\/GetHomePageData response-body-json-jq 'del(.result.banner)' '.result.searchBarText = ["Ciallo～(∠・ω< )⌒★"]' '.result.homeButton = [.result.homeButton[10], .result.homeButton[1], .result.homeButton[3], .result.homeButton[13]]'
