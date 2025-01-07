@@ -4,7 +4,7 @@
 #!homepage = https://github.com/Nathalie-Annis/Loon/
 #!icon = https://github.com/Nathalie-Annis/Loon/raw/main/Icon/qiekj.png
 
-[rewrite]
+[Rewrite]
 ^https:\/\/userapi\.qiekj\.com\/user\/checkUserPortrait reject-dict
 ^https:\/\/userapi\.qiekj\.com\/appTitle\/get reject-dict
 ^https:\/\/userapi\.qiekj\.com\/integralRecord\/integralDailStatistics reject-dict
@@ -12,5 +12,5 @@
 ^https:\/\/userapi\.qiekj\.com\/task reject-dict
 ^https:\/\/userapi\.qiekj\.com\/slot\/get reject-dict
 
-[mitm]
-userapi.qiekj.com
+[MITM]
+hostname = userapi.qiekj.com
