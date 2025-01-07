@@ -1,4 +1,4 @@
-#!name = 369出行去广告
+e#!name = 369出行去广告
 #!desc = 去除开屏广告、首页无用选项，精简我的界面。
 #!author = Nathalie Annis
 #!homepage = https://github.com/Nathalie-Annis/Loon/
@@ -7,5 +7,6 @@
 ^https:\/\/api\.369cx\.cn\/v2\/Integral\/GetDaylySign reject-dict
 ^https:\/\/api\.369cx\.cn\/v2\/Home\/GetHomePageData response-body-json-jq 'del(.result.banner)' '.result.searchBarText = ["Ciallo～(∠・ω< )⌒★"]' '.result.homeButton = [.result.homeButton[10], .result.homeButton[1], .result.homeButton[3], .result.homeButton[13]]'
 ^https:\/\/api\.369cx\.cn\/v2\/Splash\/GetSplashAd reject-dict
+
 [mitm]
-hostname = api.369cx.cn
+api.369cx.cn
