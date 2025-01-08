@@ -1,0 +1,28 @@
+#!name = 建行生活去广告
+#!desc = 去除开屏广告、首页无用选项，精简我的界面。
+#!author = Nathalie Annis
+#!homepage = https://github.com/Nathalie-Annis/Loon/
+#!icon = https://github.com/Nathalie-Annis/Loon/raw/main/Icon/369cx.png
+
+[Rewrite]
+# 首页横幅广告
+^https?:\/\/yunbusiness\.ccb\.com\/clp_service\/txCtrl\?txcode=A3341A(002|006|009|119|120) reject-200
+^https?:\/\/yunbusiness\.ccb\.com\/clp_service\/txCtrl\?txcode=A3341C147 reject-200
+# 删除首页+金融+我的多个横幅等乱七八糟的广告
+^https?:\/\/yunbusiness\.ccb\.com\/basic_service\/txCtrl\?txcode=A3341AB05 mock-response-body data-type=json data-path="https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/ccbLife/A3341AB05.json"
+# 我的页面悬浮广告
+^https?:\/\/yunbusiness\.ccb\.com\/basic_service\/txCtrl\? response-body-json-jq 'del(.TAG_AD_INFO)'
+# 内置饿了么
+^https?:\/\/waimai-guide\.ele\.me\/\w+\/mtop\.alsc\.eleme\.\w+\.trigger\.respond reject-dict
+^https?:\/\/waimai-guide\.ele\.me\/\w+\/mtop\.alsc\.wamai\.store\.detail\.miniapp\.popup reject
+^https?:\/\/waimai-guide\.ele\.me\/\w+\/mtop\.venus\.shopcouponpopupservice\.getshopcouponspopup reject
+^https?:\/\/waimai-guide\.ele\.me\/\w+\/mtop\.venus\.shopresourceservice\.getshopresource response-body-json-jq 'del(.posterList)'
+
+[Script]
+http-response
+^https?:\/\/yunbusiness\.ccb\.com\/basic_service\/txCtrl\?txcode=A3341AB04 script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/ccbLife/ccbLifeAds.js
+http-response
+^https?:\/\/g\.alicdn\.com\/.*o2o-ad url script-response-body script-path=https://raw.githubusercontent.com/zirawell/Ad-Cleaner/main/Collection/js/alicdn.js
+
+[MITM]
+hostname = yunbusiness.ccb.com, g.alicdn.com, waimai-guide.ele.me
