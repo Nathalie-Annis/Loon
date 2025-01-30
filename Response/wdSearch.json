@@ -3,11 +3,12 @@
   "data": {
     "bizCode": 0,
     "objects": {
+      "NewHome-&-Search": [
         {
           "operate": "jump",
           "filmId": "",
           "themeCode": "",
-          "commendName": "2024年度观影账单",
+          "commendName": "test",
           "commendId": 9306,
           "relatedIds": "",
           "url": "https://act-m.wandacinemas.com/timemachine2024/#/welcome/loading",
