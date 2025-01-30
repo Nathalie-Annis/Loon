@@ -5,14 +5,14 @@
     "objects": {
       "NewHome-&-Search": [
         {
-          "operate": "",
+          "operate": "jump",
           "filmId": "",
           "themeCode": "",
-          "commendName": "Ciallo～(∠・ω< )⌒☆",
+          "commendName": "2024年度观影账单",
           "commendId": 9306,
           "relatedIds": "",
-          "url": "",
-          "jumpTo": "",
+          "url": "https://act-m.wandacinemas.com/timemachine2024/#/welcome/loading",
+          "jumpTo": "ActivityDetail",
           "activityId": "",
           "relatedUser": 0,
           "title": "Ciallo～(∠・ω< )⌒☆",
