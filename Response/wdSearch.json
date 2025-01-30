@@ -5,17 +5,17 @@
     "objects": {
       "NewHome-&-Search": [
         {
-          "operate": "jump",
+          "operate": "",
           "filmId": "",
           "themeCode": "",
-          "commendName": "test",
+          "commendName": "Ciallo～(∠・ω< )⌒☆",
           "commendId": 9306,
           "relatedIds": "",
-          "url": "https://act-m.wandacinemas.com/timemachine2024/#/welcome/loading",
-          "jumpTo": "ActivityDetail",
+          "url": "",
+          "jumpTo": "",
           "activityId": "",
           "relatedUser": 0,
-          "title": "test",
+          "title": "",
           "currentTime": 1738209639875,
           "identifier": "Search",
           "voucherActivityId": "",
