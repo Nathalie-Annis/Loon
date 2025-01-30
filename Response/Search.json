@@ -5,7 +5,7 @@
     "objects": {
       "NewHome-&-Search": [
         {
-          "operate": "",
+          "operate": "jump",
           "filmId": "",
           "themeCode": "",
           "commendName": "",
@@ -24,11 +24,11 @@
           "relatedType": 0
         },
         {
-          "operate": "",
+          "operate": "jump",
           "filmId": "",
           "themeCode": "",
           "commendName": "",
-          "commendId": 9306,
+          "commendId": 9501,
           "relatedIds": "",
           "url": "",
           "jumpTo": "",
