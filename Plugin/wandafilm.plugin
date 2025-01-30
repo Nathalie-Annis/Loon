@@ -1,0 +1,18 @@
+#!name = 万达电影去广告
+#!desc = 去除开屏广告,首页搜索栏、横幅、视频流广告,精简无用功能。
+#!author = Nathalie Annis
+#!homepage = https://github.com/Nathalie-Annis/Loon/
+#!icon = https://github.com/Nathalie-Annis/Loon/raw/main/Icon/wandafilm.png
+
+[Rewrite]
+^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?areaSymbol.*?FlashAD reject-dict
+^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?Symbol.*?SearchAd reject-dict
+^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?areaSymbol.*?Search mock-response-body data-type=json data-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Response/Search.json"
+^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?Home_Banner response-body-json-jq 'del(.data.objects["NewHome-&-Home_Banner"])' '.data.objects["NewHome-&-Transformers"][2].tips=""'
+^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?areaSymbol.*?Message reject-dict
+^https:\/\/front-gateway-c\.wandafilm\.com\/content\/index_content_list\.api reject-dict
+^https:\/\/front-gateway-c\.wandafilm\.com\/misc\/acm\/tab\/list\.api response-body-json-jq 'del(.data[1],.data[2],.data[3])'
+^https:\/\/card-api-prd-mx\.wandafilm\.com\/card\/cinema_cards\.api reject-dict
+
+[MITM]
+hostname = misc-api-prd-mx.wandafilm.com,front-gateway-c.wandafilm.com,card-api-prd-mx.wandafilm.com
