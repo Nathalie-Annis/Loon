@@ -5,7 +5,7 @@
     "objects": {
       "NewHome-&-Search": [
         {
-          "operate": "jump",
+          "operate": "search",
           "filmId": "",
           "themeCode": "",
           "commendName": "2024年度观影账单",
