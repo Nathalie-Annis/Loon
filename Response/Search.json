@@ -1,0 +1,31 @@
+{
+  "msg": "API Success.",
+  "data": {
+    "bizCode": 0,
+    "objects": {
+      "NewHome-&-Search": [
+        {
+          "operate": "search",
+          "filmId": "",
+          "themeCode": "",
+          "commendName": "2024年度观影账单",
+          "commendId": 9306,
+          "relatedIds": "",
+          "url": "https://act-m.wandacinemas.com/timemachine2024/#/welcome/loading",
+          "jumpTo": "ActivityDetail",
+          "activityId": "",
+          "relatedUser": 0,
+          "title": "Ciallo～(∠・ω< )⌒☆",
+          "currentTime": 1738209639875,
+          "identifier": "Search",
+          "voucherActivityId": "",
+          "coverCode": "",
+          "isInAppWebView": true,
+          "relatedType": 0
+        }
+      ]
+    },
+    "bizMsg": ""
+  },
+  "code": 0
+}
