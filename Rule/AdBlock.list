@@ -1,6 +1,6 @@
 #!name=AdBlock
 #!homepage=https://github.com/Nathalie-Annis/Loon/tree/main/Rule
-#!desc=去广告规则
+#!desc=自用去广告规则
 [Rule]
 DOMAIN,acs.m.taobao.com,REJECT
 DOMAIN,s3plus.meituan.net,REJECT
