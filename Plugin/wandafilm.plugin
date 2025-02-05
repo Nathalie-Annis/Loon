@@ -11,7 +11,7 @@
 ^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?Home_Banner response-body-json-jq 'del(.data.objects["NewHome-&-Home_Banner"])' '.data.objects["NewHome-&-Transformers"][2].tips=""'
 ^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?areaSymbol.*?Message reject-dict
 ^https:\/\/front-gateway-c\.wandafilm\.com\/content\/index_content_list\.api reject-dict
-^https:\/\/front-gateway-c\.wandafilm\.com\/misc\/acm\/tab\/list\.api response-body-json-jq 'del(.data[1],.data[2],.data[3])'
+^https:\/\/front-gateway-c\.wandafilm\.com\/misc\/acm\/tab\/list\.api response-body-json-jq 'del(.data[] | select(.tabName != "推荐" and .tabName != "电影+"))'
 ^https:\/\/card-api-prd-mx\.wandafilm\.com\/card\/cinema_cards\.api reject-dict
 
 [MITM]
