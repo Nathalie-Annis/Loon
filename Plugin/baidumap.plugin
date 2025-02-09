@@ -1,0 +1,20 @@
+#!name = 百度地图去广告
+#!desc = 配合图层使用,去除各种活动图标和gif动图,仅对v19.3.0作完美支持。
+#!author = Nathalie Annis
+#!homepage = https://github.com/Nathalie-Annis/Loon/
+#!icon = https://github.com/Nathalie-Annis/Loon/raw/main/Icon/baidumap.png
+
+[Rewrite]
+^https:\/\/map-mobile-resource\.cdn\.bcebos\.com\/icon\/rec\/search\/default\/dachedongios\.gif reject-img
+^https:\/\/map-mobile-resource\.cdn\.bcebos\.com\/icon\/service\/yunying\/default\/xiaohaungtiao_blue@3x\.png reject
+^https:\/\/map-mobile-resource\.cdn\.bcebos\.com\/icon\/service\/UGCfeedback\/default\/zhuanqian\.png reject
+^https:\/\/map-mobile-resource\.cdn\.bcebos\.com\/icon\/service\/taxi\/default\/poi_other_bubble1102\.png reject
+^https:\/\/map-mobile-resource\.cdn\.bcebos\.com\/icon\/service\/taxi\/default\/poi_fixed_bubble1102\.png reject
+^https:\/\/map-mobile-resource\.cdn\.bcebos\.com\/icon\/rec\/search\/default\/hongbaojiaobiao\.png reject
+^https:\/\/map-mobile-opnimg\.cdn\.bcebos\.com\/e006d2b373f9f2a150192136f0ca6261\.gif header https://map-mobile-resource.cdn.bcebos.com/icon/service/trip-helper/default/fankui7.png
+^https:\/\/map-mobile-opnimg\.cdn\.bcebos\.com\/89b2735170952b29d32c768529712c2d\.gif reject-img
+^https:\/\/map-mobile-lbsapp\.cdn\.bcebos\.com\/89a6e47dad19c1dccb6898e781f80864\.png reject
+^https:\/\/lbsugc\.cdn\.bcebos\.com\/images\/B64d32baf11f3fb0f6\.png reject
+
+[MITM]
+hostname = map-mobile-resource.cdn.bcebos.com,map-mobile-opnimg.cdn.bcebos.com,map-mobile-lbsapp.cdn.bcebos.com,lbsugc.cdn.bcebos.com
