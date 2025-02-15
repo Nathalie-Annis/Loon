@@ -1,11 +1,12 @@
 #!name = 七猫小说去广告
-#!desc = [自签插件]需注入SSLKillSwitch2才能正常启用，建议配合注入会员破解插件(本插件没有处理书中广告)。去除热门&图书中的横幅广告,去除金币签到页广告,精简我的页面,提供伪造功能。
+#!desc = [自签插件]需注入SSLKillSwitch2才能正常启用，建议配合注入会员破解插件(本插件没有处理书中广告)。去除热门&图书中的横幅广告、金币签到页广告、底栏书城签到提醒,精简我的页面,提供伪造功能。
 #!author = Nathalie Annis
 #!homepage = https://github.com/Nathalie-Annis/Loon/
 #!icon = https://github.com/Nathalie-Annis/Loon/raw/main/Icon/qimao.png
 
 [Rewrite]
 ^https:\/\/api-gw\.wtzw\.com\/mc\/h5\/materials reject
+^https:\/\/api-gw\.wtzw\.com\/legacy\/api\/v1\/user\/red-point reject
 ^https:\/\/api-bc\.wtzw\.com\/api\/v7\/book-store response-body-json-jq 'del(.data.banners[])'
 ^https:\/\/api-bc\.wtzw\.com\/api\/v6\/book-store\/recommend$ response-body-json-jq 'del(.data.sections[3])' 'del(.data.sections[4].books[])'
 ^https:\/\/xiaoshuo\.wtzw\.com\/api\/v3\/user\/my-center response-body-json-jq '.data.user_area.base_info.level_text="50"' '.data.user_area.base_info.level_icon="https://cdn.wtzw.com/bookimg/free/images/app/1_0_0/level/level_icon_50.png"' 'del(.data.func_area[1])' 'del(.data.func_area[2].list[] | select(.discover_name=="防诈骗指南"))' '.data.func_area[3].list=[.data.func_area[3].list[0],.data.func_area[3].list[3],.data.func_area[3].list[5],.data.func_area[3].list[6]]' 'del(.data.user_area.vip_info.activity_info)' '.data.user_area.base_info.vip_show_type="1"' '.data.user_area.base_info.user_other_data[0].num="9999999"'
