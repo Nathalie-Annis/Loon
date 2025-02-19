@@ -13,6 +13,7 @@
 ^https:\/\/front-gateway-c\.wandafilm\.com\/content\/index_content_list\.api reject-dict
 ^https:\/\/front-gateway-c\.wandafilm\.com\/misc\/acm\/tab\/list\.api response-body-json-jq 'del(.data[] | select(.tabName != "推荐" and .tabName != "电影+"))'
 ^https:\/\/card-api-prd-mx\.wandafilm\.com\/card\/cinema_cards\.api reject-dict
+^https:\/\/cms-activity-api-prd-mx\.wandafilm\.com\/activity\/film_detail\.api reject-dict
 
 [MITM]
-hostname = misc-api-prd-mx.wandafilm.com,front-gateway-c.wandafilm.com,card-api-prd-mx.wandafilm.com
+hostname = misc-api-prd-mx.wandafilm.com,front-gateway-c.wandafilm.com,card-api-prd-mx.wandafilm.com,cms-activity-api-prd-mx.wandafilm.com
