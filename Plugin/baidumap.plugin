@@ -1,5 +1,5 @@
 #!name = 百度地图去广告
-#!desc = 配合图层使用,去除各种活动图标和gif动图,仅对v19.3.0作完美支持。
+#!desc = 配合图层使用,去除各种活动图标和gif动图,精简我的页面,提供伪造功能。仅对v19.3.0作完美支持。
 #!author = Nathalie Annis
 #!homepage = https://github.com/Nathalie-Annis/Loon/
 #!icon = https://github.com/Nathalie-Annis/Loon/raw/main/Icon/baidumap.png
@@ -16,8 +16,11 @@
 ^https:\/\/map-mobile-opnimg\.cdn\.bcebos\.com\/b3cfaa3a2942148733a22fbd69bc51ac\.png reject
 ^https:\/\/map-mobile-lbsapp\.cdn\.bcebos\.com\/89a6e47dad19c1dccb6898e781f80864\.png reject
 ^https:\/\/mapcarowner-gz\.cdn\.bcebos\.com\/default\/6e1177bfb05ae6340d12e98ea17e9f6b\.png reject
+^https:\/\/newclient\.map\.baidu\.com\/contributor reject-dict
+^https:\/\/newclient\.map\.baidu\.com\/contributor-bus\/bounty\/tips reject-dict
+^https:\/\/newclient\.map\.baidu\.com\/.*?usersystem\/mine\/page response-body-json-jq 'del(.data.gold.activity[],.data.voice.list[])' '.data.map_lv=5' '.data.ugc_lv=6' '.data.footPrint.city_num=999' '.data.footPrint.city_rate=1' '.data.footPrint.mileage=520000' '.data.footPrint.point_num=1314'
 ^https:\/\/lbsnavi\.cdn\.bcebos\.com\/base\/online\/20240925104225\/%E8%BD%A6%E9%81%93%E7%BA%A7%E6%8A%A4%E8%88%AA-0\.png reject
 ^https:\/\/lbsugc\.cdn\.bcebos\.com\/images\/B64d32baf11f3fb0f6\.png reject
 
 [MITM]
-hostname = map-mobile-resource.cdn.bcebos.com,map-mobile-opnimg.cdn.bcebos.com,map-mobile-lbsapp.cdn.bcebos.com,mapcarowner-gz.cdn.bcebos.com,lbsnavi.cdn.bcebos.com,lbsugc.cdn.bcebos.com
+hostname = map-mobile-resource.cdn.bcebos.com,map-mobile-opnimg.cdn.bcebos.com,map-mobile-lbsapp.cdn.bcebos.com,mapcarowner-gz.cdn.bcebos.com,newclient.map.baidu.com,lbsnavi.cdn.bcebos.com,lbsugc.cdn.bcebos.com  
