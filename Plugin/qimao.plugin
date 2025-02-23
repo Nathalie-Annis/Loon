@@ -1,5 +1,5 @@
 #!name = 七猫小说去广告
-#!desc = [自签插件]需注入SSLKillSwitch2才能正常启用，建议配合注入会员破解插件(本插件没有处理书中广告)。去除热门&图书中的横幅广告、金币签到页广告、底栏书城签到提醒，精简我的页面，提供伪造功能。
+#!desc = [自签插件]注入SSLKillSwitch2&vip破解插件食用。去除热门&图书中的横幅广告、金币签到页广告、底栏书城签到红点标识、青少年模式提醒，精简我的页面，提供伪造功能。
 #!author = Nathalie Annis
 #!homepage = https://github.com/Nathalie-Annis/Loon/
 #!icon = https://github.com/Nathalie-Annis/Loon/raw/main/Icon/qimao.png
