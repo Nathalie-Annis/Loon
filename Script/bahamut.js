@@ -19,9 +19,9 @@ async function runs() {
   }
   if (req.url.includes('m3u8.php') && (rsp.message || rsp.error)) {
     await adURL('');
-    $notification.post("動畫瘋","test","开始观看广告",null,0)
+    $notification.post("動畫瘋","开始观看广告","您现在可以切屏先做其他事","crazyanime://",0)
     await new Promise(r => setTimeout(r, 25000));
-    $notification.post("動畫瘋","test","结束观看广告",null,0)
+    $notification.post("動畫瘋","结束观看广告","开始愉快的观影吧","crazyanime://",0)
     await adURL('end');
     rsp = await playURL();
   }
