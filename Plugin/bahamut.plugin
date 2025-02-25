@@ -4,8 +4,10 @@
 #!homepage = https://github.com/Nathalie-Annis/Loon/
 #!icon = https://github.com/Nathalie-Annis/Loon/raw/main/Icon/bahamut.png
 
-[Script]
+[Rewrite]
 ^https:\/\/api\.gamer\.com\.tw\/mobile_app\/anime\/v1\/vip_info\.php mock-response-body data-type=json data-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Response/Info.json"
+
+[Script]
 http-response ^https:\/\/api\.gamer\.com\.tw\/mobile_app\/anime\/v\d/(token|m3u8).php\? requires-body=1,timeout=40,script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bahamut.js, tag=屏蔽动画疯广告
 
 [MITM]
