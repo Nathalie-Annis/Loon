@@ -1,0 +1,14 @@
+#!name= 哔哩哔哩去广告(补充)
+#!desc= 去除直播/追番/影视中的横幅推荐,精简我的界面
+#!author = Nathalie Annis
+#!homepage = https://github.com/Nathalie-Annis/Loon/
+#!icon = https://github.com/Nathalie-Annis/Loon/raw/main/Icon/bilibili.png
+
+[Rewrite]
+^https:\/\/api\.bili(bili\.com|api\.net)\/pgc\/page\/bangumi response-body-json-replace result.modules[0].items []
+^https:\/\/api\.bili(bili\.com|api\.net)\/pgc\/page\/cinema\/tab response-body-json-replace result.modules[0].items []
+^https:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine response-body-json-jq 'del(.data.live_tip)' '.data.vip_section_v2.title="Ciallo～(∠・ω< )⌒★"' '.data.vip_section_v2.desc="每天都要开心呀"' 'del(.data.sections_v2[1].items[] | select(.title!="创作中心" and .title!="稿件管理" and .title!="主播中心" and .title!="直播数据"))' 'del(.data.sections_v2[2].items[] | select(.title!="我的课程" and .title!="个性装扮" and .title!="我的钱包" and .title!="会员购中心"))' 'del(.data.sections_v2[3].items[] | select(.title!="联系客服" and .title!="设置"))'
+^https:\/\/api\.live\.bilibili\.com\/xlive\/app-interface\/v2\/index\/feed response-body-json-replace data.card_list[0].card_data.banner_v2.list []
+
+[MITM]
+hostname = api.bilibili.com,api.biliapi.net
