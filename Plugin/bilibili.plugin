@@ -81,7 +81,7 @@ URL-REGEX,"^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH",REJECT-DICT
 ^https:\/\/api\.live\.bilibili\.com\/xlive\/app-interface\/v2\/index\/feed response-body-json-replace data.card_list[0].card_data.banner_v2.list []
 
 # 追番界面去除banner(12帧)
-^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=bangumi_tab response-body-json-replace data.modules[0].module_data.items []
+^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=bangumi_tab response-body-json-jq 'del(.data.modules[0]) | .data.modules |= [.[0], .[2], .[1]] + .[3:]'
 
 # 影视界面去除banner(12帧)
 ^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=cinema_tab response-body-json-replace data.modules[0].module_data.items []
