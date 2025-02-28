@@ -74,16 +74,19 @@ URL-REGEX,"^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH",REJECT-DICT
 # 移除视频链接跟踪参数
 (^https:\/\/(?:www|m)\.bilibili\.com\/video\/(?:BV\w{10}|av\d{9}))(?:\/?\?.*) 302 $1
 
+# 分区去除小黑屋、游戏中心
+^https:\/\/app\.bilibili\.com\/x\/v2\/channel\/region\/list response-body-json-jq 'del(.data[] | select(.name=="游戏中心" or .name=="小黑屋"))'
+
 # 直播界面去除横幅推荐
 ^https:\/\/api\.live\.bilibili\.com\/xlive\/app-interface\/v2\/index\/feed response-body-json-replace data.card_list[0].card_data.banner_v2.list []
 
-# 追番界面去除横幅推荐
-^https:\/\/api\.bili(bili\.com|api\.net)\/pgc\/page\/bangumi response-body-json-replace result.modules[0].items []
+# 追番界面去除banner(12帧)
+^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=bangumi_tab response-body-json-replace data.modules[0].module_data.items []
 
-# 影视界面去除横幅推荐
-^https:\/\/api\.bili(bili\.com|api\.net)\/pgc\/page\/cinema\/tab response-body-json-replace result.modules[0].items []
+# 影视界面去除banner(12帧)
+^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=cinema_tab response-body-json-replace data.modules[0].module_data.items []
 
-# 我的界面自定义
+# 我的界面自定义(保留创作中心、稿件管理、主播中心、直播数据、我的课程、个性装扮、我的钱包、会员购中心、联系客服、设置),去除livetips活动提示
 ^https:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine response-body-json-jq 'del(.data.live_tip)' '.data.vip_section_v2.title="Ciallo～(∠・ω< )⌒★"' '.data.vip_section_v2.desc="每天都要开心呀"' 'del(.data.sections_v2[1].items[] | select(.title!="创作中心" and .title!="稿件管理" and .title!="主播中心" and .title!="直播数据"))' 'del(.data.sections_v2[2].items[] | select(.title!="我的课程" and .title!="个性装扮" and .title!="我的钱包" and .title!="会员购中心"))' 'del(.data.sections_v2[3].items[] | select(.title!="联系客服" and .title!="设置"))'
 
 [Script]
