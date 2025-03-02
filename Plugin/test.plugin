@@ -1,0 +1,7 @@
+#!name=test
+
+[Script]
+http-response ^https:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.playerunite\.v1\.Player\/PlayViewUnite$ script-path=https://raw.githubusercontent.com/kokoryh/Script/master/js/bilibili.protobuf.js, requires-body=true, binary-body-mode=true, timeout=60, enabled=true, tag=bilibili.playerUnite
+
+[MitM]
+hostname=*live.bilibili.com, ap?.bilibili.com, grpc.biliapi.net, m.bilibili.com, manga.bilibili.com, www.bilibili.com
