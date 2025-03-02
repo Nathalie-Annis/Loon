@@ -4,8 +4,11 @@
 #!homepage = https://github.com/Nathalie-Annis/Loon/
 #!icon = https://github.com/Nathalie-Annis/Loon/raw/main/Icon/bahamut.png
 
+[Argument]
+showAnnounce = switch,true,tag="隐藏首页顶部通知",desc=
+
 [Rewrite]
-^https:\/\/api\.gamer\.com\.tw\/anime\/v1\/index\.php response-body-json-del data.announce
+^https:\/\/api\.gamer\.com\.tw\/anime\/v1\/index\.php response-body-json-jq --argjson {showAnnounce} "$showAnnounce" 'if $showAnnounce then . else del(.data.announce) end'
 ^https:\/\/api\.gamer\.com\.tw\/mobile_app\/anime\/v1\/vip_info\.php mock-response-body data-type=json data-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Response/Info.json"
 
 [Script]
