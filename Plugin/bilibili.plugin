@@ -104,7 +104,7 @@ http-response ^https:\/\/(?:app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.co
 http-response ^https:\/\/(?:app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.main\.community\.reply\.v1\.Reply\/MainList$ script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_proto_kokoryh.js,requires-body=true,binary-body-mode=true,tag=移除评论区广告
 http-response ^https:\/\/(?:app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.pgc\.gateway\.player\.v2\.PlayURL\/PlayView$ script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_proto_kokoryh.js,requires-body=true,binary-body-mode=true,tag=移除播放器开通会员横幅
 http-response ^https:\/\/(?:app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.polymer\.app\.search\.v1\.Search\/SearchAll$ script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_proto_kokoryh.js,requires-body=true,binary-body-mode=true,tag=移除搜索结果广告
-http-response ^https:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.playerunite\.v1\.Player\/PlayViewUnite$ script-path=https://raw.githubusercontent.com/kokoryh/Script/master/js/bilibili.protobuf.js,requires-body=true,binary-body-mode=true,tag=版权视频开启后台播放 playerunite
+http-response ^https:\/\/(?:app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.playerunite\.v1\.Player\/PlayViewUnite$ script-path=https://raw.githubusercontent.com/kokoryh/Script/master/js/bilibili.protobuf.js,requires-body=true,binary-body-mode=true,tag=版权视频开启后台播放 playerunite
 
 # 上部为Proto处理，下部为JSON配置处理
 
