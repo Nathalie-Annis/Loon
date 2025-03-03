@@ -12,6 +12,7 @@
 
 [Argument]
 showUpList=select,"auto","true","false",tag=[动态]中[最常访问]的显示方式,desc=auto：仅当列表中存在直播状态时显示；true：始终显示；false：始终隐藏。
+uid = input,"",tag=启用伪装空间的用户uid,desc=
 
 [Rule]
 # 备用域名
@@ -115,6 +116,7 @@ http-response ^https:\/\/api\.bilibili\.com\/pgc\/page\/(?:bangumi|cinema\/tab) 
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/splash\/(?:brand\/list|event\/list2|list|show) script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_remove_ads.js,requires-body=true,tag=移除开屏广告
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/account\/(?:mine|myinfo) script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_remove_ads.js,requires-body=true,tag=精简我的页面
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_remove_ads.js,requires-body=true,tag=移除首页推荐广告
+http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/space\?access_key=.*?&vmid=\d+ script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_fake.js,requires-body=true,tag=伪装空间,argument=[{uid}]
 
 [MitM]
 hostname=*live.bilibili.com, ap?.bilibili.com, grpc.biliapi.net, m.bilibili.com, manga.bilibili.com, www.bilibili.com
