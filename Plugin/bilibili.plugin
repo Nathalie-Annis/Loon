@@ -1,5 +1,5 @@
 #!name=哔哩哔哩去广告
-#!desc=[可莉插件修改版]搜索框填充词显示热搜和发现,优化动画和影视模块,精简分区,我的界面个性化显示
+#!desc=[可莉插件修改版]搜索框填充词热搜和发现设置开关,优化动画和影视模块,精简分区,精简顶部标签和底栏使用jq重写,支持我的界面和空间个性化显示
 #!openUrl=https://apps.apple.com/app/id736536022
 #!author=Maasea[https://github.com/Maasea],kokoryh[https://github.com/kokoryh],RuCu6[https://github.com/RuCu6],可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md],Nathalie
 #!tag=去广告
@@ -12,6 +12,7 @@
 
 [Argument]
 showUpList=select,"auto","true","false",tag=[动态]中[最常访问]的显示方式,desc=auto：仅当列表中存在直播状态时显示；true：始终显示；false：始终隐藏。
+showSearch = switch,false,tag=显示搜索栏热搜和发现,desc=
 uid = input,"",tag=启用伪装空间的用户uid,desc=
 
 [Rule]
@@ -60,9 +61,6 @@ URL-REGEX,"^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH",REJECT-DICT
 # 移除右上角活动入口
 ^https:\/\/app\.bilibili\.com\/x\/resource\/top\/activity\? mock-response-body data-type=text status-code=200 data="{"code":-404,"message":"啥都木有","ttl":1,"data":null}"
 
-# 搜索框填充词(不启用该复写)
-# ^https:\/\/app\.bilibili\.com\/x\/v2\/search\/square\? mock-response-body data-type=text status-code=200 data="{"code":0,"message":"0","ttl":1,"data":{"type":"history","title":"搜索历史","search_hotword_revision":2}}"
-
 # 屏蔽默认搜索框关键词
 ^https:\/\/(?:app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.interface\.v1\.Search\/DefaultWords$ reject-dict
 
@@ -86,9 +84,6 @@ URL-REGEX,"^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH",REJECT-DICT
 
 # 影视界面去除banner(12帧),重新排序
 ^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=cinema_tab response-body-json-jq 'del(.data.modules[0]) | .data.modules |= [.[0], .[4], .[2], .[1], .[3]] + .[5:]'
-
-# 直播界面去除横幅推荐
-# ^https:\/\/api\.live\.bilibili\.com\/xlive\/app-interface\/v2\/index\/feed response-body-json-replace data.card_list[0].card_data.banner_v2.list []
 
 # 我的界面自定义(保留创作中心、稿件管理、主播中心、直播数据、我的课程、个性装扮、我的钱包、会员购中心、联系客服、设置),去除livetips活动提示,修改粉丝数和会员图标
 ^https:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine response-body-json-jq 'del(.data.live_tip)' '.data.vip_section_v2.title="Ciallo～(∠・ω< )⌒★"' '.data.vip_section_v2.desc="每天都要开心呀"' 'del(.data.sections_v2[1].items[] | select(.title!="创作中心" and .title!="稿件管理" and .title!="主播中心" and .title!="直播数据"))' 'del(.data.sections_v2[2].items[] | select(.title!="我的课程" and .title!="个性装扮" and .title!="我的钱包" and .title!="会员购中心"))' 'del(.data.sections_v2[3].items[] | select(.title!="联系客服" and .title!="设置"))' '.data.vip.label.image="https://i0.hdslb.com/bfs/bangumi/kt/c43d9f30d0026fb3bba3d3823dd0f20c7ccc4f62.png"' '.data.follower=5200000'
@@ -116,6 +111,7 @@ http-response ^https:\/\/api\.bilibili\.com\/pgc\/page\/(?:bangumi|cinema\/tab) 
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/splash\/(?:brand\/list|event\/list2|list|show) script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_remove_ads.js,requires-body=true,tag=移除开屏广告
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/account\/(?:mine|myinfo) script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_remove_ads.js,requires-body=true,tag=精简我的页面
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_remove_ads.js,requires-body=true,tag=移除首页推荐广告
+http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/search\/square\? script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_search.js,enable={showSearch},tag=移除搜索栏热搜和发现
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/space\?access_key=.*?&vmid=\d+ script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_fake.js,requires-body=true,tag=伪装空间,argument=[{uid}]
 
 [MitM]
