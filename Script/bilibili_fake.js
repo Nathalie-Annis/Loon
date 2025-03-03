@@ -1,7 +1,5 @@
-let url = $request.url;
-let args = $argument;
-
-console.log("Request URL:", url);
-console.log("Arguments:", args);
-
-$done();
+console.log($request.url)
+console.log($request.headers)
+console.log($response.headers)
+console.log($argument.uid)
+$done({});
