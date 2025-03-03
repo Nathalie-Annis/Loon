@@ -8,7 +8,6 @@
 showAnnounce = switch,false,tag=显示首页顶部公告,desc=
 
 [Rewrite]
-^https:\/\/api\.gamer\.com\.tw\/anime\/v1\/index\.php response-body-json-del data.announce
 ^https:\/\/api\.gamer\.com\.tw\/mobile_app\/anime\/v1\/vip_info\.php mock-response-body data-type=json data-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Response/Info.json"
 
 [Script]
