@@ -7,7 +7,7 @@ console.log($argument.uid);
 if (id && $argument.uid && id === $argument.uid) {
     console.log("正在访问启用伪装的用户的个人空间");
     // 伪装用户信息
-    let obj = JSON.parse($response.obj);
+    let obj = JSON.parse($response.body);
     if (obj.data.card.vip.label) {
         obj.data.card.vip.label.text = "百年大会员";
         obj.data.card.vip.label.image = "https://i0.hdslb.com/bfs/bangumi/kt/c43d9f30d0026fb3bba3d3823dd0f20c7ccc4f62.png";
