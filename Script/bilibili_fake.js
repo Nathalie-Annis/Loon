@@ -2,10 +2,8 @@
 let idMatch = $request.url.match(/&vmid=(\d+)/);
 let id = idMatch ? idMatch[1] : null;
 console.log(id);
-console.log($argument.uid);
 let uids = $argument.uid ? $argument.uid.split(',') : [];
 console.log(uids);
-console.log(uids.length);
 // 如果 id 与 uid 匹配，则继续执行脚本逻辑
 if (id && uids.length > 0 && uids.includes(id)) {
     console.log("正在访问启用伪装的用户的个人空间");
@@ -40,7 +38,7 @@ if (id && uids.length > 0 && uids.includes(id)) {
             "image": "https://i2.hdslb.com/bfs/face/27a952195555e64508310e366b3e38bd4cd143fc.png",
             "achieve_url": `https://www.bilibili.com/h5/achieve?navhide=1&mid=${id}`
         };
-        console.log("https://www.bilibili.com/h5/achieve?navhide=1&mid={id}");
+        console.log(`https://www.bilibili.com/h5/achieve?navhide=1&mid=${id}`);
         obj.data.card.live_fans_wearing={
             "medal_color_end": 15304379,
             "medal_color_start": 7996451,
@@ -50,9 +48,10 @@ if (id && uids.length > 0 && uids.includes(id)) {
             "medal_color_border": 16771156,
             "guard_icon": "https://i0.hdslb.com/bfs/activity-plat/static/ce06d65bc0a8d8aa2a463747ce2a4752/FqYoOmgssP.png"
         };
-        console.log("https://live.bilibili.com/p/html/live-fansmedal-wall/index.html?is_live_webview=1&tId=${id}#/medal");
+        console.log(`https://live.bilibili.com/p/html/live-fansmedal-wall/index.html?is_live_webview=1&tId=${id}#/medal`);
     }
     $done({ body: JSON.stringify(obj) });
 } else {
+    console.log("正在访问空间不在伪装范围内,正常访问");
     $done({});
 }
