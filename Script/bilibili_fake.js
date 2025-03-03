@@ -16,13 +16,17 @@ if (id && $argument.uid && id === $argument.uid) {
     if (obj.data.card.level_info.senior_inquiry){
         obj.data.card.level_info.senior_inquiry.inquiry_text = "硬核会员";
     }
+    if(obj.data.card.achieve){
+        obj.data.card.achieve.image = "https://i2.hdslb.com/bfs/face/27a952195555e64508310e366b3e38bd4cd143fc.png";
+    }
     if (obj.data.images.collection_top_simple.top.result) {
         obj.data.images.collection_top_simple.top.result[0].digital_extra.region_subtitle = "CD.000001";
     }
     if (obj.data.card) {
         obj.data.card.fans = 5200000;
-        obj.data.card.likes.like_num = 13140000;
-        obj.data.card.achieve.image = "https://i2.hdslb.com/bfs/face/27a952195555e64508310e366b3e38bd4cd143fc.png";
+        if(obj.data.card.likes){
+            obj.data.card.likes.like_num = 13140000;
+        }
         obj.data.card.live_fans_wearing={
             "medal_color_end": 15304379,
             "medal_color_start": 7996451,
