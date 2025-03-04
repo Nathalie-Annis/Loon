@@ -12,7 +12,7 @@ if (id && uids.length > 0 && uids.includes(id)) {
 
     // 伪装会员卡片标识
     if(obj.data.card.vip){
-        // 当前仅当vipType和vipStatus为以下字段时,才会显示会员标识
+        // 当且仅当vipType和vipStatus为以下字段时,才会显示会员标识
         obj.data.card.vip.vipType = 2;
         obj.data.card.vip.vipStatus = 1;
         if (obj.data.card.vip.label) {
@@ -33,6 +33,9 @@ if (id && uids.length > 0 && uids.includes(id)) {
         obj.data.images.collection_top_simple.top.result.forEach(item => {
             if (item.digital_extra) {
                 item.digital_extra.region_subtitle = "CD.000001";
+            }
+            if (item.title) {
+                item.title.sub_title = "CD.000001";
             }
         });
     }
@@ -61,7 +64,7 @@ if (id && uids.length > 0 && uids.includes(id)) {
         };
         // console.log(`https://live.bilibili.com/p/html/live-fansmedal-wall/index.html?is_live_webview=1&tId=${id}#/medal`);
     }
-    
+
     // 伪装会员头像标识(逻辑非常复杂,有bug/随着更新失效很正常,本人能力精力有限,请见谅)
     // 头像框的存在会导致头像大小位置不同,需要根据是否存在头像框修改不同的样式
     // 有头像框又分两种情况:静态头像框和动态头像框,两种头像框的特征为没有placeholder属性,src_type为1
