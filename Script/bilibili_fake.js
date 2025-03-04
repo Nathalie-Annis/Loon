@@ -28,6 +28,43 @@ if (id && uids.length > 0 && uids.includes(id)) {
             }
         });
     }
+    if(data.card.avatar.fallback_layers){
+        data.card.avatar.fallback_layers.layers[4]={
+        "resource": {
+            "res_type": 3,
+            "res_image": {
+            "image_src": {
+                "placeholder": 1,
+                "src_type": 1,
+                "remote": {
+                "url": "https://i0.hdslb.com/bfs/bangumi/kt/d98acde01bacc0e1f04cac59e693f91a6f59b401.png",
+                "bfs_style": "widget-layer-avatar"
+                }
+            }
+            }
+        },
+        "general_spec": {
+            "pos_spec": {
+            "axis_x": 1.1199999999999999,
+            "axis_y": 1.1366666666666665,
+            "coordinate_pos": 1
+            },
+            "size_spec": {
+            "width": 0.225,
+            "height": 0.225
+            },
+            "render_spec": {
+            "opacity": 1
+            }
+        },
+        "layer_config": {
+            "tags": {
+            "ICON_LAYER": {}
+            }
+        },
+        "visible": true
+        };
+    }
     if (obj.data.card) {
         obj.data.card.fans = 5200000;
         if(obj.data.card.likes){
@@ -50,6 +87,7 @@ if (id && uids.length > 0 && uids.includes(id)) {
         };
         // console.log(`https://live.bilibili.com/p/html/live-fansmedal-wall/index.html?is_live_webview=1&tId=${id}#/medal`);
     }
+    console.log("伪装完成");
     $done({ body: JSON.stringify(obj) });
 } else {
     console.log("正在访问空间不在伪装范围内,正常访问");
