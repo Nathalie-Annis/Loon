@@ -34,13 +34,15 @@ if (id && uids.length > 0 && uids.includes(id)) {
     // 伪装会员头像标识
     const layers = obj?.data?.card?.avatar?.fallback_layers?.layers || [];
     // 头像框的存在会导致头像大小位置不同,所以需要判断是否存在头像框
-    // 两种情况:静态头像框和动态头像框,两种头像框的特征均为没有placeholder属性
+    // 两种情况:静态头像框和动态头像框,两种头像框的特征均为没有placeholder属性,src_type为1
     const exists = layers.some(item => 
         item?.resource?.res_type === 3 &&
         item?.resource?.res_image?.image_src && // 确保不是undefined
+        item.resource.res_image.image_src.src_type === 1 &&
         !('placeholder' in item.resource.res_image.image_src) ||
         item?.resource?.res_type === 4 &&
         item?.resource?.res_animation?.webp_src && // 确保不是undefined
+        item.resource.res_animation.webp_src.src_type === 1 &&
         !('placeholder' in item.resource.res_animation.webp_src)
     );
     if(exists){
