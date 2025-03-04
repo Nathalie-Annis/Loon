@@ -35,8 +35,8 @@ if (id && uids.length > 0 && uids.includes(id)) {
     const layers = obj?.data?.card?.avatar?.fallback_layers?.layers || [];
     const exists = layers.some(item => 
         item?.resource?.res_type === 3 &&
-        item?.resource?.res_image && // 确保 res_image 不是 undefined
-        !('placeholder' in item.resource.res_image) 
+        item?.resource?.res_image?.image_src && // 确保不是undefined
+        !('placeholder' in item.resource.res_image.image_src) 
     );
     if(exists){
         obj.data.card.avatar.fallback_layers.layers[4]={
