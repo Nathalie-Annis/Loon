@@ -46,6 +46,9 @@ if (id && uids.length > 0 && uids.includes(id)) {
         !('placeholder' in item.resource.res_animation.webp_src)
     );
     if(exists){
+        obj.data.card.avatar.fallback_layers.layers[0].general_spec.size_spec={"width": 0.99,"height": 0.99};
+        obj.data.card.avatar.fallback_layers.layers[1].general_spec.size_spec={"width": 0.94,"height": 0.94};
+        obj.data.card.avatar.fallback_layers.layers[1].layer_config.layer_mask.general_spec.size_spec={"width": 0.94,"height": 0.94};
         obj.data.card.avatar.fallback_layers.layers[4]={
         "resource": {
             "res_type": 3,
