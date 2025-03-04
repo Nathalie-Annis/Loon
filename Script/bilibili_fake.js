@@ -118,6 +118,8 @@ if (id && uids.length > 0 && uids.includes(id)) {
         };
     }
     else{
+        obj.data.card.avatar.fallback_layers.layers[1].general_spec.size_spec={"width": 1.2,"height": 1.2};
+        obj.data.card.avatar.fallback_layers.layers[1].layer_config.size_spec={"width": 1.2,"height": 1.2};
         obj.data.card.avatar.fallback_layers.layers[3]={
         "resource": {
             "res_type": 3,
@@ -135,7 +137,7 @@ if (id && uids.length > 0 && uids.includes(id)) {
         "general_spec": {
             "pos_spec": {
             "axis_x": 1.1199999999999999,
-            "axis_y": 1.1366666666666665,
+            "axis_y": 1.125,
             "coordinate_pos": 1
             },
             "size_spec": {
