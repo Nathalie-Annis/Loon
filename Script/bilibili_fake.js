@@ -21,7 +21,7 @@ if (id && uids.length > 0 && uids.includes(id)) {
     if (obj.data.card.level_info.senior_inquiry){
         obj.data.card.level_info.senior_inquiry.inquiry_text = "硬核会员";
     }
-    if (obj.data.images.collection_top_simple.top.result) {
+    if (Array.isArray(obj?.data?.images?.collection_top_simple?.top?.result)) {
         obj.data.images.collection_top_simple.top.result.forEach(item => {
             if (item.digital_extra) {
                 item.digital_extra.region_subtitle = "CD.000001";
@@ -38,7 +38,7 @@ if (id && uids.length > 0 && uids.includes(id)) {
             "image": "https://i2.hdslb.com/bfs/face/27a952195555e64508310e366b3e38bd4cd143fc.png",
             "achieve_url": `https://www.bilibili.com/h5/achieve?navhide=1&mid=${id}`
         };
-        console.log(`https://www.bilibili.com/h5/achieve?navhide=1&mid=${id}`);
+        // console.log(`https://www.bilibili.com/h5/achieve?navhide=1&mid=${id}`);
         obj.data.card.live_fans_wearing={
             "medal_color_end": 15304379,
             "medal_color_start": 7996451,
@@ -48,7 +48,7 @@ if (id && uids.length > 0 && uids.includes(id)) {
             "medal_color_border": 16771156,
             "guard_icon": "https://i0.hdslb.com/bfs/activity-plat/static/ce06d65bc0a8d8aa2a463747ce2a4752/FqYoOmgssP.png"
         };
-        console.log(`https://live.bilibili.com/p/html/live-fansmedal-wall/index.html?is_live_webview=1&tId=${id}#/medal`);
+        // console.log(`https://live.bilibili.com/p/html/live-fansmedal-wall/index.html?is_live_webview=1&tId=${id}#/medal`);
     }
     $done({ body: JSON.stringify(obj) });
 } else {
