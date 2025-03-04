@@ -118,7 +118,8 @@ if (id && uids.length > 0 && uids.includes(id)) {
         };
     }
     else{
-        obj.data.card.avatar.fallback_layers.layers[0].general_spec.size_spec={"width": 1.2,"height": 1.2};
+        obj.data.card.avatar.fallback_layers.layers[0].general_spec.size_spec={"width": 1.25,"height": 1.25};
+        obj.data.card.avatar.fallback_layers.layers[1].general_spec.size_spec={"width": 1.2,"height": 1.2};
         obj.data.card.avatar.fallback_layers.layers[3]={
         "resource": {
             "res_type": 3,
