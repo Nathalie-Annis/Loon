@@ -121,7 +121,10 @@ if (id && uids.length > 0 && uids.includes(id)) {
         obj.data.card.avatar.fallback_layers.layers[0].general_spec.size_spec={"width": 1.25,"height": 1.25};
         obj.data.card.avatar.fallback_layers.layers[1].general_spec.size_spec={"width": 1.2,"height": 1.2};
         obj.data.card.avatar.fallback_layers.layers[1].layer_config.layer_mask.general_spec.size_spec={"width": 1.2,"height": 1.2};
-        obj.data.card.avatar.fallback_layers.layers[3]={
+        for (let i = 2; i < obj.data.card.avatar.fallback_layers.layers.length; i++) {
+            delete obj.data.card.avatar.fallback_layers.layers[i];
+        }
+        obj.data.card.avatar.fallback_layers.layers[2]={
         "resource": {
             "res_type": 3,
             "res_image": {
@@ -156,7 +159,7 @@ if (id && uids.length > 0 && uids.includes(id)) {
         },
         "visible": true
         };
-        obj.data.card.avatar.fallback_layers.layers[5]={
+        obj.data.card.avatar.fallback_layers.layers[3]={
         "resource": {
             "res_type": 4,
             "res_animation": {
