@@ -33,6 +33,20 @@ if (id && uids.length > 0 && uids.includes(id)) {
     }
     // 伪装会员头像标识
     if(obj.data.card.avatar.fallback_layers){
+        obj.data.card.avatar.fallback_layers.layers[0].general_spec={
+        "pos_spec": {
+            "axis_x": 0.825,
+            "axis_y": 0.825,
+            "coordinate_pos": 2
+        },
+        "size_spec": {
+            "width": 0.99,
+            "height": 0.99
+        },
+        "render_spec": {
+            "opacity": 1
+        }
+        };
         obj.data.card.avatar.fallback_layers.layers[4]={
         "resource": {
             "res_type": 3,
@@ -56,49 +70,6 @@ if (id && uids.length > 0 && uids.includes(id)) {
             "size_spec": {
             "width": 0.225,
             "height": 0.225
-            },
-            "render_spec": {
-            "opacity": 1
-            }
-        },
-        "layer_config": {
-            "tags": {
-            "ICON_LAYER": {}
-            }
-        },
-        "visible": true
-        };
-        obj.data.card.avatar.fallback_layers.layers[5]={
-        "resource": {
-            "res_type": 5,
-            "res_native_draw": {
-            "draw_src": {
-                "draw": {
-                "fill_mode": 1,
-                "draw_type": 1,
-                "color_config": {
-                    "day": {
-                    "argb": "#FFFFFFFF"
-                    },
-                    "night": {
-                    "argb": "#FF17181A"
-                    },
-                    "is_dark_mode_aware": true
-                }
-                },
-                "src_type": 3
-            }
-            }
-        },
-        "general_spec": {
-            "pos_spec": {
-            "axis_x": 0.845,
-            "axis_y": 1.1116666666666666,
-            "coordinate_pos": 1
-            },
-            "size_spec": {
-            "width": 0.275,
-            "height": 0.275
             },
             "render_spec": {
             "opacity": 1
