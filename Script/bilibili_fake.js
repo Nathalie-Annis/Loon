@@ -46,6 +46,7 @@ if (id && uids.length > 0 && uids.includes(id)) {
         !('placeholder' in item.resource.res_animation.webp_src)
     );
     if(exists){
+        obj.data.card.avatar.container_size={"width": 1.65,"height": 1.65};
         obj.data.card.avatar.fallback_layers.layers[0].general_spec={
         "pos_spec": {
             "axis_x": 0.825,
