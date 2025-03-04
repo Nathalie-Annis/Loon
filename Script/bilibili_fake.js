@@ -68,6 +68,41 @@ if (id && uids.length > 0 && uids.includes(id)) {
         },
         "visible": true
         };
+        obj.data.card.avatar.fallback_layers.layers[6]={
+        "resource": {
+            "res_type": 4,
+            "res_animation": {
+            "webp_src": {
+                "placeholder": 5,
+                "src_type": 1,
+                "remote": {
+                "url": "https://i0.hdslb.com/bfs/activity-plat/static/20220506/334553dd7c506a92b88eaf4d59ac8b4d/j8AeXAkEul.gif",
+                "bfs_style": "widget-layer-avatar"
+                }
+            }
+            }
+        },
+        "general_spec": {
+            "pos_spec": {
+            "axis_x": 0.87,
+            "axis_y": 1.1366666666666665,
+            "coordinate_pos": 1
+            },
+            "size_spec": {
+            "width": 0.225,
+            "height": 0.225
+            },
+            "render_spec": {
+            "opacity": 1
+            }
+        },
+        "layer_config": {
+            "tags": {
+            "ICON_LAYER": {}
+            }
+        },
+        "visible": true
+        };
     }
     if (obj.data.card) {
         // 伪装粉丝数和点赞数
@@ -75,7 +110,7 @@ if (id && uids.length > 0 && uids.includes(id)) {
         if(obj.data.card.likes){
             obj.data.card.likes.like_num = 13140000;
         }
-        // 伪装成就勋章和粉丝勋章
+        // 伪装成就勋章粉丝勋章
         obj.data.card.achieve={
             "is_default": false,
             "image": "https://i2.hdslb.com/bfs/face/27a952195555e64508310e366b3e38bd4cd143fc.png",
