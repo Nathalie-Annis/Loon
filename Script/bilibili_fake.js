@@ -28,8 +28,8 @@ if (id && uids.length > 0 && uids.includes(id)) {
             }
         });
     }
-    if(data.card.avatar.fallback_layers){
-        data.card.avatar.fallback_layers.layers[4]={
+    if(obj.data.card.avatar.fallback_layers){
+        obj.data.card.avatar.fallback_layers.layers[4]={
         "resource": {
             "res_type": 3,
             "res_image": {
