@@ -47,6 +47,54 @@ if (id && uids.length > 0 && uids.includes(id)) {
             "opacity": 1
         }
         };
+        obj.data.card.avatar.fallback_layers.layers[1].general_spec={
+        "pos_spec": {
+            "axis_x": 0.825,
+            "axis_y": 0.825,
+            "coordinate_pos": 2
+        },
+        "size_spec": {
+            "width": 0.94,
+            "height": 0.94
+        },
+        "render_spec": {
+            "opacity": 1
+        }
+        };
+        obj.data.card.avatar.fallback_layers.layers[1].layer_config={
+        "layer_mask": {
+            "general_spec": {
+            "pos_spec": {
+                "axis_x": 0.825,
+                "axis_y": 0.825,
+                "coordinate_pos": 2
+            },
+            "size_spec": {
+                "width": 0.94,
+                "height": 0.94
+            },
+            "render_spec": {
+                "opacity": 1
+            }
+            },
+            "mask_src": {
+            "draw": {
+                "fill_mode": 1,
+                "draw_type": 1,
+                "color_config": {
+                "day": {
+                    "argb": "#FF000000"
+                }
+                }
+            },
+            "src_type": 3
+            }
+        },
+        "tags": {
+            "AVATAR_LAYER": {}
+        },
+        "is_critical": true
+        };
         obj.data.card.avatar.fallback_layers.layers[4]={
         "resource": {
             "res_type": 3,
