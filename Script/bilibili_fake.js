@@ -9,6 +9,7 @@ if (id && uids.length > 0 && uids.includes(id)) {
     console.log("正在访问启用伪装的用户的个人空间");
     // 伪装用户信息
     let obj = JSON.parse($response.body);
+    // 伪装会员卡片标识
     if(obj.data.card.vip){
         obj.data.card.vip.vipType = 2;
         obj.data.card.vip.vipStatus = 1;
@@ -18,9 +19,11 @@ if (id && uids.length > 0 && uids.includes(id)) {
             obj.data.card.vip.label.label_theme = "hundred_annual_vip";
         }
     }
+    // 硬核会员出题字段修改
     if (obj.data.card.level_info.senior_inquiry){
         obj.data.card.level_info.senior_inquiry.inquiry_text = "硬核会员";
     }
+    // 若用户顶部展示装扮收藏,伪装装扮收藏编号
     if (Array.isArray(obj?.data?.images?.collection_top_simple?.top?.result)) {
         obj.data.images.collection_top_simple.top.result.forEach(item => {
             if (item.digital_extra) {
@@ -28,6 +31,7 @@ if (id && uids.length > 0 && uids.includes(id)) {
             }
         });
     }
+    // 伪装会员头像标识
     if(obj.data.card.avatar.fallback_layers){
         obj.data.card.avatar.fallback_layers.layers[4]={
         "resource": {
@@ -66,10 +70,12 @@ if (id && uids.length > 0 && uids.includes(id)) {
         };
     }
     if (obj.data.card) {
+        // 伪装粉丝数和点赞数
         obj.data.card.fans = 5200000;
         if(obj.data.card.likes){
             obj.data.card.likes.like_num = 13140000;
         }
+        // 伪装成就勋章和粉丝勋章
         obj.data.card.achieve={
             "is_default": false,
             "image": "https://i2.hdslb.com/bfs/face/27a952195555e64508310e366b3e38bd4cd143fc.png",
