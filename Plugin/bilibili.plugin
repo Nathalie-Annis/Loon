@@ -8,7 +8,7 @@
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Bilibili.png
-#!date=2025-02-28 23:50:00
+#!date=2025-03-08 00:01:52
 
 [Argument]
 showUpList=select,"auto","true","false",tag=[动态]中[最常访问]的显示方式,desc=auto：仅当列表中存在直播状态时显示；true：始终显示；false：始终隐藏。
@@ -73,6 +73,18 @@ URL-REGEX,"^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH",REJECT-DICT
 # 移除视频链接跟踪参数
 (^https:\/\/(?:www|m)\.bilibili\.com\/video\/(?:BV\w{10}|av\d{9}))(?:\/?\?.*) 302 $1
 
+# JSON处理
+# ^https:\/\/api\.bilibili\.com\/pgc\/page\/(?:bangumi|cinema\/tab) response-body-json-jq jq-path="https://kelee.one/Resource/JQLang/Bilibili/Bilibili_remove_ads.jq"
+# ^https:\/\/app\.bilibili\.com\/x\/v2\/splash\/(?:brand\/list|event\/list2|list|show) response-body-json-jq jq-path="https://kelee.one/Resource/JQLang/Bilibili/Bilibili_remove_ads.jq"
+# ^https:\/\/app\.bilibili\.com\/x\/resource\/show\/tab\/v2\? response-body-json-jq jq-path="https://kelee.one/Resource/JQLang/Bilibili/Bilibili_remove_ads.jq"
+# ^https:\/\/app\.bilibili\.com\/x\/v2\/account\/(?:mine|myinfo) response-body-json-jq jq-path="https://kelee.one/Resource/JQLang/Bilibili/Bilibili_remove_ads.jq"
+# ^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index response-body-json-jq jq-path="https://kelee.one/Resource/JQLang/Bilibili/Bilibili_remove_ads.jq"
+
+# 移除首页推荐广告
+^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index response-body-json-jq 'if .data.items then .data.items |= map(select((has("banner_item") | not) and (has("ad_info") | not) and (.card_goto == "av") and (.card_type | IN("small_cover_v2", "large_cover_single_v9", "large_cover_v1")))) end'
+# 移除竖屏广告
+^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index\/story\? response-body-json-jq 'if .data.items then .data.items |= map(select((.ad_info == null) and (.card_goto | startswith("ad") | not)) | del(.story_cart_icon))'
+
 # 顶栏、底栏自定义
 ^https:\/\/app\.bilibili\.com\/x\/resource\/show\/tab\/v2\? response-body-json-jq '.data.tab = [ ( .data.tab[] | select(.name == "推荐") ),( .data.tab[] | select(.name == "热门") ),( .data.tab[] | select(.name == "动画") ),( .data.tab[] | select(.name == "影视") ),( .data.tab[] | select(.name == "直播") ) ]' 'del(.data.top[] | select(.name=="游戏中心"))' '.data.bottom = [ ( .data.bottom[] | select(.name == "首页") ),( .data.bottom[] | select(.name == "动态") ),( .data.bottom[] | select(.name == "我的") ) ]'
 
@@ -100,19 +112,17 @@ http-response ^https:\/\/(?:app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.ma
 http-response ^https:\/\/(?:app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.pgc\.gateway\.player\.v2\.PlayURL\/PlayView$ script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_proto_kokoryh.js,requires-body=true,binary-body-mode=true,tag=移除播放器开通会员横幅
 http-response ^https:\/\/(?:app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.polymer\.app\.search\.v1\.Search\/SearchAll$ script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_proto_kokoryh.js,requires-body=true,binary-body-mode=true,tag=移除搜索结果广告
 http-response ^https:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.playerunite\.v1\.Player\/PlayViewUnite$ script-path=https://raw.githubusercontent.com/kokoryh/Script/master/js/bilibili.protobuf.js,requires-body=true,binary-body-mode=true,tag=版权视频开启后台播放 playerunite
-# 移除播放页面广告和版权视频开启后台播放不能同时启用,移除播放页面广告不启用
-# http-response ^https:\/\/(?:app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.playerunite\.v1\.Player\/PlayViewUnite$ script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_proto_kokoryh.js,requires-body=true,binary-body-mode=true,tag=移除播放页面广告 playerunite
+
 
 # 上部为Proto处理，下部为JSON配置处理
 
-# 移除开屏广告(精简首页顶部标签脚本不启用,在Rewrite中使用jq修改)
-# http-response ^https:\/\/app\.bilibili\.com\/x\/resource\/show\/tab\/v2\? script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_remove_ads.js,requires-body=true,tag=精简首页顶部标签
 http-response ^https:\/\/api\.bilibili\.com\/pgc\/page\/(?:bangumi|cinema\/tab) script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_remove_ads.js,requires-body=true,tag=移除观影页广告
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/splash\/(?:brand\/list|event\/list2|list|show) script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_remove_ads.js,requires-body=true,tag=移除开屏广告
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/account\/(?:mine|myinfo) script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_remove_ads.js,requires-body=true,tag=精简我的页面
-http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_remove_ads.js,requires-body=true,tag=移除首页推荐广告
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/search\/square\? script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_search.js,enable={hideSearch},tag=隐藏搜索栏热搜和发现
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/space\?access_key=.*?&vmid=\d+ script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_fake.js,requires-body=true,tag=伪装空间,argument=[{uid}]
+# 已被JQ替代
+# http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_remove_ads.js,requires-body=true,tag=移除首页推荐广告
 
 [MitM]
 hostname=*live.bilibili.com, ap?.bilibili.com, grpc.biliapi.net, m.bilibili.com, manga.bilibili.com, www.bilibili.com
