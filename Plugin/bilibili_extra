@@ -24,8 +24,8 @@ uid = input,"",tag=启用伪装空间的用户uid,desc=纯数字,多个用英文
 # 分区去除小黑屋、游戏中心
 ^https:\/\/app\.bilibili\.com\/x\/v2\/channel\/region\/list response-body-json-jq 'del(.data[] | select(.name=="游戏中心" or .name=="小黑屋"))'
 
-# 追番界面去除banner(12帧),重新排序
-^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=bangumi_tab response-body-json-jq 'del(.data.modules[0]) | .data.modules |= [.[0], .[2], .[1]] + .[3:]'
+# 追番界面去除banner(12帧)和付费提示条,重新排序
+^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=bangumi_tab response-body-json-jq 'del(.data.modules[] | select(.id == 2015 or .id == 2012)) | .data.modules |= [.[0], .[2], .[1]] + .[3:]'
 
 # 影视界面去除banner(12帧),重新排序
 ^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=cinema_tab response-body-json-jq 'del(.data.modules[0]) | .data.modules |= [.[0], .[4], .[2], .[1], .[3]] + .[5:]'

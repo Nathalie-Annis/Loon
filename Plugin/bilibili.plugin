@@ -80,10 +80,11 @@ URL-REGEX,"^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH",REJECT-DICT
 # ^https:\/\/app\.bilibili\.com\/x\/v2\/account\/(?:mine|myinfo) response-body-json-jq jq-path="https://kelee.one/Resource/JQLang/Bilibili/Bilibili_remove_ads.jq"
 # ^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index response-body-json-jq jq-path="https://kelee.one/Resource/JQLang/Bilibili/Bilibili_remove_ads.jq"
 
+# 首页刷短视频存在bug,暂时不启用
 # 移除首页推荐广告
-^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index response-body-json-jq 'if .data.items then .data.items |= map(select((has("banner_item") | not) and (has("ad_info") | not) and (.card_goto == "av") and (.card_type | IN("small_cover_v2", "large_cover_single_v9", "large_cover_v1")))) end'
+#^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index response-body-json-jq 'if .data.items then .data.items |= map(select((has("banner_item") | not) and (has("ad_info") | not) and (.card_goto == "av") and (.card_type | IN("small_cover_v2", "large_cover_single_v9", "large_cover_v1")))) end'
 # 移除竖屏广告
-^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index\/story\? response-body-json-jq 'if .data.items then .data.items |= map(select((.ad_info == null) and (.card_goto | startswith("ad") | not)) | del(.story_cart_icon))'
+#^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index\/story\? response-body-json-jq 'if .data.items then .data.items |= map(select((.ad_info == null) and (.card_goto | startswith("ad") | not)) | del(.story_cart_icon))'
 
 # 顶栏、底栏自定义
 ^https:\/\/app\.bilibili\.com\/x\/resource\/show\/tab\/v2\? response-body-json-jq '.data.tab = [ ( .data.tab[] | select(.name == "推荐") ),( .data.tab[] | select(.name == "热门") ),( .data.tab[] | select(.name == "动画") ),( .data.tab[] | select(.name == "影视") ),( .data.tab[] | select(.name == "直播") ) ]' 'del(.data.top[] | select(.name=="游戏中心"))' '.data.bottom = [ ( .data.bottom[] | select(.name == "首页") ),( .data.bottom[] | select(.name == "动态") ),( .data.bottom[] | select(.name == "我的") ) ]'
@@ -122,7 +123,7 @@ http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/account\/(?:mine|myinfo) scr
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/search\/square\? script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_search.js,enable={hideSearch},tag=隐藏搜索栏热搜和发现
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/space\?access_key=.*?&vmid=\d+ script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_fake.js,requires-body=true,tag=伪装空间,argument=[{uid}]
 # 已被JQ替代
-# http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_remove_ads.js,requires-body=true,tag=移除首页推荐广告
+http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_remove_ads.js,requires-body=true,tag=移除首页推荐广告
 
 [MitM]
 hostname=*live.bilibili.com, ap?.bilibili.com, grpc.biliapi.net, m.bilibili.com, manga.bilibili.com, www.bilibili.com
