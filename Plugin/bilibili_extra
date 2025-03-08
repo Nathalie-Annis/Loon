@@ -1,0 +1,45 @@
+#只是为了方便我在已有插件基础上修改插件,并不是一个完整的插件,请勿直接使用
+
+#!name=哔哩哔哩去广告
+#!desc=[可莉插件修改版]搜索框填充词热搜和发现设置开关,优化动画和影视模块,精简分区,精简顶部标签和底栏使用jq重写,支持我的界面和空间个性化显示
+#!openUrl=https://apps.apple.com/app/id736536022
+#!author=Maasea[https://github.com/Maasea],kokoryh[https://github.com/kokoryh],RuCu6[https://github.com/RuCu6],可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md],Nathalie[https://github.com/Nathalie-Annis/Loon]
+#!tag=去广告
+#!system=iOS,iPadOS
+#!system_version=15
+#!loon_version=3.2.4(787)
+#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Bilibili.png
+
+[Argument]
+hideSearch = switch,false,tag=隐藏搜索栏热搜和发现,desc=
+uid = input,"",tag=启用伪装空间的用户uid,desc=纯数字,多个用英文逗号,隔开
+
+[Rewrite]
+# 首先移除[搜索框填充词]复写
+
+# 顶栏、底栏自定义
+^https:\/\/app\.bilibili\.com\/x\/resource\/show\/tab\/v2\? response-body-json-jq '.data.tab = [ ( .data.tab[] | select(.name == "推荐") ),( .data.tab[] | select(.name == "热门") ),( .data.tab[] | select(.name == "动画") ),( .data.tab[] | select(.name == "影视") ),( .data.tab[] | select(.name == "直播") ) ]' 'del(.data.top[] | select(.name=="游戏中心"))' '.data.bottom = [ ( .data.bottom[] | select(.name == "首页") ),( .data.bottom[] | select(.name == "动态") ),( .data.bottom[] | select(.name == "我的") ) ]'
+
+# 分区去除小黑屋、游戏中心
+^https:\/\/app\.bilibili\.com\/x\/v2\/channel\/region\/list response-body-json-jq 'del(.data[] | select(.name=="游戏中心" or .name=="小黑屋"))'
+
+# 追番界面去除banner(12帧),重新排序
+^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=bangumi_tab response-body-json-jq 'del(.data.modules[0]) | .data.modules |= [.[0], .[2], .[1]] + .[3:]'
+
+# 影视界面去除banner(12帧),重新排序
+^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=cinema_tab response-body-json-jq 'del(.data.modules[0]) | .data.modules |= [.[0], .[4], .[2], .[1], .[3]] + .[5:]'
+
+# 我的界面自定义(保留创作中心、稿件管理、主播中心、直播数据、我的课程、个性装扮、我的钱包、会员购中心、联系客服、设置),去除livetips活动提示,修改粉丝数和会员图标
+^https:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine response-body-json-jq 'del(.data.live_tip)' '.data.vip_section_v2.title="Ciallo～(∠・ω< )⌒★"' '.data.vip_section_v2.desc="每天都要开心呀"' 'del(.data.sections_v2[1].items[] | select(.title!="创作中心" and .title!="稿件管理" and .title!="主播中心" and .title!="直播数据"))' 'del(.data.sections_v2[2].items[] | select(.title!="我的课程" and .title!="个性装扮" and .title!="我的钱包" and .title!="会员购中心"))' 'del(.data.sections_v2[3].items[] | select(.title!="联系客服" and .title!="设置"))' '.data.vip.label.image="https://i0.hdslb.com/bfs/bangumi/kt/c43d9f30d0026fb3bba3d3823dd0f20c7ccc4f62.png"' '.data.follower=5200000'
+
+[Script]
+# 首先移除脚本:tag=移除播放页面广告 playerunite 因为视频开启后台播放与移除播放页面广告不能同时启用,两者只能同时成功匹配一个
+# http-response ^https:\/\/(?:app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.playerunite\.v1\.Player\/PlayViewUnite$ script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_proto_kokoryh.js,requires-body=true,binary-body-mode=true,tag=移除播放页面广告 playerunite
+
+http-response ^https:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.playerunite\.v1\.Player\/PlayViewUnite$ script-path=https://raw.githubusercontent.com/kokoryh/Script/master/js/bilibili.protobuf.js,requires-body=true,binary-body-mode=true,tag=版权视频开启后台播放 playerunite
+# 上部为Proto处理，下部为JSON配置处理
+
+# 首先移除脚本:tag=精简首页顶部标签 在Rewrite中已经使用jq修改
+http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/search\/square\? script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_search.js,enable={hideSearch},tag=隐藏搜索栏热搜和发现
+http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/space\?access_key=.*?&vmid=\d+ script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_fake.js,requires-body=true,tag=伪装空间,argument=[{uid}]
