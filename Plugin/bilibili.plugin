@@ -92,7 +92,7 @@ URL-REGEX,"^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH",REJECT-DICT
 ^https:\/\/app\.bilibili\.com\/x\/v2\/channel\/region\/list response-body-json-jq 'del(.data[] | select(.name=="游戏中心" or .name=="小黑屋"))'
 
 # 追番界面去除banner(12帧),重新排序
-^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=bangumi_tab response-body-json-jq 'del(.data.modules[0]) | .data.modules |= [.[0], .[2], .[1]] + .[3:]'
+^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=bangumi_tab response-body-json-jq '.data.modules |= ( map(select(.title != "banner（12帧）" and .title != "付费提示条")) | ([ .[] | select(.title == "金刚位（新版）"), .[] | select(.title == "继续看"), .[] | select(.title == "热门排行榜")] + ( .[] | select(.title != "金刚位（新版）" and .title != "继续看" and .title != "热门排行榜") ) ) )'
 
 # 影视界面去除banner(12帧),重新排序
 ^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=cinema_tab response-body-json-jq 'del(.data.modules[0]) | .data.modules |= [.[0], .[4], .[2], .[1], .[3]] + .[5:]'
