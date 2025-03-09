@@ -16,6 +16,10 @@ hideSearch = switch,false,tag=隐藏搜索栏热搜和发现,desc=
 uid = input,"",tag=启用伪装空间的用户uid,desc=纯数字,多个用英文逗号,隔开
 
 [Rewrite]
+# 1.覆盖①首页标签页控制&精简底栏②移除观影页广告③精简我的页面 jq重写
+# 2.修改移除大会员广告活动入口正则表达式,去除|v2\/search\/square jq重写
+# 3.添加①分区去除②追番界面 jq重写
+
 # 顶栏、底栏自定义
 ^https:\/\/app\.bilibili\.com\/x\/resource\/show\/tab\/v2\? response-body-json-jq '.data.tab = [ ( .data.tab[] | select(.name == "推荐") ),( .data.tab[] | select(.name == "热门") ),( .data.tab[] | select(.name == "动画") ),( .data.tab[] | select(.name == "影视") ),( .data.tab[] | select(.name == "直播") ) ]' 'del(.data.top[] | select(.name=="游戏中心"))' '.data.bottom = [ ( .data.bottom[] | select(.name == "首页") ),( .data.bottom[] | select(.name == "动态") ),( .data.bottom[] | select(.name == "我的") ) ]'
 
@@ -32,12 +36,11 @@ uid = input,"",tag=启用伪装空间的用户uid,desc=纯数字,多个用英文
 ^https:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine response-body-json-jq 'del(.data.live_tip)' '.data.vip_section_v2.title="Ciallo～(∠・ω< )⌒★"' '.data.vip_section_v2.desc="每天都要开心呀"' 'del(.data.sections_v2[1].items[] | select(.title!="创作中心" and .title!="稿件管理" and .title!="主播中心" and .title!="直播数据"))' 'del(.data.sections_v2[2].items[] | select(.title!="我的课程" and .title!="个性装扮" and .title!="我的钱包" and .title!="会员购中心"))' 'del(.data.sections_v2[3].items[] | select(.title!="联系客服" and .title!="设置"))' '.data.vip.label.image="https://i0.hdslb.com/bfs/bangumi/kt/c43d9f30d0026fb3bba3d3823dd0f20c7ccc4f62.png"' '.data.follower=5200000'
 
 [Script]
-# 首先移除脚本:tag=移除播放页面广告 playerunite 因为视频开启后台播放与移除播放页面广告不能同时启用,两者只能同时成功匹配一个
-# http-response ^https:\/\/(?:app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.playerunite\.v1\.Player\/PlayViewUnite$ script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_proto_kokoryh.js,requires-body=true,binary-body-mode=true,tag=移除播放页面广告 playerunite
-
+# 将该脚本放在顶部优先匹配,避免被proto处理匹配到无法执行
+# Proto处理
 http-response ^https:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.playerunite\.v1\.Player\/PlayViewUnite$ script-path=https://raw.githubusercontent.com/kokoryh/Script/master/js/bilibili.protobuf.js,requires-body=true,binary-body-mode=true,tag=版权视频开启后台播放 playerunite
-# 上部为Proto处理，下部为JSON配置处理
 
-# 首先移除脚本:tag=精简首页顶部标签 在Rewrite中已经使用jq修改
+# 下面的直接在最后添加即可
+# JSON处理
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/search\/square\? script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_search.js,enable={hideSearch},tag=隐藏搜索栏热搜和发现
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/space\?access_key=.*?&vmid=\d+ script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_fake.js,requires-body=true,tag=伪装空间,argument=[{uid}]
