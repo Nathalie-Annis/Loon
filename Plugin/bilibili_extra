@@ -16,6 +16,9 @@ hideSearch = switch,false,tag=隐藏搜索栏热搜和发现,desc=
 uid = input,"",tag=启用伪装空间的用户uid,desc=纯数字,多个用英文逗号,隔开
 
 [Rewrite]
+# 顶栏、底栏自定义
+^https:\/\/app\.bilibili\.com\/x\/resource\/show\/tab\/v2\? response-body-json-jq '.data.tab = [ ( .data.tab[] | select(.name == "推荐") ),( .data.tab[] | select(.name == "热门") ),( .data.tab[] | select(.name == "动画") ),( .data.tab[] | select(.name == "影视") ),( .data.tab[] | select(.name == "直播") ) ]' 'del(.data.top[] | select(.name=="游戏中心"))' '.data.bottom = [ ( .data.bottom[] | select(.name == "首页") ),( .data.bottom[] | select(.name == "动态") ),( .data.bottom[] | select(.name == "我的") ) ]'
+
 # 分区去除小黑屋、游戏中心
 ^https:\/\/app\.bilibili\.com\/x\/v2\/channel\/region\/list response-body-json-jq 'del(.data[] | select(.name=="游戏中心" or .name=="小黑屋"))'
 
