@@ -5,7 +5,7 @@
 #!icon = https://github.com/Nathalie-Annis/Loon/raw/main/Icon/qimao.png
 
 [Argument]
-hideCoin=swtich,false,tag=隐藏所有赚金币项目,desc=
+hideCoin=switch,false,tag=隐藏所有赚金币项目,desc=
 hideInteraction=switch,true,tag=屏蔽评论区顶部书友互动榜头像人数,desc=
 
 [Rewrite]
@@ -14,11 +14,10 @@ hideInteraction=switch,true,tag=屏蔽评论区顶部书友互动榜头像人数
 ^https:\/\/api-bc\.wtzw\.com\/api\/v7\/book-store response-body-json-jq 'del(.data.banners[])'
 ^https:\/\/api-bc\.wtzw\.com\/api\/v6\/book-store\/recommend$ response-body-json-jq 'del(.data.sections[3])' 'del(.data.sections[4].books[])'
 ^https:\/\/xiaoshuo\.wtzw\.com\/api\/v2\/init response-body-json-replace data.teenager_mode {}
-^https:\/\/xiaoshuo\.wtzw\.com\/api\/v3\/user\/my-center response-body-json-jq '.data.user_area.base_info.level_text="50"' '.data.user_area.base_info.level_icon="https://cdn.wtzw.com/bookimg/free/images/app/1_0_0/level/level_icon_50.png"' 'del(.data.func_area[1])' 'del(.data.func_area[2].list[] | select(.discover_name=="防诈骗指南"))' '.data.func_area[3].list=[.data.func_area[3].list[0],.data.func_area[3].list[3],.data.func_area[3].list[5],.data.func_area[3].list[6]]' 'del(.data.user_area.vip_info.activity_info)' '.data.user_area.base_info.user_other_data[0].num="9999999"' '.data.user_area.vip_info.vip_open_info.text="您已解锁永久vip"' '.data.user_area.base_info.vip_show_type="1"' '.data.user_area.base_info.avatar_box="https://cdn.wtzw.com/bookimg/free/png/17198299375688291.png"' '.data.user_area.base_info.is_vip="ODYxNjU2NDI5OTM5MzU1NkgqHtLCbFbu2ZpYZWZju3vXXGg6+PwVxDNDBV14nQDA"' 
 
 [Script]
-http-response ^https:\/\/api-cmnt\.wtzw\.com\/api\/v1\/paragraph\/list script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/qimao_coin.js,enable={hideInteraction},tag=隐藏所有赚金币项目,argument=[{hideCoin}]
-http-response ^https:\/\/api-cmnt\.wtzw\.com\/api\/v1\/paragraph\/list script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/qimao_interaction.js,enable={hideInteraction},tag=屏蔽评论区顶部书友互动榜头像人数,enable={hideInteraction}
+http-response ^https:\/\/xiaoshuo\.wtzw\.com\/api\/v3\/user\/my-center script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/qimao_coin.js, tag=精简&伪装我的页面, argument=[{hideCoin}]
+http-response ^https:\/\/api-cmnt\.wtzw\.com\/api\/v1\/paragraph\/list script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/qimao_interaction.js,enable={hideInteraction}, tag=屏蔽评论区顶部书友互动榜头像人数, enable={hideInteraction}
 
 [MITM]
-hostname = api-gw.wtzw.com,api-bc.wtzw.com,xiaoshuo.wtzw.com
+hostname = api-gw.wtzw.com,api-bc.wtzw.com,api-cmnt.wtzw.com,xiaoshuo.wtzw.com
