@@ -1,4 +1,7 @@
-if (!$response.body) $done({});
+if (!$response.body) {
+    console.log('响应体为空');
+    $done({});
+}
 let json = JSON.parse(body);
 
 let hideCoin = $argument.hideCoin;
