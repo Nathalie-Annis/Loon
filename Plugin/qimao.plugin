@@ -7,6 +7,7 @@
 [Argument]
 hideCoin=switch,false,tag=隐藏所有赚金币项目,desc=
 hideInteraction=switch,true,tag=屏蔽评论区顶部书友互动榜头像人数,desc=
+nickname=input,"",tag=用户昵称(为空不修改),desc=
 
 [Rewrite]
 ^https:\/\/api-gw\.wtzw\.com\/mc\/h5\/materials reject
@@ -16,7 +17,7 @@ hideInteraction=switch,true,tag=屏蔽评论区顶部书友互动榜头像人数
 ^https:\/\/xiaoshuo\.wtzw\.com\/api\/v2\/init response-body-json-replace data.teenager_mode {}
 
 [Script]
-http-response ^https:\/\/xiaoshuo\.wtzw\.com\/api\/v3\/user\/my-center script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/qimao_coin.js, requires-body=true, tag=精简&伪装我的页面, argument=[{hideCoin}]
+http-response ^https:\/\/xiaoshuo\.wtzw\.com\/api\/v3\/user\/my-center script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/qimao_coin.js, requires-body=true, tag=精简&伪装我的页面, argument=[{hideCoin},{nickname}]
 http-response ^https:\/\/api-cmnt\.wtzw\.com\/api\/v1\/paragraph\/list script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/qimao_interaction.js, requires-body=true, tag=屏蔽评论区顶部书友互动榜头像人数, enable={hideInteraction}
 
 [MITM]
