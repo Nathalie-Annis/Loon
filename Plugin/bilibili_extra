@@ -23,22 +23,22 @@ uid = input,"",tag=启用伪装空间的用户uid,desc=纯数字,多个用英文
 # 顶栏、底栏自定义
 ^https:\/\/app\.bilibili\.com\/x\/resource\/show\/tab\/v2\? response-body-json-jq '.data.tab = [ ( .data.tab[] | select(.name == "推荐") ),( .data.tab[] | select(.name == "热门") ),( .data.tab[] | select(.name == "动画") ),( .data.tab[] | select(.name == "影视") ),( .data.tab[] | select(.name == "直播") ) ]' 'del(.data.top[] | select(.name=="游戏中心"))' '.data.bottom = [ ( .data.bottom[] | select(.name == "首页") ),( .data.bottom[] | select(.name == "动态") ),( .data.bottom[] | select(.name == "我的") ) ]'
 
+# 影视界面去除banner(12帧)和好奇心周刊,重新排序
+^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=cinema_tab response-body-json-jq 'del(.data.modules[] | select(.id == 2038 or .id == 1892)) | .data.modules |= [.[0], .[3], .[2], .[1]] + .[4:]'
+
+# 我的界面自定义(保留创作中心、稿件管理、主播中心、直播数据、我的课程、个性装扮、我的钱包、会员购中心、联系客服、设置),去除livetips活动提示,修改粉丝数和会员图标
+^https:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine response-body-json-jq 'del(.data.live_tip)' '.data.vip_section_v2.title="Ciallo～(∠・ω< )⌒★"' '.data.vip_section_v2.desc="每天都要开心呀"' 'del(.data.sections_v2[1].items[] | select(.title!="创作中心" and .title!="稿件管理" and .title!="主播中心" and .title!="直播数据"))' 'del(.data.sections_v2[2].items[] | select(.title!="我的课程" and .title!="个性装扮" and .title!="我的钱包" and .title!="会员购中心"))' 'del(.data.sections_v2[3].items[] | select(.title!="联系客服" and .title!="设置"))' '.data.vip.label.image="https://i0.hdslb.com/bfs/bangumi/kt/c43d9f30d0026fb3bba3d3823dd0f20c7ccc4f62.png"' '.data.follower=5200000'
+
 # 分区去除小黑屋、游戏中心
 ^https:\/\/app\.bilibili\.com\/x\/v2\/channel\/region\/list response-body-json-jq 'del(.data[] | select(.name=="游戏中心" or .name=="小黑屋"))'
 
 # 追番界面去除banner(12帧)和付费提示条,重新排序
 ^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=bangumi_tab response-body-json-jq 'del(.data.modules[] | select(.id == 2015 or .id == 2012)) | .data.modules |= [.[0], .[2], .[1]] + .[3:]'
 
-# 影视界面去除banner(12帧)和好奇心周刊,重新排序
-^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=cinema_tab response-body-json-jq 'del(.data.modules[] | select(.id == 2038 or .id == 1892)) | .data.modules |= [.[0], .[3], .[2], .[1], .[3]] + .[4:]'
-
-# 我的界面自定义(保留创作中心、稿件管理、主播中心、直播数据、我的课程、个性装扮、我的钱包、会员购中心、联系客服、设置),去除livetips活动提示,修改粉丝数和会员图标
-^https:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine response-body-json-jq 'del(.data.live_tip)' '.data.vip_section_v2.title="Ciallo～(∠・ω< )⌒★"' '.data.vip_section_v2.desc="每天都要开心呀"' 'del(.data.sections_v2[1].items[] | select(.title!="创作中心" and .title!="稿件管理" and .title!="主播中心" and .title!="直播数据"))' 'del(.data.sections_v2[2].items[] | select(.title!="我的课程" and .title!="个性装扮" and .title!="我的钱包" and .title!="会员购中心"))' 'del(.data.sections_v2[3].items[] | select(.title!="联系客服" and .title!="设置"))' '.data.vip.label.image="https://i0.hdslb.com/bfs/bangumi/kt/c43d9f30d0026fb3bba3d3823dd0f20c7ccc4f62.png"' '.data.follower=5200000'
-
 [Script]
 # 将该脚本放在顶部优先匹配,避免被proto处理匹配到无法执行
 # Proto处理
-http-response ^https:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.playerunite\.v1\.Player\/PlayViewUnite$ script-path=https://raw.githubusercontent.com/kokoryh/Script/master/js/bilibili.protobuf.js,requires-body=true,binary-body-mode=true,tag=版权视频开启后台播放 playerunite
+http-response ^https:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.playerunite\.v1\.Player\/PlayViewUnite$ script-path=https://raw.githubusercontent.com/kokoryh/Script/master/js/bilibili.protobuf.js,requires-body=true,binary-body-mode=true,tag=版权视频开启后台播放
 
 # 下面的直接在最后添加即可
 # JSON处理
