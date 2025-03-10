@@ -1,9 +1,10 @@
-let body = $response.body;
-let json = JSON.parse(body);
-if (body) {
-    if (json?.data?.interaction) {
-        delete json.data.interaction;
-    }
-    $done({ body: JSON.stringify(json) });
+if (!$response.body) {
+    console.log('响应体为空');
+    $done({});
 }
-$done({});
+
+let json = JSON.parse(body);
+if (json?.data?.interaction) {
+    delete json.data.interaction;
+}
+$done({ body: JSON.stringify(json) });
