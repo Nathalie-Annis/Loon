@@ -6,6 +6,11 @@ let json = JSON.parse($response.body);
 let hideCoin = $argument.hideCoin;
 let nickname = $argument.nickname;
 
+// 删除活动信息
+if (json?.data?.user_area?.vip_info?.activity_info) {
+    delete json.data.user_area.vip_info.activity_info;
+}
+
 // 修改VIP信息
 if (json?.data?.user_area?.vip_info?.vip_open_info) {
     json.data.user_area.vip_info.vip_open_info.text = "您已解锁永久vip";
@@ -26,9 +31,10 @@ if (json?.data?.user_area?.base_info) {
     json.data.user_area.base_info.level_icon = "https://cdn.wtzw.com/bookimg/free/images/app/1_0_0/level/level_icon_50.png";
 }
 
-// 删除活动信息
-if (json?.data?.user_area?.vip_info?.activity_info) {
-    delete json.data.user_area.vip_info.activity_info;
+// 修改用户我的金币/今日金币/今日听读信息
+if (json?.data?.user_area?.grid_info && hideCoin) {
+    json.data.user_area.grid_info[0].num = "9999999";
+    json.data.user_area.grid_info[1].num = "9999999";
 }
 try {
     // 删除func_area中的特定元素
