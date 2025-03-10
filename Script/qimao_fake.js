@@ -5,6 +5,7 @@ if (!$response.body) {
 let json = JSON.parse($response.body);
 let hideCoin = $argument.hideCoin;
 let nickname = $argument.nickname;
+let avatarbox = $argument.avatarbox;
 
 // 删除活动信息
 if (json?.data?.user_area?.vip_info?.activity_info) {
@@ -18,7 +19,7 @@ if (json?.data?.user_area?.vip_info?.vip_open_info) {
 
 // 修改用户基本信息
 if (json?.data?.user_area?.base_info) {
-    json.data.user_area.base_info.avatar_box = "https://cdn.wtzw.com/bookimg/free/png/17198299375688291.png";
+    json.data.user_area.base_info.avatar_box = avatarbox;
     json.data.user_area.base_info.vip_show_type = "1";
     if (json?.data.user_area.base_info.user_other_data?.length > 0) {
         json.data.user_area.base_info.user_other_data[0].num = "9999999";
@@ -33,8 +34,8 @@ if (json?.data?.user_area?.base_info) {
 
 // 修改用户我的金币/今日金币/今日听读信息
 if (json?.data?.user_area?.grid_info && hideCoin) {
-    json.data.user_area.grid_info[0].num = "9999999";
-    json.data.user_area.grid_info[1].num = "9999999";
+    json.data.user_area.grid_info[0].num = "∞";
+    json.data.user_area.grid_info[1].num = "∞";
 }
 try {
     // 删除func_area中的特定元素
