@@ -50,7 +50,7 @@ try {
             if (item?.type === "other") {
                 // 修改 item.list，保留特定 discover_name 的项
                 item.list = item.list.filter(subItem =>
-                    ["我的评论", "阅读喜好", "帮助与反馈", "设置"].includes(subItem?.discover_name)
+                    ["我的评论", "阅读喜好", "帮助与反馈", "设置"].includes(subItem?.first_title)
                 );
                 return true;  // 保留当前 "other" 类型的元素
             }
