@@ -3,7 +3,7 @@ if (!$response.body) {
     $done({});
 }
 
-let json = JSON.parse(body);
+let json = JSON.parse($response.body);
 if (json?.data?.interaction) {
     delete json.data.interaction;
 }

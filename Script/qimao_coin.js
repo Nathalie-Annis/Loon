@@ -2,7 +2,7 @@ if (!$response.body) {
     console.log('响应体为空');
     $done({});
 }
-let json = JSON.parse(body);
+let json = JSON.parse($response.body);
 
 let hideCoin = $argument.hideCoin;
 if (typeof hideCoin === 'string') {
