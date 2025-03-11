@@ -21,6 +21,7 @@ avatarbox=input,"https://cdn.wtzw.com/bookimg/free/png/17198299375688291.png",ta
 [Script]
 http-response ^https:\/\/xiaoshuo\.wtzw\.com\/api\/v1\/sign-in\/sign-in-banner script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/qimao_coin_banner.js, requires-body=true, tag=屏蔽书架上方金币签到, enable={hideCoin}
 http-response ^https:\/\/xiaoshuo\.wtzw\.com\/api\/v3\/user\/my-center script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/qimao_fake.js, requires-body=true, tag=精简&伪装我的页面, argument=[{hideCoin},{nickname},{avatarbox}]
+http-response ^https:\/\/xiaoshuo\.wtzw\.com\/api\/v1\/user\/page script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/qimao_fake2.js, requires-body=true, tag=伪装用户详情页面, argument=[{nickname},{avatarbox}]
 http-response ^https:\/\/api-cmnt\.wtzw\.com\/api\/v1\/paragraph\/list script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/qimao_interaction.js, requires-body=true, tag=屏蔽评论区书友互动榜头像人数, enable={hideInteraction}
 
 [MITM]
