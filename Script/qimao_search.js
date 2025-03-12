@@ -8,7 +8,7 @@ switch (searchOption) {
             "data": {
                 "search_dispose_list": [
                     {
-                        "content": " ",
+                        "content": "",
                         "jump_tab": "",
                         "platform": "0",
                         "min_version": "",
