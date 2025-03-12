@@ -7,7 +7,7 @@ let searchOption = $argument.searchOption;
 if (searchOption === "空白") {
     let json = JSON.parse($response.body);
     if (json?.data?.search_dispose?.content) {
-        json.data.search_dispose.content = "";
+        json.data.search_dispose.content = " ";
     }
     $done({ body: JSON.stringify(json) });
 } else if (searchOption === "默认") {
