@@ -14,7 +14,7 @@ hideCoin=switch,true,tag=隐藏积分到期提醒,desc=
 ^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?areaSymbol.*?Search mock-response-body data-type=json data-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Response/Search.json"
 ^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?pageSymbol.*?TicketOrderList reject-dict
 ^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?Symbol.*?SearchAd reject-dict
-^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?Home_Banner response-body-json-jq 'del(.data.objects["NewHome-&-Home_Banner"])' '.data.objects["NewHome-&-Transformers"][2].tips=""' 'del(.data.objects["NewHome-&-HBTips"][])'
+^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?Home_Banner response-body-json-jq 'del(.data.objects["NewHome-&-Home_Banner"])' '.data.objects["NewHome-&-Transformers"][2].tips=""' 'del(.data.objects["NewHome-&-HBTips"][])'
 ^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner\.api\?areaSymbol=MovieOnsaleCinema_Banner reject-dict
 ^https:\/\/front-gateway-c\.wandafilm\.com\/content\/index_content_list\.api reject-dict
 ^https:\/\/front-gateway-c\.wandafilm\.com\/misc\/acm\/tab\/list\.api response-body-json-jq 'del(.data[] | select(.tabName != "推荐" and .tabName != "电影+"))'
