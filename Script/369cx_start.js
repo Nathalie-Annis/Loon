@@ -28,3 +28,4 @@ if (json?.result) {
         }
     }
 }
+$done({ body: JSON.stringify(json) });
