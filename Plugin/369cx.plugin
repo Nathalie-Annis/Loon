@@ -4,10 +4,15 @@
 #!homepage = https://github.com/Nathalie-Annis/Loon/
 #!icon = https://github.com/Nathalie-Annis/Loon/raw/main/Icon/369cx.png
 
+[Argument]
+color=input,"#ff2d2d",tag=主题颜色,desc=
+theme=select,"红色(特殊主题)","蓝色(默认主题)","橙色",tag=底栏主题,desc=
+
 [Rewrite]
-^https:\/\/api\.369cx\.cn\/v2\/Integral\/GetDaylySign reject-dict
-^https:\/\/api\.369cx\.cn\/v2\/Home\/GetHomePageData response-body-json-jq 'del(.result.banner)' '.result.searchBarText = ["Ciallo～(∠・ω< )⌒★"]' '.result.homeButton = [.result.homeButton[10], .result.homeButton[1], .result.homeButton[3], .result.homeButton[13]]'
-^https:\/\/api\.369cx\.cn\/v2\/Splash\/GetSplashAd reject-dict
+^https:\/\/api\.369cx\.cn\/v2\/Home\/GetHomePageData response-body-json-jq 'del(.result.banner[])' '.result.homeButton = [ ( .result.homeButton[] | select(.name == "畅游卡") ),( .result.homeButton[] | select(.name == "单次票") ),( .result.homeButton[] | select(.name == "查地铁") ),( .result.homeButton[] | select(.name == "站点地图") ) ]' '.result.searchBarText = ["Ciallo～(∠・ω< )⌒★"]'
+
+[Script]
+http-response ^https:\/\/api\.369cx\.cn\/v2\/Splash\/GetSplashAd script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/369cx_start.js, requires-body=true, tag=去除开屏&样式修改, argument=[{color},{theme}]
 
 [MITM]
-hostname = api.369cx.cn
+hostname = api.369cx.cn,jngj.369cx.cn
