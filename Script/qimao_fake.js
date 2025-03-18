@@ -4,6 +4,7 @@ if (!$response.body) {
 }
 let json = JSON.parse($response.body);
 let hideCoin = $argument.hideCoin;
+let hideMessage = $argument.hideMessage;
 let nickname = $argument.nickname;
 let avatarbox = $argument.avatarbox;
 
@@ -42,10 +43,18 @@ try {
     if (json?.data?.func_area) {
         // 使用 filter 方法过滤出需要保留的元素
         json.data.func_area = json.data.func_area.filter(item => {
-            if (item?.type === "banner") {
+            if (item?.type === "core_func" && hideMessage) {
+                item.list?.forEach(subItem => {
+                    if (subItem?.first_title === "消息通知") {
+                        subItem.red_point_show_type = "0";
+                    }
+                });
+                return true;  // 保留当前 "core_func" 类型的元素
+            }
+            else if (item?.type === "banner") {
                 return false;  // 删除类型为 "banner" 的元素
             }
-            if (item?.type === "ads") {
+            else if (item?.type === "ads") {
                 if (hideCoin) {
                     return false;  // 如果 hideCoin 为 true，删除类型为 "ads" 的元素
                 } else {
@@ -54,14 +63,16 @@ try {
                     return true;  // 保留当前 "ads" 类型的元素
                 }
             }
-            if (item?.type === "other") {
+            else if (item?.type === "other") {
                 // 修改 item.list，保留特定 discover_name 的项
                 item.list = item.list.filter(subItem =>
                     ["我的评论", "阅读喜好", "帮助与反馈", "设置"].includes(subItem?.first_title)
                 );
                 return true;  // 保留当前 "other" 类型的元素
             }
-            return true;  // 保留其他类型的元素
+            else {
+                return true;  // 保留其他类型的元素
+            }
         });
     }
 } catch (e) {
