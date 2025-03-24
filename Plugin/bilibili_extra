@@ -33,11 +33,6 @@ uid = input,"",tag=启用伪装空间的用户uid,desc=纯数字,多个用英文
 ^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=bangumi_tab response-body-json-jq 'del(.data.modules[] | select(.id == 2015 or .id == 2012)) | .data.modules |= [.[0], .[2], .[1]] + .[3:]'
 
 [Script]
-# 将该脚本放在顶部优先匹配,避免被proto处理匹配到无法执行
-# Proto处理
-http-response ^https:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.playerunite\.v1\.Player\/PlayViewUnite$ script-path=https://raw.githubusercontent.com/kokoryh/Script/master/js/bilibili.protobuf.js,requires-body=true,binary-body-mode=true,tag=版权视频开启后台播放
-
-# 下面的直接在最后添加即可
 # JSON处理
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/search\/square\? script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_search.js,enable={hideSearch},tag=隐藏搜索栏热搜和发现
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/space\?access_key=.*?&vmid=\d+ script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_fake.js,requires-body=true,tag=伪装空间,argument=[{uid}]
