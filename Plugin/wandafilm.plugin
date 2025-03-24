@@ -4,9 +4,6 @@
 #!homepage = https://github.com/Nathalie-Annis/Loon/
 #!icon = https://github.com/Nathalie-Annis/Loon/raw/main/Icon/wandafilm.png
 
-[Argument]
-hideCoin=switch,true,tag=隐藏积分到期提醒,desc=
-
 [Rewrite]
 ^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?areaSymbol.*?Message reject-dict
 ^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?areaSymbol.*?FlashAD reject-dict
@@ -14,15 +11,13 @@ hideCoin=switch,true,tag=隐藏积分到期提醒,desc=
 ^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?areaSymbol.*?Search mock-response-body data-type=json data-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Response/Search.json"
 ^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?pageSymbol.*?TicketOrderList reject-dict
 ^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?Symbol.*?SearchAd reject-dict
-^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?Home_Banner response-body-json-jq 'del(.data.objects["NewHome-&-Home_Banner"])' '.data.objects["NewHome-&-Transformers"][2].tips=""' 'del(.data.objects["NewHome-&-HBTips"][])'
+^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?Home_Banner response-body-json-jq 'del(.data.objects["NewHome-&-Home_Banner"])' '.data.objects["NewHome-&-Transformers"] |= map(.tips = "")' 'del(.data.objects["NewHome-&-HBTips"][])'
 ^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner\.api\?areaSymbol=MovieOnsaleCinema_Banner reject-dict
 ^https:\/\/front-gateway-c\.wandafilm\.com\/content\/index_content_list\.api reject-dict
 ^https:\/\/front-gateway-c\.wandafilm\.com\/misc\/acm\/tab\/list\.api response-body-json-jq 'del(.data[] | select(.tabName != "推荐" and .tabName != "电影+"))'
 ^https:\/\/card-api-prd-mx\.wandafilm\.com\/card\/cinema_cards\.api reject-dict
 ^https:\/\/cms-activity-api-prd-mx\.wandafilm\.com\/activity\/film_detail\.api reject-dict
-
-[Script]
-http-response ^https:\/\/user-api-prd-mx\.wandafilm\.com\/user\/user_points_level_coupon_card_info\.api script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/wanda_coin.js, requires-body=true, tag=隐藏积分到期提醒, enable={hideCoin}
+^https:\/\/user-api-prd-mx\.wandafilm\.com\/user\/user_points_level_coupon_card_info\.api response-body-json-jq '.data.expiredPointsRemindContent=""'
 
 [MITM]
 hostname = misc-api-prd-mx.wandafilm.com,front-gateway-c.wandafilm.com,card-api-prd-mx.wandafilm.com,cms-activity-api-prd-mx.wandafilm.com,user-api-prd-mx.wandafilm.com
