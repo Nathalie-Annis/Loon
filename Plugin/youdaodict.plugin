@@ -1,0 +1,62 @@
+#!name=网易有道词典去广告
+#!desc=[可莉插件增强版]移除开屏广告、弹窗广告、横幅广告、信息流广告、旧版翻译页面广告及搜索填充词,精简会员相关提示。
+#!openUrl=https://apps.apple.com/app/id353115739
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!tag=去广告
+#!system=
+#!system_version=
+#!loon_version=3.2.4(787)
+#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/YoudaoDict.png
+#!date=2024-11-28 00:00:00
+
+[Rule]
+DOMAIN,httpdns.music.163.com,REJECT
+DOMAIN,httpdns.n.netease.com,REJECT
+DOMAIN,httpdns-sdk.n.netease.com,REJECT
+DOMAIN,httpdns.yunxindns.com,REJECT
+DOMAIN,lofter.httpdns.c.163.com,REJECT
+DOMAIN,music.httpdns.c.163.com,REJECT
+IP-CIDR,59.111.239.61/32,REJECT,no-resolve
+IP-CIDR,59.111.239.62/32,REJECT,no-resolve
+IP-CIDR,115.236.121.51/32,REJECT,no-resolve
+IP-CIDR,115.236.121.195/32,REJECT,no-resolve
+
+DOMAIN,cnlogs.umeng.com,REJECT
+DOMAIN,errlog.umeng.com,REJECT
+DOMAIN,errnewlog.umeng.com,REJECT
+DOMAIN,ucc.umeng.com,REJECT
+DOMAIN,ulogs.umeng.com,REJECT
+DOMAIN,utoken.umeng.com,REJECT
+DOMAIN,deeplink.umeng.com,REJECT
+DOMAIN,aspect-upush.umeng.com,REJECT
+DOMAIN,plbslog.umeng.com,REJECT
+DOMAIN,log.umtrack.com,REJECT
+DOMAIN,aaid.umeng.com,REJECT
+
+[Rewrite]
+^https:\/\/gorgon\.youdao\.com\/gorgon\/brand\/prefetch\.s\? reject-dict
+
+^https:\/\/dict\.youdao\.com\/homepage\/toolbar\/get\? response-body-json-del data.vipTag
+
+^https:\/\/gorgon\.youdao\.com\/gorgon\/request\.s\? reject-dict
+
+^https:\/\/dict\.youdao\.com\/course\/tab\/translateTab\? response-body-json-del data
+
+^https:\/\/dict\.youdao\.com\/course\/tab\/home\? response-body-json-del data.popup data.tab data.searchSuggestList data.newBanner data.icon.promotionList data.icon.iconList[1].bubble data.icon.iconList[2].bubble data.icon.iconList[8].bubble
+
+#首页顶部购买会员提示
+^https:\/\/dict\.youdao\.com\/homepage\/toolbar\/get response-body-json-replace data.vipTag {}
+#会员顶部购买活动提示
+^https:\/\/dictvip-business\.youdao\.com\/activity\/popup reject-dict
+^https:\/\/dictvip-business\.youdao\.com\/common\/vipconfig reject-dict
+#去除会员开通、组合购
+^https:\/\/dict\.youdao\.com\/vip\/plan\/(svip)?list reject-dict
+^https:\/\/dict\.youdao\.com\/vip\/plan\/activity\/info reject-dict
+^https:\/\/dict\.youdao\.com\/vip\/privilege\/show\/V2 reject-dict
+
+[Script]
+http-response ^https:\/\/dict\.youdao\.com\/vip\/user\/status requires-body=1,script-path=https://raw.githubusercontent.com/89996462/Quantumult-X/main/ycdz/wyydcd.js
+
+[MitM]
+hostname=gorgon.youdao.com,dict.youdao.com,dictvip-business.youdao.com
