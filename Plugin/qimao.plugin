@@ -2,7 +2,7 @@
 #!desc = [自签插件]注入SSLKillSwitch2&vip破解插件食用。去除启动弹窗、热门&图书中的横幅广告、金币签到页广告、底栏书城签到红点标识、青少年模式提醒，精简我的页面，提供伪造功能、增强精简功能开关。仅在7.40版本下测试。
 #!author = Nathalie Annis
 #!homepage = https://github.com/Nathalie-Annis/Loon/
-#!icon = https://github.com/Nathalie-Annis/Loon/raw/main/Icon/qimao.png
+#!icon = https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/qimao.png
 
 [Argument]
 hideCoin=switch,false,tag=隐藏所有赚金币项目,desc=

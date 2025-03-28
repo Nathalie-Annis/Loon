@@ -2,7 +2,7 @@
 #!desc= 屏蔽动画疯播放广告(黑屏25s,服务器有广告播放时间验证),添加Loon通知提示,播放完成后可点击跳回动画疯观看。
 #!author = Nathalie Annis
 #!homepage = https://github.com/Nathalie-Annis/Loon/
-#!icon = https://github.com/Nathalie-Annis/Loon/raw/main/Icon/bahamut.png
+#!icon = https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/bahamut.png
 
 [Argument]
 hideAnnounce = switch,true,tag=隐藏首页顶部公告,desc=

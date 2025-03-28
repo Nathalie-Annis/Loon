@@ -2,7 +2,7 @@
 #!desc = 去除开屏广告,首页搜索栏、横幅、视频流广告,精简无用功能。
 #!author = Nathalie Annis
 #!homepage = https://github.com/Nathalie-Annis/Loon/
-#!icon = https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/wanda.PNG
+#!icon = https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/wandafilm.png
 
 [Rewrite]
 ^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?areaSymbol.*?Message reject-dict

@@ -2,7 +2,7 @@
 #!desc = 去除开屏广告、首页无用选项，精简我的界面。
 #!author = Nathalie Annis
 #!homepage = https://github.com/Nathalie-Annis/Loon/
-#!icon = https://github.com/Nathalie-Annis/Loon/raw/main/Icon/yunbusiness.png
+#!icon = https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/yunbusiness.png
 
 [Rewrite]
 # 首页横幅广告

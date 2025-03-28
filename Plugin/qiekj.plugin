@@ -2,7 +2,7 @@
 #!desc = 我们从大量的广告中找到了少量能用的功能。
 #!author = Nathalie Annis
 #!homepage = https://github.com/Nathalie-Annis/Loon/
-#!icon = https://github.com/Nathalie-Annis/Loon/raw/main/Icon/qiekj.png
+#!icon = https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/qiekj.png
 
 [Rewrite]
 ^https:\/\/userapi\.qiekj\.com\/slot\/get reject-dict
