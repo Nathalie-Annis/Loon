@@ -16,23 +16,23 @@ hideSearch = switch,false,tag=隐藏搜索栏热搜和发现,desc=
 uid = input,"",tag=启用伪装空间的用户uid,desc=纯数字,多个用英文逗号,隔开
 
 [Rewrite]
-# 1.覆盖①首页标签页控制&精简底栏②移除观影页广告③精简我的页面 jq重写
-# 2.修改移除大会员广告活动入口正则表达式,去除|v2\/search\/square jq重写
-# 3.添加①分区去除②追番界面 jq重写
-
-# 顶栏、底栏自定义
+# 覆盖30行 顶栏、底栏自定义 
 ^https:\/\/app\.bilibili\.com\/x\/resource\/show\/tab\/v2\? response-body-json-jq '.data.tab = [ ( .data.tab[] | select(.name == "推荐") ),( .data.tab[] | select(.name == "热门") ),( .data.tab[] | select(.name == "动画") ),( .data.tab[] | select(.name == "影视") ),( .data.tab[] | select(.name == "直播") ) ]' 'del(.data.top[] | select(.name=="游戏中心"))' '.data.bottom = [ ( .data.bottom[] | select(.name == "首页") ),( .data.bottom[] | select(.name == "动态") ),( .data.bottom[] | select(.name == "我的") ) ]'
 
-# 影视界面去除banner(12帧)和好奇心周刊,重新排序
+# 覆盖37行 影视界面去除banner(12帧)和好奇心周刊,重新排序
 ^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=cinema_tab response-body-json-jq 'del(.data.modules[] | select(.id == 2038 or .id == 1892)) | .data.modules |= [.[0], .[3], .[2], .[1]] + .[4:]'
-
-# 我的界面自定义(保留创作中心、稿件管理、主播中心、直播数据、我的课程、个性装扮、我的钱包、会员购中心、联系客服、设置),去除livetips活动提示,修改粉丝数和会员图标
-^https:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine response-body-json-jq 'del(.data.live_tip)' '.data.vip_section_v2.title="Ciallo～(∠・ω< )⌒★"' '.data.vip_section_v2.desc="每天都要开心呀"' 'del(.data.sections_v2[1].items[] | select(.title!="创作中心" and .title!="稿件管理" and .title!="主播中心" and .title!="直播数据"))' 'del(.data.sections_v2[2].items[] | select(.title!="我的课程" and .title!="个性装扮" and .title!="我的钱包" and .title!="会员购中心"))' 'del(.data.sections_v2[3].items[] | select(.title!="联系客服" and .title!="设置"))' '.data.vip.label.image="https://i0.hdslb.com/bfs/bangumi/kt/c43d9f30d0026fb3bba3d3823dd0f20c7ccc4f62.png"' '.data.follower=5200000' '.data.modular_vip_section.title.text="Ciallo～(∠・ω< )⌒★"' '.data.modular_vip_section.subtitle.text="每天都要开心呀"' '.data.modular_vip_section.title.url="https://b23.tv/d9YZ8f1"'
-
-# 追番界面去除banner(12帧)和付费提示条,重新排序
+# 加在37行下面 追番界面去除banner(12帧)和付费提示条,重新排序 
 ^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=bangumi_tab response-body-json-jq 'del(.data.modules[] | select(.id == 2015 or .id == 2012)) | .data.modules |= [.[0], .[2], .[1]] + .[3:]'
 
+# 修改42行 移除大会员广告活动入口正则表达式,去除|v2\/search\/square jq重写
+
+# 覆盖48行 我的界面自定义(保留创作中心、稿件管理、主播中心、直播数据、我的课程、个性装扮、我的钱包、会员购中心、联系客服、设置),去除livetips活动提示,修改粉丝数和会员图标
+^https:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine response-body-json-jq 'del(.data.live_tip)' '.data.vip_section_v2.title="Ciallo～(∠・ω< )⌒★"' '.data.vip_section_v2.desc="每天都要开心呀"' 'del(.data.sections_v2[1].items[] | select(.title!="创作中心" and .title!="稿件管理" and .title!="主播中心" and .title!="直播数据"))' 'del(.data.sections_v2[2].items[] | select(.title!="我的课程" and .title!="个性装扮" and .title!="我的钱包" and .title!="会员购中心"))' 'del(.data.sections_v2[3].items[] | select(.title!="联系客服" and .title!="设置"))' '.data.vip.label.image="https://i0.hdslb.com/bfs/bangumi/kt/c43d9f30d0026fb3bba3d3823dd0f20c7ccc4f62.png"' '.data.follower=5200000' '.data.modular_vip_section.title.text="Ciallo～(∠・ω< )⌒★"' '.data.modular_vip_section.subtitle.text="每天都要开心呀"' '.data.modular_vip_section.title.url="https://b23.tv/d9YZ8f1"'
+
+
 [Script]
+# Proto处理
+http-response ^https:\/\/(?:grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.(?:app\.(?:interface\.v1\.(?:Teenagers\/ModeStatus|Search\/DefaultWords)|show\.v1\.Popular\/Index|dynamic\.v2\.Dynamic\/DynAll|view(?:unite)?\.v1\.View\/(?:View|ViewProgress|TFInfo|RelatesFeed)|playurl\.v1\.PlayURL\/PlayView|playerunite\.v1\.Player\/PlayViewUnite)|polymer\.app\.search\.v1\.Search\/SearchAll|community\.service\.dm\.v1\.DM\/DmView|main\.community\.reply\.v1\.Reply\/MainList|pgc\.gateway\.player\.v2\.PlayURL\/PlayView)$ script-path=https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/dist/bilibili.protobuf.js, argument=[{showUpList}], requires-body=true, binary-body-mode=true, tag=Proto处理
 # JSON处理
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/search\/square\? script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_search.js,enable={hideSearch},tag=隐藏搜索栏热搜和发现
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/space\?access_key=.*?&vmid=\d+ script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_fake.js,requires-body=true,tag=伪装空间,argument=[{uid}]
