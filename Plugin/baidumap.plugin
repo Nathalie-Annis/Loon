@@ -9,16 +9,18 @@
 ^https:\/\/map-mobile-resource\.cdn\.bcebos\.com\/icon\/service\/taxi\/default\/poi_fixed_bubble1102\.png reject
 ^https:\/\/map-mobile-resource\.cdn\.bcebos\.com\/icon\/service\/rtbus\/default\/Newunipay%403x\.png reject
 ^https:\/\/map-mobile-resource\.cdn\.bcebos\.com\/icon\/service\/yunying\/default\/xiaohaungtiao_blue@3x\.png reject
+^https:\/\/map-mobile-resource\.cdn\.bcebos\.com\/icon\/service\/feedback-center\/default\/uc-card-header-logo\.png reject
 ^https:\/\/map-mobile-resource\.cdn\.bcebos\.com\/icon\/rec\/search\/default\/dachedongios\.gif reject-img
 ^https:\/\/map-mobile-resource\.cdn\.bcebos\.com\/icon\/rec\/search\/default\/hongbaojiaobiao\.png reject
 ^https:\/\/map-mobile-opnimg\.cdn\.bcebos\.com\/e006d2b373f9f2a150192136f0ca6261\.gif header https://map-mobile-resource.cdn.bcebos.com/icon/service/trip-helper/default/fankui7.png
 ^https:\/\/map-mobile-opnimg\.cdn\.bcebos\.com\/89b2735170952b29d32c768529712c2d\.gif reject-img
 ^https:\/\/map-mobile-opnimg\.cdn\.bcebos\.com\/b3cfaa3a2942148733a22fbd69bc51ac\.png reject
 ^https:\/\/map-mobile-lbsapp\.cdn\.bcebos\.com\/89a6e47dad19c1dccb6898e781f80864\.png reject
+^https:\/\/map-mobile-opnimg\.cdn\.bcebos\.com\/resource\/4101fc8dace1841ca507bdd6d4ec292e\.gif reject
 ^https:\/\/mapcarowner-gz\.cdn\.bcebos\.com\/default\/6e1177bfb05ae6340d12e98ea17e9f6b\.png reject
 ^https:\/\/newclient\.map\.baidu\.com\/contributor reject-dict
 ^https:\/\/newclient\.map\.baidu\.com\/contributor-bus\/bounty\/tips reject-dict
-^https:\/\/newclient\.map\.baidu\.com\/.*?usersystem\/mine\/page response-body-json-jq 'del(.data.gold.activity[],.data.voice.list[])' '.data.map_lv=5' '.data.ugc_lv=6' '.data.footPrint.city_num=999' '.data.footPrint.city_rate=1' '.data.footPrint.mileage=520000' '.data.footPrint.point_num=1314'
+^https:\/\/newclient\.map\.baidu\.com\/.*?usersystem\/mine\/page response-body-json-jq 'del(.data.gold.activity[],.data.voice.list[])' '.data.map_lv=5' '.data.ugc_lv=6' '.data.footPrint.city_num=999' '.data.footPrint.city_rate=1' '.data.footPrint.mileage=520000' '.data.footPrint.point_num=1314' '.data.footPrint.point_dot=0' 'del(.data.card_list[1:])'
 ^https:\/\/lbsnavi\.cdn\.bcebos\.com\/base\/online\/20240925104225\/%E8%BD%A6%E9%81%93%E7%BA%A7%E6%8A%A4%E8%88%AA-0\.png reject
 ^https:\/\/lbsugc\.cdn\.bcebos\.com\/images\/B64d32baf11f3fb0f6\.png reject
 
