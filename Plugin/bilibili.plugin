@@ -8,7 +8,7 @@
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Bilibili.png
-#!date=2025-03-16 14:28:08
+#!date=2025-03-28 00:08:44
 
 [Argument]
 showUpList=select,"auto","true","false",tag=[动态]中[最常访问]的显示方式,desc=auto：仅当列表中存在直播状态时显示；true：始终显示；false：始终隐藏。
@@ -16,56 +16,37 @@ hideSearch = switch,false,tag=隐藏搜索栏热搜和发现,desc=
 uid = input,"",tag=启用伪装空间的用户uid,desc=纯数字,多个用英文逗号,隔开
 
 [Rule]
-# 备用域名
 DOMAIN,api.biliapi.com,REJECT
 DOMAIN,api.biliapi.net,REJECT
 DOMAIN,app.biliapi.com,REJECT
 DOMAIN,app.biliapi.net,REJECT
 
-# 开屏广告
 URL-REGEX,"^http:\/\/upos-sz-static\.bilivideo\.com\/ssaxcode\/\w{2}\/\w{2}\/\w{32}-1-SPLASH",REJECT-DICT
 URL-REGEX,"^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH",REJECT-DICT
 
 [Rewrite]
-# 移除开屏广告
 ^https:\/\/app\.bilibili\.com\/x\/v2\/splash\/(?:list|show|event\/list2)\? response-body-json-jq '.data |= with_entries(if .key | IN("show", "event_list") then .value = [] else . end)'
 
-# 顶栏、底栏自定义
 ^https:\/\/app\.bilibili\.com\/x\/resource\/show\/tab\/v2\? response-body-json-jq '.data.tab = [ ( .data.tab[] | select(.name == "推荐") ),( .data.tab[] | select(.name == "热门") ),( .data.tab[] | select(.name == "动画") ),( .data.tab[] | select(.name == "影视") ),( .data.tab[] | select(.name == "直播") ) ]' 'del(.data.top[] | select(.name=="游戏中心"))' '.data.bottom = [ ( .data.bottom[] | select(.name == "首页") ),( .data.bottom[] | select(.name == "动态") ),( .data.bottom[] | select(.name == "我的") ) ]'
 
-# 移除首页推荐广告
 ^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index\? response-body-json-jq 'if .data.items then .data.items |= map(select((.banner_item == null) and (.ad_info == null) and (.card_goto == "av") and (.card_type | IN("small_cover_v2", "large_cover_single_v9", "large_cover_v1")))) end'
 
-# 播放页开通会员的横幅
 ^https:\/\/api\.bilibili\.com\/pgc\/activity\/deliver\/material\/receive\? mock-response-body data-type=text status-code=200 data="{"code":0,"data":{"closeType":"close_win","container":[],"showTime":""},"message":"success"}"
 ^https:\/\/api\.bilibili\.com\/pgc\/view\/v2\/app\/season\? response-body-json-jq 'del(.data.payment)'
 
-# 追番界面去除banner(12帧)和付费提示条,重新排序
+^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=cinema_tab response-body-json-jq 'del(.data.modules[] | select(.id == 2038 or .id == 1892)) | .data.modules |= [.[0], .[3], .[2], .[1]] + .[4:]'
 ^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=bangumi_tab response-body-json-jq 'del(.data.modules[] | select(.id == 2015 or .id == 2012)) | .data.modules |= [.[0], .[2], .[1]] + .[3:]'
 
-# 影视界面去除banner(12帧)和好奇心周刊,重新排序
-^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=cinema_tab response-body-json-jq 'del(.data.modules[] | select(.id == 2038 or .id == 1892)) | .data.modules |= [.[0], .[3], .[2], .[1]] + .[4:]'
-
-# 移除竖屏视频广告
 ^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index\/story\? response-body-json-jq 'if .data.items then .data.items |= map(select((.ad_info == null) and (.card_goto | startswith("ad") | not)) | del(.story_cart_icon)) end'
 
-# 移除大会员广告、移除右上角活动入口
 ^https:\/\/ap[ip]\.bilibili\.com\/x\/(?:resource\/(?:top\/activity|patch\/tab)|vip\/ads\/materials)\? mock-response-body data-type=text status-code=200 data="{"code":-404,"message":"-404","ttl":1,"data":null}"
-
-# 移除直播广告
-^https:\/\/api\.live\.bilibili\.com\/xlive\/e-commerce-interface\/v1\/ecommerce-user\/get_shopping_info\? reject-dict
-
-# 移除直播间广告
 ^https:\/\/api\.live\.bilibili\.com\/xlive\/(?:app-interface\/v2\/index\/feed|app-room\/v1\/index\/getInfoBy(?:Room|User))\? response-body-json-jq '.data |= (del(.play_together_info, .play_together_info_v2, .activity_banner_info) | if .function_card then .function_card[] = null end | if .new_tab_info.outer_list then .new_tab_info.outer_list |= map(select(.biz_id != 33)) end | if .card_list then .card_list |= map(select(.card_type != "banner_v2")) end | reduce ([["show_reserve_status"], false], [["reserve_info", "show_reserve_status"], false], [["shopping_info", "is_show"], 0]) as [$path, $value] (.; if getpath($path) then setpath($path; $value) end))'
 
-# 移除皮肤推送
 ^https:\/\/app\.bilibili\.com\/x\/resource\/show\/skin\? response-body-json-del data.common_equip
 
-# 我的界面自定义(保留创作中心、稿件管理、主播中心、直播数据、我的课程、个性装扮、我的钱包、会员购中心、联系客服、设置),去除livetips活动提示,修改粉丝数和会员图标
 ^https:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine response-body-json-jq 'del(.data.live_tip)' '.data.vip_section_v2.title="Ciallo～(∠・ω< )⌒★"' '.data.vip_section_v2.desc="每天都要开心呀"' 'del(.data.sections_v2[1].items[] | select(.title!="创作中心" and .title!="稿件管理" and .title!="主播中心" and .title!="直播数据"))' 'del(.data.sections_v2[2].items[] | select(.title!="我的课程" and .title!="个性装扮" and .title!="我的钱包" and .title!="会员购中心"))' 'del(.data.sections_v2[3].items[] | select(.title!="联系客服" and .title!="设置"))' '.data.vip.label.image="https://i0.hdslb.com/bfs/bangumi/kt/c43d9f30d0026fb3bba3d3823dd0f20c7ccc4f62.png"' '.data.follower=5200000' '.data.modular_vip_section.title.text="Ciallo～(∠・ω< )⌒★"' '.data.modular_vip_section.subtitle.text="每天都要开心呀"' '.data.modular_vip_section.title.url="https://b23.tv/d9YZ8f1"'
 
-# 非会员开启会员专属清晰度
-^https:\/\/app\.bilibili\.com\/x\/v2\/account\/myinfo\? response-body-json-jq '.data.vip |= if . != null and .status == 0 then . + {status:1,type:2,vip_pay_type:1,due_date:4669824160000} else . end'
+^https:\/\/app\.bilibili\.com\/x\/v2\/account\/myinfo\? response-body-json-jq '.data.vip |= if . != null and .status == 0 then . + { status: 1, type: 2, due_date: 9005270400000, role: 15 } else . end'
 
 [Script]
 # Proto处理
