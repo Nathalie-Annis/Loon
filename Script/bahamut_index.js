@@ -10,8 +10,8 @@ if (hideAnnounce && json?.data?.announce) {
     console.log('隐藏公告:' + json.data.announce);
     delete json.data.announce;
 }
-if (hidePromotion && json?.data?.promotion) {
+if (hidePromotion && json?.data?.seasonalPromotion) {
     console.log('隐藏新番导视入口');
-    delete json.data.promotion;
+    delete json.data.seasonalPromotion;
 }
 $done({ body: JSON.stringify(json) });
