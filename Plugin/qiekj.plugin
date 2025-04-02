@@ -9,10 +9,10 @@
 ^https:\/\/userapi\.qiekj\.com\/appTitle\/get reject-dict
 ^https:\/\/userapi\.qiekj\.com\/task\/earnBenefitsTask reject-dict
 ^https:\/\/userapi\.qiekj\.com\/bottomBar\/get response-body-json-jq '.data[1:4] |= map(.barName="")'
-#^https:\/\/userapi\.qiekj\.com\/user\/checkUserPortrait reject-dict
-#^https:\/\/userapi\.qiekj\.com\/integralRecord\/integralDailStatistics reject-dict
-#^https:\/\/userapi\.qiekj\.com\/local-life reject-dict
-#^https:\/\/userapi\.qiekj\.com\/task reject-dict
+^https:\/\/userapi\.qiekj\.com\/user\/checkUserPortrait reject-dict
+^https:\/\/userapi\.qiekj\.com\/integralRecord\/integralDailStatistics reject-dict
+^https:\/\/userapi\.qiekj\.com\/local-life reject-dict
+^https:\/\/userapi\.qiekj\.com\/task reject-dict
 
 [MITM]
 hostname = userapi.qiekj.com
