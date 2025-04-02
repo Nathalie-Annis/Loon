@@ -1,0 +1,14 @@
+#!name = 考途大学搜题去广告
+#!desc = 去除首页无用选项，精简搜题界面。
+#!author = Nathalie Annis
+#!homepage = https://github.com/Nathalie-Annis/Loon/
+#!icon = https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/tutusouti.png
+
+[Rewrite]
+^https:\/\/m-ad\.tutusouti\.com\/appServiceApi\/search\/question\/SQBanner response-body-json-del data.ecologyBannerSimple
+^https:\/\/api-service\.tutusouti\.com\/appServiceApi\/newHomeDisplay\/message reject-dict
+^https:\/\/api-service\.tutusouti\.com\/appServiceApi\/home\/v5\/homeSenseList response-body-json-del data[4].advertiseList data[6].advertiseList
+^https:\/\/api-service\.tutusouti\.com\/appServiceApi\/vip\/newUserPayVipData response-body-json-replace data.svipInfo.vipStatus 1 data.svipInfo.svipIsLifelong 1
+
+[MITM]
+hostname = m-ad.tutusouti.com,api-service.tutusouti.com
