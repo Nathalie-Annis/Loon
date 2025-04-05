@@ -5,7 +5,6 @@
 DOMAIN,acs.m.taobao.com,REJECT
 DOMAIN,s3plus.meituan.net,REJECT
 DOMAIN,bd-cdn.halomobi.com,REJECT
-DOMAIN,indivi-cdn.shouji.sogou.com,REJECT
 DOMAIN,de.ad.gameley.com,REJECT
 DOMAIN,flow.gameley.com,REJECT
 DOMAIN,advertise.bczeducation.cn,REJECT
