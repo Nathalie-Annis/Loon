@@ -4,7 +4,12 @@ if (!$response.body) {
 }
 if ($persistentStore.read(["baha_sign_ad"]) == true) {
     console.log('已经在签到了');
-    $done();
+    let body = {
+        "data": {
+            "finished": 0
+        }
+    }
+    $done({ body: JSON.stringify(body) });
 }
 try {
     let json = JSON.parse($response.body);
