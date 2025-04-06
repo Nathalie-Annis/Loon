@@ -6,7 +6,7 @@ if (!$response.body) {
 let json = JSON.parse($response.body);
 if (json?.data?.finished === 0) {
     console.log('开始广告签到');
-    $notification.post("巴哈姆特", "开始广告签到", "等待30秒后完成签到", "crazyanime://", 0);
+    $notification.post("巴哈姆特", "开始广告签到", "等待30秒后完成签到", "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/bahamut2.png", 0);
 
     let url = $request.url.replace("start", "finished");
     let headers = $request.headers;
@@ -22,16 +22,17 @@ if (json?.data?.finished === 0) {
         $httpClient.get(params, function (error, _, data) {
             if (error) {
                 console.log('广告签到失败:\n' + error);
-                $notification.post("巴哈姆特", "广告签到失败", error, "crazyanime://", 0);
+                $notification.post("巴哈姆特", "广告签到失败", error, "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/bahamut2.png");
             } else {
                 json = JSON.parse(data);
                 if (json?.data?.finished === 1) {
+                    console.log(json);
                     console.log('广告签到完成');
-                    $notification.post("巴哈姆特", "广告签到完成", "今日获得双倍巴币", "crazyanime://", 0);
+                    $notification.post("巴哈姆特", "广告签到完成", "今日获得双倍巴币", "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/bahamut2.png");
                 }
                 else {
                     console.log('广告签到失败:\n' + data);
-                    $notification.post("巴哈姆特", "广告签到失败", data, "crazyanime://", 0);
+                    $notification.post("巴哈姆特", "广告签到失败", data, "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/bahamut2.png");
                 }
                 $done({ body: data }); // 延迟结束脚本
             }
