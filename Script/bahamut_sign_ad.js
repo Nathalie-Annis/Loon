@@ -2,7 +2,7 @@ if (!$response.body) {
     console.log('响应体为空');
     $done({});
 }
-if ($persistentStore.read([]) == true) {
+if ($persistentStore.read(["baha_sign_ad"]) == true) {
     console.log('已经在签到了');
     $done();
 }
@@ -10,8 +10,7 @@ if ($persistentStore.read([]) == true) {
 let json = JSON.parse($response.body);
 if (json?.data?.finished === 0) {
     console.log('开始广告签到');
-    let signing = true;
-    $persistentStore.write(signing, []);
+    $persistentStore.write(true, ["baha_sign_ad"]);
     let attach = {
         "mediaUrl": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/bahamut2.png",
     }
@@ -43,8 +42,7 @@ if (json?.data?.finished === 0) {
                     $notification.post("巴哈姆特", "广告签到失败", data, attach);
                 }
             }
-            signing = false;
-            $persistentStore.write(signing, []);
+            $persistentStore.write(false, [baha_sign_ad]);
             $done({ body: data });
         });
     }, 30000); // 等待30秒
