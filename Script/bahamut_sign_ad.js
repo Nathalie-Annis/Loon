@@ -2,13 +2,19 @@ if (!$response.body) {
     console.log('响应体为空');
     $done({});
 }
+if ($persistentStore.read([]) == true) {
+    console.log('已经在签到了');
+    $done();
+}
 
 let json = JSON.parse($response.body);
-let attach = {
-    "mediaUrl": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/bahamut2.png",
-}
 if (json?.data?.finished === 0) {
     console.log('开始广告签到');
+    let signing = true;
+    $persistentStore.write(signing, []);
+    let attach = {
+        "mediaUrl": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/bahamut2.png",
+    }
     $notification.post("巴哈姆特", "开始广告签到", "等待30秒后完成签到", attach);
 
     let url = $request.url.replace("start", "finished");
@@ -29,16 +35,17 @@ if (json?.data?.finished === 0) {
             } else {
                 json = JSON.parse(data);
                 if (json?.data?.finished === 1) {
-                    console.log(json);
                     console.log('广告签到完成');
-                    $notification.post("巴哈姆特", "广告签到完成", "今日获得双倍巴币", attach);
+                    $notification.post("巴哈姆特", "广告签到完成", "今日已获得双倍巴币", attach);
                 }
                 else {
                     console.log('广告签到失败:\n' + data);
                     $notification.post("巴哈姆特", "广告签到失败", data, attach);
                 }
-                $done({ body: data }); // 延迟结束脚本
             }
+            signing = false;
+            $persistentStore.write(signing, []);
+            $done({ body: data });
         });
     }, 30000); // 等待30秒
 } else {
@@ -46,7 +53,7 @@ if (json?.data?.finished === 0) {
         console.log('今日已领取过双倍签到奖励');
     }
     else {
-        console.log(json);
+        console.log('异常情况:\n' + JSON.stringify(json));
     }
     $done({});
 }
