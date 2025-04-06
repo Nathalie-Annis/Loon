@@ -18,10 +18,14 @@ async function runs() {
     }
   }
   if (req.url.includes('m3u8.php') && (rsp.message || rsp.error)) {
+    var attach = {
+      "openUrl": "crazyanime://",
+      "mediaUrl": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/bahamut.png",
+    }
     await adURL('');
-    $notification.post("動畫瘋", "开始观看广告", "[温馨提示]可以切屏做其他事", "crazyanime://", 0)
+    $notification.post("動畫瘋", "开始观看广告", "[温馨提示]可以切屏做其他事", attach)
     await new Promise(r => setTimeout(r, 25000));
-    $notification.post("動畫瘋", "结束观看广告", "[点我跳转]开始愉快的观影吧!", "crazyanime://", 0)
+    $notification.post("動畫瘋", "结束观看广告", "[点我跳转]开始愉快的观影吧!", attach)
     await adURL('end');
     rsp = await playURL();
   }
