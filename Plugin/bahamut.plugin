@@ -8,6 +8,9 @@
 hideAnnounce = switch,true,tag=隐藏首页顶部公告,desc=
 hidePromotion = switch,false,tag=隐藏首页右下角新番情报,desc=
 
+[Rule]
+DOMAIN,googleads.g.doubleclick-cn.net,REJECT
+
 [Rewrite]
 ^https:\/\/api\.gamer\.com\.tw\/mobile_app\/anime\/v1\/vip_info\.php response-body-json-add expire "2099-02-27\x2005:20:14" type "web" info "∞"
 
