@@ -15,9 +15,6 @@ $.pwd = $argument.pwd;
 // 两步验证Token, 16位数, 未设置请保持默认
 $.totp = $argument.totp;
 
-// 是否开启广告签到，true/false，默认关闭 (该功能耗时过长)
-$.needSignAds = $argument.signAds;
-
 // 是否自动签到公会，true/false，默认关闭
 $.needSignGuild = $argument.signGuild;
 
@@ -85,20 +82,17 @@ async function BahamutLogin(retry = 3, interval = 1000) { //登录函数，拿�
 }
 
 function BahamutSign() { //查询巴哈姆特签到Token
-    let temp = '';
     return $.http.get({ //使用get方法 (Promise实例对象) 查询签到Token
         url: 'https://www.gamer.com.tw/ajax/get_csrf_token.php', // 查询Token接口
         headers: {} //请求头, 客户端将自动设置Cookie字段
     }).then(async (resp) => { //网络请求成功的处理, 实例函数带有async关键字, 表示里面有异步操作
         if (resp.body) { //如果签到Token获取成功
-            temp = resp.body;
             $.log('', '✅获取签到令牌成功'); //打印日志
             const sign = await StartSignBahamut(resp.body); //带上Token开始签到
             $.notifyMsg.push(`主页签到: 成功, 已连续签到${sign}天`); //添加到全局变量备用 (通知)
             if (sign % 7 === 0) {
                 $.notifyMsg.push(`\n🪙今天签到获得大量巴币，建议执行广告签到`);
             }
-            await StartAdsBonus(resp.body.slice(0, 16), 'start'); //执行广告签到
         } else { //否则抛出异常
             throw new Error('获取签到令牌失败'); //带上原因被下面catch捕获
         }
@@ -106,8 +100,6 @@ function BahamutSign() { //查询巴哈姆特签到Token
         .catch(err => {
             $.notifyMsg.push(`主页签到: ${err.message || err}`); //添加到全局变量备用 (通知)
             $.log('', `❌巴哈姆特签到失败`, `❌${err.message || err}`);
-            console.log(temp);
-            StartAdsBonus(temp.slice(0, 16), 'start'); //执行广告签到
         }); // 捕获异常, 打印日志
 }
 
@@ -133,41 +125,6 @@ function StartSignBahamut(token) { //巴哈姆特签到
                 throw new Error(failMsg || body.message || '未知'); //带上原因抛出异常
             }
         }); //未写catch，如果签到失败或其他错误，则被调用该函数时的catch捕获
-}
-
-function StartAdsBonus(token, type) {
-    if ($.needSignAds === false || $.needSignAds === 'false') { //如果用户选择不签到广告
-        console.log('不开启广告签到')
-        return; //退出广告签到函数
-    }
-    return $.http.post({ //使用post方法 (Promise实例对象) 进行签到
-        url: 'https://api.gamer.com.tw/mobile_app/bahamut/v1/sign_in_ad_' + type + '.php', //双倍巴币广告奖励接口
-        headers: {
-            'X-Bahamut-Csrf-Token': token, //前16位签到Token
-            'Cookie': `ckBahamutCsrfToken=${token};${$.BAHARUNE}` //前16位签到Token和重新设置的Cookie
-        }
-    })
-        .then(async (res) => { //网络请求成功的处理, 实例函数带有async关键字, 表示里面有异步操作
-            const body = JSON.parse(res.body); //解析响应体json为对象
-            if (body.data && body.data.finished == 0 && type == 'start') { //如果成功激活广告奖励
-                $.log('', '🔶正在执行广告签到 (30s)'); //打印日志
-                console.log('', '🔶正在执行广告签到 (30s)'); //打印日志
-                await $.wait(30000); //等待30秒
-                await StartAdsBonus(token, 'finished'); //领取奖励函数
-            } else if (body.data && body.data.finished == 1) { //如果广告奖励领取成功
-                $.log('', '✅领取广告奖励成功'); //打印日志
-                console.log('', '✅领取广告奖励成功'); //打印日志
-                $.notifyMsg.push('广告签到: 成功, 已领取双倍签到奖励'); //添加到全局变量备用 (通知)
-            } else {
-                const failMsg = body.error ? body.error.message : null; //判断签到失败原因
-                throw new Error(failMsg || body.message || '未知'); //带上原因抛出异常
-            }
-        })
-        .catch(err => {
-            console.log('广告签到失败:\n' + err); //打印日志
-            $.notifyMsg.push(`广告签到: ${err.message || err}`); //添加到全局变量备用 (通知)
-            $.log('', `❌广告奖励签到失败`, `❌${err.message || err}`);
-        }); // 捕获异常, 打印日志
 }
 
 function BahamutGuildSign() { //巴哈姆特查询公会列表
@@ -250,8 +207,6 @@ function BahamutAnswer() { //动画疯答题
             if (r.token) { //如果有题目
                 $.log('', `✅获取动画疯题目成功`, ``, `🔶<${r.game}> ${r.question}`,
                     `1️⃣${r.a1}`, `2️⃣${r.a2}`, `3️⃣${r.a3}`, `4️⃣${r.a4}`); //打印日志
-                console.log('', `✅获取动画疯题目成功`, ``, `🔶<${r.game}> ${r.question}`,
-                    `1️⃣${r.a1}`, `2️⃣${r.a2}`, `3️⃣${r.a3}`, `4️⃣${r.a4}`); //打印日志
                 const article = await GetAanswerArticles(); //获取答案文章ID
                 const getAnswer = await StartSearchAnswers(article); //传入文章ID, 再从文章内获取答案
                 const sendAnswer = await StartBahamutAnswer(getAnswer, r.token); //传入答案和题目令牌, 开始答题
@@ -310,7 +265,6 @@ function StartSearchAnswers(id) { //获取文章内答案
             const answers = body.content.split(/A:(\d)/)[1]; //正则提取答案
             if (answers) { //如果成功提取答案
                 $.log('', `✅获取答案成功 (${answers})`); //打印日志
-                console.log('', `✅获取答案成功 (${answers})`); //打印日志
                 return answers; //返回答案
             } else { //否则带上原因抛出异常, 被调用该函数时的catch捕获
                 throw new Error('提取答案失败');
