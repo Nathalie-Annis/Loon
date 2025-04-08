@@ -1,5 +1,5 @@
-#!name= 动画疯去广告
-#!desc= 屏蔽动画疯播放广告(黑屏25s,服务器有广告播放时间验证),添加Loon通知提示,播放完成后可点击跳回动画疯观看。
+#!name= 动画疯增强
+#!desc= 精简首页,屏蔽动画疯播放广告(黑屏25s,期间可切屏),完成后Loon推送通知,可点击跳回动画疯观看。提供自动签到功能。
 #!author = Nathalie Annis
 #!homepage = https://github.com/Nathalie-Annis/Loon/
 #!icon = https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/bahamut.png
@@ -12,7 +12,6 @@ time = input,"0 8 * * *",tag=每日签到时间,desc=
 uid = input,"",tag=用户名,desc=
 pwd = input,"",tag=用户密码,desc=
 totp = input,"",tag=两步验证Token,desc=16位,关闭请留空
-signAds = switch,false,tag=广告签到,desc=
 signGuild = switch,false,tag=工会签到,desc=
 animeAnswer = switch,true,tag=动漫通答题,desc=
 
@@ -25,7 +24,7 @@ DOMAIN,googleads.g.doubleclick-cn.net,REJECT
 [Script]
 http-response ^https:\/\/api\.gamer\.com\.tw\/anime\/v1\/index\.php script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bahamut_index.js, requires-body=true, argument=[{hideAnnounce},{hidePromotion}], tag=精简首页
 http-response ^https:\/\/api\.gamer\.com\.tw\/mobile_app\/anime\/v\d/(token|m3u8).php\? requires-body=true, timeout=40, script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bahamut_video_ad.js, tag=屏蔽动画疯广告
-cron {time} script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bahamut_sign.js, timeout=300, argument = [{uid},{pwd},{totp},{signAds},{signGuild},{animeAnswer}], enable={sign}, tag=巴哈每日签到
+cron {time} script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bahamut_sign.js, timeout=300, argument = [{uid},{pwd},{totp},{signGuild},{animeAnswer}], enable={sign}, tag=巴哈每日签到
 http-response ^https:\/\/api\.gamer\.com\.tw\/mobile_app\/bahamut\/v1\/sign_in_ad_start\.php requires-body=true,timeout=40,script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bahamut_sign_ad.js,tag=巴哈广告签到
 
 [MITM]

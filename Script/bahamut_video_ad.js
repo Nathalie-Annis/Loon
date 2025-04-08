@@ -1,3 +1,6 @@
+/************************
+修改自NobyDa动画疯屏蔽播放广告脚本 https://raw.githubusercontent.com/NobyDa/Script/master/Bahamut/BahamutAnimeAds.js
+************************/
 let [req, rsp] = [$request, JSON.parse($response.body || '{}')];
 
 runs().catch((err) => {
