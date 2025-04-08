@@ -134,7 +134,7 @@ function StartSignBahamut(token) { //巴哈姆特签到
 
 function StartAdsBonus(token, type) {
     if ($.needSignAds === false || $.needSignAds === 'false') { //如果用户选择不签到广告
-        console.log
+        console.log('不开启广告签到')
         return; //退出广告签到函数
     }
     return $.http.post({ //使用post方法 (Promise实例对象) 进行签到
@@ -148,10 +148,12 @@ function StartAdsBonus(token, type) {
             const body = JSON.parse(res.body); //解析响应体json为对象
             if (body.data && body.data.finished == 0 && type == 'start') { //如果成功激活广告奖励
                 $.log('', '🔶正在执行广告签到 (30s)'); //打印日志
+                console.log('', '🔶正在执行广告签到 (30s)'); //打印日志
                 await $.wait(30000); //等待30秒
                 await StartAdsBonus(token, 'finished'); //领取奖励函数
             } else if (body.data && body.data.finished == 1) { //如果广告奖励领取成功
                 $.log('', '✅领取广告奖励成功'); //打印日志
+                console.log('', '✅领取广告奖励成功'); //打印日志
                 $.notifyMsg.push('广告签到: 成功, 已领取双倍签到奖励'); //添加到全局变量备用 (通知)
             } else {
                 const failMsg = body.error ? body.error.message : null; //判断签到失败原因
@@ -159,6 +161,7 @@ function StartAdsBonus(token, type) {
             }
         })
         .catch(err => {
+            console.log('广告签到失败:\n' + err); //打印日志
             $.notifyMsg.push(`广告签到: ${err.message || err}`); //添加到全局变量备用 (通知)
             $.log('', `❌广告奖励签到失败`, `❌${err.message || err}`);
         }); // 捕获异常, 打印日志
