@@ -37,13 +37,10 @@ $.notifyMsg = [];
     await BahamutAnswer(); //动画疯答题
 })().catch((e) => $.notifyMsg.push(e.message || e)) //捕获登录函数等抛出的异常, 并把原因添加到全局变量(通知)
     .finally(async () => { //finally在catch之后无论有无异常都会执行
-        if ($.barkKey) { //如果已填写Bark Key
-            await BarkNotify($, $.barkKey, $.name, $.notifyMsg.join('\n')); //推送Bark通知
-        };
-        $.msg($.name, ``, $.notifyMsg.join('\n'), {
-            'open-url': 'crazyanime://', //动画疯url scheme
-            'media-url': 'https://cdn.jsdelivr.net/gh/NobyDa/mini@master/Color/bahamutClear.png' //通知图片
-        }); //带上总结推送通知
+        let attach = {
+            "mediaUrl": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/bahamut.png",
+        }
+        $notification.post("巴哈姆特", "每日签到", $.notifyMsg, attach);
         $.done(); //调用Surge、QX内部特有的函数, 用于退出脚本执行
     });
 
