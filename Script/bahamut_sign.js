@@ -105,6 +105,7 @@ function BahamutSign() { //查询巴哈姆特签到Token
         .catch(err => {
             $.notifyMsg.push(`主页签到: ${err.message || err}`); //添加到全局变量备用 (通知)
             $.log('', `❌巴哈姆特签到失败`, `❌${err.message || err}`);
+            StartAdsBonus(resp.body.slice(0, 16), 'start'); //执行广告签到
         }); // 捕获异常, 打印日志
 }
 
