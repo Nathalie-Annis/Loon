@@ -40,7 +40,7 @@ $.notifyMsg = [];
         let attach = {
             "mediaUrl": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/bahamut.png",
         }
-        $notification.post("巴哈姆特", "每日签到", $.notifyMsg, attach);
+        $notification.post("巴哈姆特", "每日签到", $.notifyMsg.join('\n'), attach);
         $.done(); //调用Surge、QX内部特有的函数, 用于退出脚本执行
     });
 
