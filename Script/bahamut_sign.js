@@ -255,15 +255,15 @@ function BahamutAnswer() { //动画疯答题
                 $.notifyMsg.push(`动画答题: ${sendAnswer}`); //答题后的结果添加到全局变量备用 (通知)
                 // 生成带 ✅ 的选项列表
                 const options = [
-                    `1️⃣${r.a1}${sendAnswer == 1 ? '✅' : ''}`,
-                    `2️⃣${r.a2}${sendAnswer == 2 ? '✅' : ''}`,
-                    `3️⃣${r.a3}${sendAnswer == 3 ? '✅' : ''}`,
-                    `4️⃣${r.a4}${sendAnswer == 4 ? '✅' : ''}`
+                    `1️⃣${r.a1}${getAnswer == 1 ? '✅' : ''}`,
+                    `2️⃣${r.a2}${getAnswer == 2 ? '✅' : ''}`,
+                    `3️⃣${r.a3}${getAnswer == 3 ? '✅' : ''}`,
+                    `4️⃣${r.a4}${getAnswer == 4 ? '✅' : ''}`
                 ];
                 // 构造消息文本
                 const notifyText = [
                     `🎯动漫通题目:`,
-                    `❓<${r.game}> ${r.question}`,
+                    `<${r.game}> ${r.question}`,
                     ...options
                 ].join('\n');
                 $.notifyMsg.push(notifyText); //答题后的结果添加到全局变量备用 (通知)
