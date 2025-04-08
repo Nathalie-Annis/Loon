@@ -2,31 +2,30 @@
 修改自NobyDa巴哈姆特签到脚本 https://raw.githubusercontent.com/NobyDa/Script/master/Bahamut/BahamutDailyBonus.js
 ************************/
 
+let uid = $argument.uid;
+let pwd = $argument.pwd;
+let totp = $argument.totp;
+let signAds = $argument.signAds;
+let signGuild = $argument.signGuild;
+let animeAnswer = $argument.animeAnswer;
+
 // 以下全局变量中的持久化接口为BoxJs预留, 以便修改
 // 把兼容函数定义到$中, 以便统一调用
 const $ = new Env('巴哈姆特');
-
 // 用户名
-$.uid = $argument.uid;
-
+$.uid = uid;
 // 用户密码
-$.pwd = $argument.pwd;
-
+$.pwd = pwd;
 // 两步验证Token, 16位数, 未设置请保持默认
-$.totp = $argument.totp;
-
+$.totp = totp;
 // 是否开启广告签到，true/false，默认关闭 (该功能耗时过长)
-$.needSignAds = $argument.signAds;
-
+$.needSignAds = signAds;
 // 是否自动签到公会，true/false，默认关闭
-$.needSignGuild = $argument.signGuild;
-
+$.needSignGuild = signGuild;
 // 是否自动答题动画疯，true/false，默认开启 (不保证100%答题正确)
-$.needAnswer = $argument.animeAnswer;
-
+$.needAnswer = animeAnswer;
 //Bark APP 通知推送Key
 $.barkKey = '';
-
 // 为通知准备的空数组
 $.notifyMsg = [];
 
