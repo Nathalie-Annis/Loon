@@ -85,15 +85,16 @@ async function BahamutLogin(retry = 3, interval = 1000) { //登录函数，拿�
 }
 
 function BahamutSign() { //查询巴哈姆特签到Token
+    let temp = '';
     return $.http.get({ //使用get方法 (Promise实例对象) 查询签到Token
         url: 'https://www.gamer.com.tw/ajax/get_csrf_token.php', // 查询Token接口
         headers: {} //请求头, 客户端将自动设置Cookie字段
     }).then(async (resp) => { //网络请求成功的处理, 实例函数带有async关键字, 表示里面有异步操作
         if (resp.body) { //如果签到Token获取成功
+            temp = resp.body;
             $.log('', '✅获取签到令牌成功'); //打印日志
             const sign = await StartSignBahamut(resp.body); //带上Token开始签到
             $.notifyMsg.push(`主页签到: 成功, 已连续签到${sign}天`); //添加到全局变量备用 (通知)
-            console.log(typeof sign, sign);
             if (sign % 7 === 0) {
                 $.notifyMsg.push(`\n🪙今天签到获得大量巴币，建议执行广告签到`);
             }
@@ -105,8 +106,8 @@ function BahamutSign() { //查询巴哈姆特签到Token
         .catch(err => {
             $.notifyMsg.push(`主页签到: ${err.message || err}`); //添加到全局变量备用 (通知)
             $.log('', `❌巴哈姆特签到失败`, `❌${err.message || err}`);
-            console.log(resp.body);
-            StartAdsBonus(resp.body.slice(0, 16), 'start'); //执行广告签到
+            console.log(temp);
+            StartAdsBonus(temp.slice(0, 16), 'start'); //执行广告签到
         }); // 捕获异常, 打印日志
 }
 
