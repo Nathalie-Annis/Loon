@@ -16,7 +16,7 @@ avatarbox=input,"https://cdn.wtzw.com/bookimg/free/png/17198299375688291.png",ta
 ^https:\/\/api-gw\.wtzw\.com\/mc\/h5\/materials reject
 ^https:\/\/api-gw\.wtzw\.com\/legacy\/api\/v1\/user\/red-point reject
 ^https:\/\/api-bc\.wtzw\.com\/api\/v7\/book-store response-body-json-jq 'del(.data.banners[])'
-^https:\/\/api-bc\.wtzw\.com\/api\/v6\/book-store\/recommend$ response-body-json-jq 'del(.data.sections[3])' 'del(.data.sections[4].books[])'
+^https:\/\/api-bc\.wtzw\.com\/api\/v6\/book-store\/recommend$ response-body-json-jq 'del(.data.sections[3],.data.sections[4].books[])'
 ^https:\/\/xiaoshuo\.wtzw\.com\/api\/v2\/init response-body-json-replace data.teenager_mode {} data.main_activities.popups []
 ^https:\/\/xiaoshuo\.wtzw\.com\/api\/v1\/follow\/friend-list response-body-json-replace data.total_fans_num "9999999"
 
