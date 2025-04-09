@@ -6,6 +6,7 @@
 
 [Rewrite]
 ^https:\/\/m-ad\.tutusouti\.com\/appServiceApi\/search\/question\/SQBanner response-body-json-del data.ecologyBannerSimple
+^https:\/\/api-service\.tutusouti\.com\/appServiceApi\/advertising reject-dict
 ^https:\/\/api-service\.tutusouti\.com\/appServiceApi\/newHomeDisplay\/message reject-dict
 ^https:\/\/api-service\.tutusouti\.com\/appServiceApi\/advertising\/insertAdvertising reject-dict
 ^https:\/\/api-service\.tutusouti\.com\/appServiceApi\/home\/v5\/homeSenseList response-body-json-del data[4].advertiseList data[6].advertiseList data[7].advertiseList

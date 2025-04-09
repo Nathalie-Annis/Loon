@@ -19,6 +19,7 @@ animeAnswer = switch,true,tag=动漫通答题,desc=
 DOMAIN,googleads.g.doubleclick-cn.net,REJECT
 
 [Rewrite]
+^https:\/\/i2\.bahamut\.com\.tw\/JS\/ad\/app_bahamut\.json\?v= response-body-json-replace banner_ios false
 ^https:\/\/api\.gamer\.com\.tw\/mobile_app\/anime\/v1\/vip_info\.php response-body-json-add expire "2099-02-27\x2005:20:14" type "web" info "∞"
 
 [Script]
@@ -28,4 +29,4 @@ cron {time} script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/re
 http-response ^https:\/\/api\.gamer\.com\.tw\/mobile_app\/bahamut\/v1\/sign_in_ad_start\.php requires-body=true,timeout=40,script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bahamut_sign_ad.js,tag=巴哈广告签到
 
 [MITM]
-hostname = api.gamer.com.tw
+hostname = i2.bahamut.com.tw,api.gamer.com.tw
