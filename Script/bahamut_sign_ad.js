@@ -1,4 +1,4 @@
-//进入巴哈姆特app签到页,点击"觀看廣告領取雙倍巴幣"后就不用管了,25秒后会自动完成
+//进入巴哈姆特app签到页,点击"觀看廣告領取雙倍巴幣"后就不用管了,5秒后会自动完成
 if (!$response.body) {
     console.log('响应体为空');
     $done({});
@@ -20,7 +20,7 @@ try {
         let attach = {
             "mediaUrl": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/bahamut2.png",
         }
-        $notification.post("巴哈姆特", "开始广告签到", "等待30秒后完成签到", attach);
+        // $notification.post("巴哈姆特", "开始广告签到", "等待5秒后完成签到", attach);
 
         let url = $request.url.replace("start", "finished");
         let headers = $request.headers;
@@ -51,7 +51,7 @@ try {
                 $persistentStore.write(false, ["baha_sign_ad"]);
                 $done({ body: data });
             });
-        }, 5000); // 等待30秒
+        }, 5000); // 等待5秒
     } else {
         if (json?.data?.finished === 1) {
             console.log('今日已领取过双倍签到奖励');
