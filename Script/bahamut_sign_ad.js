@@ -51,7 +51,7 @@ try {
                 $persistentStore.write(false, ["baha_sign_ad"]);
                 $done({ body: data });
             });
-        }, 25000); // 等待30秒
+        }, 5000); // 等待30秒
     } else {
         if (json?.data?.finished === 1) {
             console.log('今日已领取过双倍签到奖励');
