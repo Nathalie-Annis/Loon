@@ -18,7 +18,7 @@
 ^https:\/\/front-gateway-c\.wandafilm\.com\/misc\/acm\/tab\/list\.api response-body-json-jq 'del(.data[] | select(.tabName != "推荐" and .tabName != "电影+"))'
 ^https:\/\/card-api-prd-mx\.wandafilm\.com\/card\/cinema_cards\.api reject-dict
 ^https:\/\/cms-activity-api-prd-mx\.wandafilm\.com\/activity\/film_detail\.api reject-dict
-^https:\/\/user-api-prd-mx\.wandafilm\.com\/user\/user_points_level_coupon_card_info\.api response-body-json-jq '.data.expiredPointsRemindContent=""'
+^https:\/\/user-api-prd-mx\.wandafilm\.com\/user\/user_points_level_coupon_card_info\.api response-body-json-jq 'if .data.ticketBubble | test("^待评价[0-9]+部$") then .data.ticketBubble = "" else . end | .data.expiredPointsRemindContent = ""'
 
 [MITM]
 hostname = misc-api-prd-mx.wandafilm.com,front-gateway-c.wandafilm.com,card-api-prd-mx.wandafilm.com,cms-activity-api-prd-mx.wandafilm.com,user-api-prd-mx.wandafilm.com
