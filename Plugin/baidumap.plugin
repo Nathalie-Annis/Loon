@@ -9,10 +9,13 @@
 ^https:\/\/map-mobile-resource\.cdn\.bcebos\.com\/icon\/service\/taxi\/default\/poi_fixed_bubble1102\.png reject
 ^https:\/\/map-mobile-resource\.cdn\.bcebos\.com\/icon\/service\/rtbus\/default\/Newunipay%403x\.png reject
 ^https:\/\/map-mobile-resource\.cdn\.bcebos\.com\/icon\/service\/yunying\/default\/xiaohaungtiao_blue@3x\.png reject
+^https:\/\/map-mobile-resource\.cdn\.bcebos\.com\/icon\/service\/yunying\/dark\/xiaohaungtiao_blue@3x\.png reject
 ^https:\/\/map-mobile-resource\.cdn\.bcebos\.com\/icon\/service\/feedback-center\/default\/uc-card-header-logo\.png reject
 ^https:\/\/map-mobile-resource\.cdn\.bcebos\.com\/icon\/rec\/search\/default\/dachedongios\.gif reject-img
 ^https:\/\/map-mobile-resource\.cdn\.bcebos\.com\/icon\/rec\/search\/default\/hongbaojiaobiao\.png reject
+^https:\/\/map-mobile-resource\.cdn\.bcebos\.com\/icon\/rec\/search\/dark\/hongbaojiaobiao\.png reject
 ^https:\/\/map-mobile-opnimg\.cdn\.bcebos\.com\/e006d2b373f9f2a150192136f0ca6261\.gif header https://map-mobile-resource.cdn.bcebos.com/icon/service/trip-helper/default/fankui7.png
+^https:\/\/map-mobile-opnimg\.cdn\.bcebos\.com\/e230f5a27f8e4f3eed9d73e2a75a8ae8\.gif header https://map-mobile-resource.cdn.bcebos.com/icon/service/trip-helper/dark/fankui7.png
 ^https:\/\/map-mobile-opnimg\.cdn\.bcebos\.com\/89b2735170952b29d32c768529712c2d\.gif reject-img
 ^https:\/\/map-mobile-opnimg\.cdn\.bcebos\.com\/b3cfaa3a2942148733a22fbd69bc51ac\.png reject
 ^https:\/\/map-mobile-lbsapp\.cdn\.bcebos\.com\/89a6e47dad19c1dccb6898e781f80864\.png reject
