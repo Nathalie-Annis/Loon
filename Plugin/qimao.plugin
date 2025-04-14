@@ -26,7 +26,7 @@ http-response ^https:\/\/api-cmnt\.wtzw\.com\/api\/v1\/paragraph\/list script-pa
 http-response ^https:\/\/api-bc\.wtzw\.com\/api\/v4\/search\/dispose script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/qimao_search.js, tag=去除搜索框填充词, argument=[{searchOption}]
 http-response ^https:\/\/api-bc\.wtzw\.com\/api\/v5\/search\/hot-word script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/qimao_search2.js, requires-body=true, tag=去除搜索详情页填充词, argument=[{searchOption}]
 http-response ^https:\/\/xiaoshuo\.wtzw\.com\/api\/v3\/user\/my-center script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/qimao_fake.js, requires-body=true, tag=精简&伪装我的页面, argument=[{hideCoin},{hideMessage},{nickname},{avatarbox}]
-http-response ^https:\/\/xiaoshuo\.wtzw\.com\/api\/v1\/user\/page script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/qimao_fake2.js, requires-body=true, tag=伪装用户详情页面, argument=[{nickname},{avatarbox}]
+http-response ^https:\/\/xiaoshuo\.wtzw\.com\/api\/v1\/user\/page\?book_id=&sign= script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/qimao_fake2.js, requires-body=true, tag=伪装用户详情页面, argument=[{nickname},{avatarbox}]
 
 [MITM]
 hostname = api-gw.wtzw.com,api-bc.wtzw.com,api-cmnt.wtzw.com,xiaoshuo.wtzw.com
