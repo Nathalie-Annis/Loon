@@ -1,4 +1,4 @@
-# 高德主页精简by @nathalie
+# 高德主页精简 @nathalie
 # 用户个人信息
 .data.memberInfo.memberLevelName        = "高德达人"       |
 .data.memberInfo.level_name             = "Lv.8"          |
@@ -22,7 +22,7 @@
 # 无用的cardList
 del(
     .data.cardList[] | select(
-        (.content.title | IN("我的钱包", "互动专区"))
+        (.content.title | IN("我的钱包", "互动专区", "语音和车标"))
         or
         (.content.cardTitle | IN("数字资产上新", "出行黑科技", "限时优惠"))
         or
