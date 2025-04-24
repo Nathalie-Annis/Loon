@@ -28,7 +28,7 @@ URL-REGEX,"^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH",REJECT-DICT
 [Rewrite]
 ^https:\/\/app\.bilibili\.com\/x\/v2\/splash\/(?:list|show|event\/list2)\? response-body-json-jq '.data |= with_entries(if .key | IN("show", "event_list") then .value = [] else . end)'
 
-^https:\/\/app\.bilibili\.com\/x\/resource\/show\/tab\/v2\? response-body-json-jq '.data.tab = [ ( .data.tab[] | select(.name == "推荐") ),( .data.tab[] | select(.name == "热门") ),( .data.tab[] | select(.name == "动画") ),( .data.tab[] | select(.name == "影视") ),( .data.tab[] | select(.name == "直播") ) ]' 'del(.data.top[] | select(.name=="游戏中心"))' '.data.bottom = [ ( .data.bottom[] | select(.name == "首页") ),( .data.bottom[] | select(.name == "动态") ),( .data.bottom[] | select(.name == "我的") ) ]'
+^https:\/\/app\.bilibili\.com\/x\/resource\/show\/tab\/v2\? response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_tab.jq"
 
 ^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index\? response-body-json-jq 'if .data.items then .data.items |= map(select((.banner_item == null) and (.ad_info == null) and (.card_goto == "av") and (.card_type | IN("small_cover_v2", "large_cover_single_v9", "large_cover_v1")))) end'
 
