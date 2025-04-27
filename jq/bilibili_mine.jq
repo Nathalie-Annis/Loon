@@ -7,7 +7,10 @@ map(select(.title                # 把 items 里
             ));                  # 否则被过滤掉
 
 # ---------- 删除 ----------
-del(.data.live_tip)                                           # 1. 去掉活动提示条
+del(
+    .data.live_tip, 
+    .data.sections_v2[] | select(.title | IN ("音乐版权科普"))
+)                                                             # 1. 去掉活动提示条&音乐版权科普
 | .data.sections_v2[1].items |=                               # 2-① 保留稿件/直播相关
     keep_titles(["创作中心","稿件管理","主播中心","直播数据"])
 | .data.sections_v2[2].items |=                               # 2-② 保留个人服务相关
