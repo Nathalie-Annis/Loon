@@ -1,0 +1,19 @@
+#!name = GitHub增强
+#!desc = 允许引用Github私有仓库/gist中的订阅分流，重写，脚本等配置文件,并防止GitHub更新资源429问题
+#!author = Nathalie Annis
+#!homepage = https://github.com/Nathalie-Annis/Loon/
+#!icon = https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/github.png
+
+[Argument]
+usePrivate=switch,false,tag=引用私有仓库,desc=使用私有仓库的GitHub地址，默认使用公共仓库
+username=input,"",tag=GitHub用户名,desc=GitHub用户名，私有仓库使用
+token=input,"",tag=GitHub Token,desc=GitHub Token，私有仓库使用
+
+[Rewrite]
+^https:\/\/(((raw|gist)\.githubusercontent)|github)\.com header-replace Accept-Language en-us
+
+[Script]
+http-request ^https?:\/\/(raw|gist)\.githubusercontent.com script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/github_private.js, timeout=20, enabled={usePrivate}, argument=[{username},{token}], tag=引用私有仓库
+
+[MITM]
+hostname = raw.githubusercontent.com,gist.githubusercontent.com,github.com
