@@ -10,7 +10,7 @@ theme=select,"红色(特殊主题)","蓝色(默认主题)","橙色",tag=底栏�
 
 [Rewrite]
 ^https:\/\/api\.369cx\.cn\/v2\/Home\/GetHomePageData response-body-json-jq 'del(.result.banner[])' '.result.homeButton = [ ( .result.homeButton[] | select(.name == "畅游卡") ),( .result.homeButton[] | select(.name == "单次票") ),( .result.homeButton[] | select(.name == "查地铁") ),( .result.homeButton[] | select(.name == "站点地图") ) ]' '.result.searchBarText = ["Ciallo～(∠・ω< )⌒★"]'
-^https:\/\/jngj\.369cx\.cn\/theme\/Version7xx\/HomePage\/Background\/TitleBar\.png header https://github.com/Nathalie-Annis/Loon/raw/main/Icon/369cx_titlebar.png
+^https:\/\/jngj\.369cx\.cn\/theme\/Version7xx\/HomePage\/Background\/TitleBar\.png header https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/369cx_titlebar.png
 
 [Script]
 http-response ^https:\/\/api\.369cx\.cn\/v2\/Splash\/GetSplashAd script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/369cx_start.js, requires-body=true, tag=去除开屏&样式修改, argument=[{color},{theme}]
