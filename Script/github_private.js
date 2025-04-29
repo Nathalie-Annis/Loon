@@ -7,22 +7,11 @@
 
 let username = $argument.username;
 let token = $argument.token;
-let config = {
-    username: username, // username
-    token: token, // token
-};
-
-// load user prefs from box
-const boxConfig = $persistentStore.read("github_private_repo");
-if (boxConfig) {
-    config = JSON.parse(boxConfig);
-}
-
 const userMatch = $request.url.match(
     /https:\/\/(?:raw|gist)\.githubusercontent\.com\/([^\/]+)\//
 )[1];
 // rewrite headers for specific user
-if (userMatch == config.username) {
+if (userMatch == username) {
     console.log(`ACCESSING PRIVATE REPO: ${$request.url}`);
-    $done({ headers: { ...$request.headers, Authorization: `token ${config.token}` } });
+    $done({ headers: { ...$request.headers, Authorization: `token ${token}` } });
 } else $done({});
