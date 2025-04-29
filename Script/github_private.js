@@ -7,11 +7,6 @@
 
 let username = $argument.username;
 let token = $argument.token;
-if (username == '' || token == '') {
-    $notification.post("Github私有仓库", "", "请在Loon插件中填写用户名和token");
-    $done({});
-}
-
 let config = {
     username: username, // username
     token: token, // token
