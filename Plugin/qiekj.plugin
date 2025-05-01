@@ -13,6 +13,7 @@
 ^https:\/\/userapi\.qiekj\.com\/integralRecord\/integralDailStatistics reject-dict
 ^https:\/\/userapi\.qiekj\.com\/local-life reject-dict
 ^https:\/\/userapi\.qiekj\.com\/task reject-dict
+^https:\/\/stars\.qiekj\.com\/schoolife\/poi\/shop\/ranking\/list reject-dict
 
 [MITM]
-hostname = userapi.qiekj.com
+hostname = userapi.qiekj.com,stars.qiekj.com
