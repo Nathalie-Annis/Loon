@@ -9,7 +9,7 @@ color=input,"#ff2d2d",tag=主题颜色,desc=
 theme=select,"红色(特殊主题)","蓝色(默认主题)","橙色",tag=底栏主题,desc=
 
 [Rewrite]
-^https:\/\/api\.369cx\.cn\/v2\/Home\/GetHomePageData response-body-json-jq 'del(.result.banner[])' '.result.homeButton = [ ( .result.homeButton[] | select(.name == "畅游卡") ),( .result.homeButton[] | select(.name == "单次票") ),( .result.homeButton[] | select(.name == "查地铁") ),( .result.homeButton[] | select(.name == "站点地图") ) ]' '.result.searchBarText = ["Ciallo～(∠・ω< )⌒★"]'
+^https:\/\/api\.369cx\.cn\/v2\/Home\/GetHomePageData response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/369cx_home.jq"
 ^https:\/\/jngj\.369cx\.cn\/theme\/Version7xx\/HomePage\/Background\/TitleBar\.png header https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/369cx_titlebar.png
 
 [Script]
