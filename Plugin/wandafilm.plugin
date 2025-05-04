@@ -11,11 +11,11 @@
 ^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?areaSymbol.*?Search mock-response-body data-type=json data-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Response/search.json"
 ^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?pageSymbol.*?TicketOrderList reject-dict
 ^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?Symbol.*?SearchAd reject-dict
-^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?Home_Banner response-body-json-jq 'del(.data.objects["NewHome-&-Home_Banner"])' '.data.objects["NewHome-&-Transformers"] |= map(.tips = "")' 'del(.data.objects["NewHome-&-HBTips"][])'
+^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?Home_Banner response-body-json-jq 'del(.data.objects["NewHome-&-HBTips"],.data.objects["NewHome-&-Home_Banner"]) | .data.objects["NewHome-&-Transformers"][].tips = ""'
 ^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner\.api\?areaSymbol=MovieOnsaleCinema_Banner reject-dict
 ^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner\.api\?areaSymbol=.*?OrderDetail_Ticket reject-dict
 ^https:\/\/front-gateway-c\.wandafilm\.com\/content\/index_content_list\.api reject-dict
-^https:\/\/front-gateway-c\.wandafilm\.com\/misc\/acm\/tab\/list\.api response-body-json-jq 'del(.data[] | select(.tabName != "推荐" and .tabName != "电影+"))'
+^https:\/\/front-gateway-c\.wandafilm\.com\/misc\/acm\/tab\/list\.api response-body-json-jq '.data |= map(select(.tabName | IN("推荐","电影+")))'
 ^https:\/\/card-api-prd-mx\.wandafilm\.com\/card\/cinema_cards\.api reject-dict
 ^https:\/\/cms-activity-api-prd-mx\.wandafilm\.com\/activity\/film_detail\.api reject-dict
 ^https:\/\/user-api-prd-mx\.wandafilm\.com\/user\/user_points_level_coupon_card_info\.api response-body-json-jq 'if .data.ticketBubble | test("^待评价[0-9]+部$") then .data.ticketBubble = "" else . end | .data.expiredPointsRemindContent = ""'
