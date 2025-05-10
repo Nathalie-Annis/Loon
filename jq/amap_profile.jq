@@ -42,7 +42,7 @@ del(
         end
     elif .content.name == "我的车辆" then
         .content.content.desc = " " |
-        .content.servs |= map(select(.name | IN("租车", "我要卖车") | not))
+        .content.servs |= map(select(.name | IN("洗车", "我要卖车") | not))
     else
         .
     end
