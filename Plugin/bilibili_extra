@@ -1,5 +1,3 @@
-#只是为了方便我在已有插件基础上修改插件,并不是一个完整的插件,请勿直接使用
-
 #!name=哔哩哔哩去广告
 #!desc=[可莉插件修改版]搜索框填充词热搜和发现设置开关,优化动画和影视模块,精简分区,支持我的界面和空间个性化显示
 #!openUrl=https://apps.apple.com/app/id736536022
@@ -7,28 +5,34 @@
 #!tag=去广告
 #!system=iOS,iPadOS
 #!system_version=15
-#!loon_version=3.2.4(787)
+#!loon_version=3.2.9(837)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Bilibili.png
 
 [Argument]
-hideSearch = switch,false,tag=隐藏搜索栏热搜和发现,desc=
-uid = input,"",tag=启用伪装空间的用户uid,desc=纯数字,多个用英文逗号,隔开
+showUpList=select,"auto","true","false",tag=[动态]中[最常访问]的显示方式,desc=true: 始终显示\n- false: 始终隐藏\n- auto: 仅当列表中存在直播状态时显示
+filterTopReplies=switch,true,tag=[评论区]过滤置顶评论广告,desc=true: 开启\n- false: 关闭
+enableAirborne=switch,true,tag=[视频内]空降助手,desc=true: 开启\n- false: 关闭
+hideSearch = switch,false,tag=[搜索栏]隐藏热搜和发现,desc=true: 开启\n- false: 关闭
+uid = input,"",tag=[个人空间]伪装空间的用户uid,desc=纯数字；多个uid用英文逗号,隔开；不启用时留空
 
 [Rewrite]
-# 覆盖30行 顶栏、底栏自定义 
+# 覆盖32行 顶栏、底栏自定义 
 ^https:\/\/app\.bilibili\.com\/x\/resource\/show\/tab\/v2\? response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_tab.jq"
 
-# 覆盖37行 影视界面去除banner(12帧)和好奇心周刊,重新排序
+# 覆盖39行 影视界面去除banner(12帧)和好奇心周刊,重新排序
 ^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=cinema_tab response-body-json-jq 'del(.data.modules[] | select(.id == 2038 or .id == 1892)) | .data.modules |= [.[0], .[3], .[2], .[1]] + .[4:]'
-# 加在37行下面 追番界面去除banner(12帧)和付费提示条,重新排序 
+# 加在39行下面 追番界面去除banner(12帧)和付费提示条,重新排序 
 ^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=bangumi_tab response-body-json-jq 'del(.data.modules[] | select(.id == 2015 or .id == 2012)) | .data.modules |= [.[0], .[2], .[1]] + .[3:]'
 
-# 修改42行 移除大会员广告活动入口正则表达式,去除|v2\/search\/square jq重写
+# 修改44行 移除大会员广告活动入口正则表达式,去除|v2\/search\/square jq重写
 
-# 覆盖48行 我的界面自定义(保留创作中心、稿件管理、主播中心、直播数据、我的课程、个性装扮、我的钱包、会员购中心、联系客服、设置),去除livetips活动提示,修改粉丝数和会员图标
+# 50行 禁用节日装扮自动切换与更换个性装扮脚本冲突，自行决定是否启用
+
+# 覆盖52行 我的界面自定义(保留创作中心、稿件管理、主播中心、直播数据、我的课程、个性装扮、我的钱包、会员购中心、联系客服、设置),去除livetips活动提示,修改粉丝数和会员图标
 ^https:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_mine.jq"
 
+# 添加项
 # 会员中心 去弹窗,精简无用推广
 ^https:\/\/api\.bilibili\.com\/x\/vip\/window\/list reject-dict
 ^https:\/\/api\.bilibili\.com\/x\/vip\/web\/vip_center\/v2\? response-body-json-jq '.data.banner=[]' '.data.free_welfare=[]' 'del(.data.welfare)'
@@ -37,8 +41,7 @@ uid = input,"",tag=启用伪装空间的用户uid,desc=纯数字,多个用英文
 ^https:\/\/api\.bilibili\.com\/x\/garb\/popup reject-dict
 
 [Script]
-# Proto处理
-http-response ^https:\/\/(?:grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.(?:app\.(?:interface\.v1\.(?:Teenagers\/ModeStatus|Search\/DefaultWords)|show\.v1\.Popular\/Index|dynamic\.v2\.Dynamic\/DynAll|view(?:unite)?\.v1\.View\/(?:View|ViewProgress|TFInfo|RelatesFeed)|playurl\.v1\.PlayURL\/PlayView|playerunite\.v1\.Player\/PlayViewUnite)|polymer\.app\.search\.v1\.Search\/SearchAll|community\.service\.dm\.v1\.DM\/DmView|main\.community\.reply\.v1\.Reply\/MainList|pgc\.gateway\.player\.v2\.PlayURL\/PlayView)$ script-path=https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/dist/bilibili.protobuf.js, argument=[{showUpList}], requires-body=true, binary-body-mode=true, tag=Proto处理
-# JSON处理
+http-request ^https:\/\/(?:grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.playerunite\.v1\.Player\/PlayViewUnite$ script-path=https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/dist/bilibili.airborne.js, requires-body=true, binary-body-mode=true, enable={enableAirborne}, tag=空降助手
+http-response ^https:\/\/(?:grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.(?:app\.(?:interface\.v1\.(?:Teenagers\/ModeStatus|Search\/DefaultWords)|show\.v1\.Popular\/Index|dynamic\.v2\.Dynamic\/DynAll|view(?:unite)?\.v1\.View\/(?:View|ViewProgress|TFInfo|RelatesFeed)|playurl\.v1\.PlayURL\/PlayView|playerunite\.v1\.Player\/PlayViewUnite)|polymer\.app\.search\.v1\.Search\/SearchAll|community\.service\.dm\.v1\.DM\/DmView|main\.community\.reply\.v1\.Reply\/MainList|pgc\.gateway\.player\.v2\.PlayURL\/PlayView)$ script-path=https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/dist/bilibili.protobuf.js, argument=[{showUpList}, {filterTopReplies}], requires-body=true, binary-body-mode=true, tag=Proto处理
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/search\/square\? script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_search.js,enable={hideSearch},tag=隐藏搜索栏热搜和发现
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/space\?access_key=.*?&vmid=\d+ script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_fake.js,requires-body=true,tag=伪装空间,argument=[{uid}]
