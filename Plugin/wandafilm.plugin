@@ -5,15 +5,12 @@
 #!icon = https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/wandafilm.png
 
 [Rewrite]
-^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?areaSymbol.*?Message reject-dict
-^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?areaSymbol.*?FlashAD reject-dict
-^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?areaSymbol.*?Film_tag_ad reject-dict
+^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?areaSymbol.*?(Message|FlashAD|Film_tag_ad) reject-dict
 ^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?areaSymbol.*?Search mock-response-body data-type=json data-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Response/search.json"
 ^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?pageSymbol.*?TicketOrderList reject-dict
 ^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?Symbol.*?SearchAd reject-dict
 ^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner_batch\.api\?bannerInfos=.*?Home_Banner response-body-json-jq 'del(.data.objects["NewHome-&-HBTips"],.data.objects["NewHome-&-Home_Banner"]) | .data.objects["NewHome-&-Transformers"][].tips = ""'
-^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner\.api\?areaSymbol=MovieOnsaleCinema_Banner reject-dict
-^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner\.api\?areaSymbol=.*?OrderDetail_Ticket reject-dict
+^https:\/\/misc-api-prd-mx\.wandafilm\.com\/commend\/common_banner\.api\?areaSymbol=.*?(MovieOnsaleCinema_Banner|OrderDetail_Ticket|MyTab) reject-dict
 ^https:\/\/front-gateway-c\.wandafilm\.com\/content\/index_content_list\.api reject-dict
 ^https:\/\/front-gateway-c\.wandafilm\.com\/misc\/acm\/tab\/list\.api response-body-json-jq '.data |= map(select(.tabName | IN("推荐","电影+")))'
 ^https:\/\/card-api-prd-mx\.wandafilm\.com\/card\/cinema_cards\.api reject-dict
