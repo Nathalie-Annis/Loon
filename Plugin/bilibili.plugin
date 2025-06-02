@@ -1,69 +1,57 @@
-#!name=哔哩哔哩去广告
-#!desc=[可莉插件修改版]搜索框填充词热搜和发现设置开关,优化动画和影视模块,精简分区,支持我的界面和空间个性化显示
+#!author=kokoryh[https://github.com/kokoryh],Nathalie[https://github.com/Nathalie-Annis/Loon]
+#!name=哔哩哔哩增强
+#!desc=拜托，没有广告的哔哩哔哩真的超酷的
 #!openUrl=https://apps.apple.com/app/id736536022
-#!author=Maasea[https://github.com/Maasea],kokoryh[https://github.com/kokoryh],RuCu6[https://github.com/RuCu6],可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md],Nathalie[https://github.com/Nathalie-Annis/Loon]
-#!tag=去广告
+#!tag=Enhancement
 #!system=iOS,iPadOS
 #!system_version=15
 #!loon_version=3.2.9(837)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Bilibili.png
-#!date = 2025-05-17 00:04:07
+#!date=2025-06-02
 
 [Argument]
 showUpList=select,"auto","true","false",tag=[动态]中[最常访问]的显示方式,desc=true: 始终显示\n- false: 始终隐藏\n- auto: 仅当列表中存在直播状态时显示
 filterTopReplies=switch,true,tag=[评论区]过滤置顶评论广告,desc=true: 开启\n- false: 关闭
-enableAirborne=switch,true,tag=[视频内]空降助手,desc=true: 开启\n- false: 关闭
-hideSearch = switch,false,tag=[搜索栏]隐藏热搜和发现,desc=true: 开启\n- false: 关闭
-uid = input,"",tag=[个人空间]伪装空间的用户uid,desc=纯数字；多个uid用英文逗号,隔开；不启用时留空
+airborne=switch,true,tag=[视频内]空降助手,desc=true: 开启\n- false: 关闭
+hideSearch=switch,false,tag=[搜索栏]隐藏热搜和发现,desc=true: 开启\n- false: 关闭
+uid=input,"",tag=[个人空间]伪装空间的用户uid,desc=纯数字；多个uid用英文逗号,隔开；不启用时留空
 
 [Rule]
-DOMAIN, api.biliapi.com, REJECT
-DOMAIN, api.biliapi.net, REJECT
-DOMAIN, app.biliapi.com, REJECT
-DOMAIN, app.biliapi.net, REJECT
-
-URL-REGEX, "^http:\/\/upos-sz-static\.bilivideo\.com\/ssaxcode\/\w{2}\/\w{2}\/\w{32}-1-SPLASH", REJECT-DICT
-URL-REGEX, "^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH", REJECT-DICT
+DOMAIN,api.biliapi.com,REJECT
+DOMAIN,app.biliapi.com,REJECT
+DOMAIN,api.biliapi.net,REJECT
+DOMAIN,app.biliapi.net,REJECT
 
 [Rewrite]
-^https:\/\/app\.bilibili\.com\/x\/v2\/splash\/(?:list|show|event\/list2)\? response-body-json-jq '.data |= with_entries(if .key | IN("show", "event_list") then .value = [] else . end)'
-
-^https:\/\/app\.bilibili\.com\/x\/resource\/show\/tab\/v2\? response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_tab.jq"
-
-^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index\? response-body-json-jq 'if .data.items then .data.items |= map(select((.banner_item == null) and (.ad_info == null) and (.card_goto == "av") and (.card_type | IN("small_cover_v2", "large_cover_single_v9", "large_cover_v1")))) end'
-
-^https:\/\/api\.bilibili\.com\/pgc\/activity\/deliver\/material\/receive\? mock-response-body data-type=text status-code=200 data="{"code":0,"data":{"closeType":"close_win","container":[],"showTime":""},"message":"success"}"
-^https:\/\/api\.bilibili\.com\/pgc\/view\/v2\/app\/season\? response-body-json-jq 'del(.data.payment)'
-
-^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=cinema_tab response-body-json-jq 'del(.data.modules[] | select(.id == 2038 or .id == 1892)) | .data.modules |= [.[0], .[3], .[2], .[1]] + .[4:]'
-^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=bangumi_tab response-body-json-jq 'del(.data.modules[] | select(.id == 2015 or .id == 2012)) | .data.modules |= [.[0], .[2], .[1]] + .[3:]'
-
-^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index\/story\? response-body-json-jq 'if .data.items then .data.items |= map(select((.ad_info == null) and (.card_goto | startswith("ad") | not)) | del(.story_cart_icon, .free_flow_toast)) end'
-
+^https:\/\/api\.live\.bilibili\.com\/xlive\/e-commerce-interface\/v1\/ecommerce-user\/get_shopping_info\? reject-dict
 ^https:\/\/ap[ip]\.bilibili\.com\/x\/(?:resource\/(?:top\/activity|patch\/tab)|vip\/ads\/materials)\? mock-response-body data-type=text status-code=200 data="{"code":-404,"message":"-404","ttl":1,"data":null}"
+^https:\/\/api\.bilibili\.com\/pgc\/activity\/deliver\/material\/receive\? mock-response-body data-type=text status-code=200 data="{"code":0,"data":{"closeType":"close_win","container":[],"showTime":""},"message":"success"}"
+^https:\/\/(?:grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.interface\.v1\.Teenagers\/ModeStatus$ mock-response-body data-type=base64 data="AAAAABMKEQgCEgl0ZWVuYWdlcnMgAioA" mock-data-is-base64=true
+^https:\/\/(?:grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.interface\.v1\.Search\/DefaultWords$ mock-response-body data-type=base64 data="AAAAACkaHeaQnOe0ouinhumikeOAgeeVquWJp+aIlnVw5Li7IgAoAToAQgBKAA==" mock-data-is-base64=true
+^https:\/\/(?:grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.view\.v1\.View\/TFInfo$ mock-response-body data-type=base64 data="AAAAAAIIAQ==" mock-data-is-base64=true
 
+^https:\/\/api\.bilibili\.com\/pgc\/view\/v2\/app\/season\? response-body-json-jq 'del(.data.payment)'
+^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=bangumi_tab response-body-json-jq 'del(.data.modules[] | select(.id == 2015 or .id == 2012)) | .data.modules |= [.[0], .[2], .[1]] + .[3:]'
+^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=cinema_tab response-body-json-jq 'del(.data.modules[] | select(.id == 2038 or .id == 1892)) | .data.modules |= [.[0], .[3], .[2], .[1]] + .[4:]'
 ^https:\/\/api\.live\.bilibili\.com\/xlive\/(?:app-interface\/v2\/index\/feed|app-room\/v1\/index\/getInfoBy(?:Room|User))\? response-body-json-jq '.data |= (del(.play_together_info, .play_together_info_v2, .activity_banner_info) | if .function_card then .function_card[] = null end | if .new_tab_info.outer_list then .new_tab_info.outer_list |= map(select(.biz_id != 33)) end | if .card_list then .card_list |= map(select(.card_type | IN("banner_v2", "activity_card_v1") | not)) end | reduce ([["show_reserve_status"], false], [["reserve_info", "show_reserve_status"], false], [["shopping_info", "is_show"], 0]) as [$path, $value] (.; if getpath($path) then setpath($path; $value) end))'
 
-^https:\/\/api\.live\.bilibili\.com\/xlive\/e-commerce-interface\/v1\/ecommerce-user\/get_shopping_info\? reject-dict
-
-#^https:\/\/app\.bilibili\.com\/x\/resource\/show\/skin\? response-body-json-del data.common_equip
-
-^https:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_mine.jq"
-
+^https:\/\/app\.bilibili\.com\/x\/resource\/show\/skin\? response-body-json-del data.common_equip
+^https:\/\/app\.bilibili\.com\/x\/resource\/show\/tab\/v2\? response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_tab.jq"
+^https:\/\/app\.bilibili\.com\/x\/v2\/splash\/(?:list|show|event\/list2)\? response-body-json-jq '.data |= with_entries(if .key | IN("show", "event_list") then .value = [] else . end)'
+^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index\? response-body-json-jq 'if .data.items then .data.items |= map(select((.banner_item == null) and (.ad_info == null) and (.card_goto == "av") and (.card_type | IN("small_cover_v2", "large_cover_single_v9", "large_cover_v1")))) end'
+^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index\/story\? response-body-json-jq 'if .data.items then .data.items |= map(select((.ad_info == null) and (.card_goto | startswith("ad") | not)) | del(.story_cart_icon, .free_flow_toast)) end'
+^https:\/\/app\.bilibili\.com\/x\/v2\/account\/mine response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_mine.jq"
 ^https:\/\/app\.bilibili\.com\/x\/v2\/account\/myinfo\? response-body-json-jq '.data.vip |= if . != null and .status == 0 then . + { status: 1, type: 2, due_date: 9005270400000, role: 15 } else . end'
 
 ^https:\/\/api\.bilibili\.com\/x\/vip\/window\/list reject-dict
-
 ^https:\/\/api\.bilibili\.com\/x\/vip\/web\/vip_center\/v2\? response-body-json-jq '.data.banner=[]' '.data.free_welfare=[]' 'del(.data.welfare)'
-
 ^https:\/\/api\.bilibili\.com\/x\/garb\/popup reject-dict
 
 [Script]
-http-request ^https:\/\/(?:grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.playerunite\.v1\.Player\/PlayViewUnite$ script-path=https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/dist/bilibili.airborne.js, requires-body=true, binary-body-mode=true, enable={enableAirborne}, tag=空降助手
-http-response ^https:\/\/(?:grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.(?:app\.(?:interface\.v1\.(?:Teenagers\/ModeStatus|Search\/DefaultWords)|show\.v1\.Popular\/Index|dynamic\.v2\.Dynamic\/DynAll|view(?:unite)?\.v1\.View\/(?:View|ViewProgress|TFInfo|RelatesFeed)|playurl\.v1\.PlayURL\/PlayView|playerunite\.v1\.Player\/PlayViewUnite)|polymer\.app\.search\.v1\.Search\/SearchAll|community\.service\.dm\.v1\.DM\/DmView|main\.community\.reply\.v1\.Reply\/MainList|pgc\.gateway\.player\.v2\.PlayURL\/PlayView)$ script-path=https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/dist/bilibili.protobuf.js, argument=[{showUpList}, {filterTopReplies}], requires-body=true, binary-body-mode=true, tag=Proto处理
-http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/search\/square\? script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_search.js,enable={hideSearch},tag=隐藏搜索栏热搜和发现
-http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/space\?access_key=.*?&vmid=\d+ script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_fake.js,requires-body=true,tag=伪装空间,argument=[{uid}]
+http-request ^https:\/\/(?:grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.playerunite\.v1\.Player\/PlayViewUnite$ script-path=https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/dist/bilibili.airborne.js, requires-body=true, binary-body-mode=true, enable={airborne}, tag=bilibili.airborne
+http-response ^https:\/\/(?:grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.(?:app\.(?:show\.v1\.Popular\/Index|dynamic\.v2\.Dynamic\/DynAll|view(?:unite)?\.v1\.View\/(?:View|ViewProgress|RelatesFeed)|playurl\.v1\.PlayURL\/PlayView|playerunite\.v1\.Player\/PlayViewUnite)|polymer\.app\.search\.v1\.Search\/SearchAll|community\.service\.dm\.v1\.DM\/DmView|main\.community\.reply\.v1\.Reply\/MainList|pgc\.gateway\.player\.v2\.PlayURL\/PlayView)$ script-path=https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/dist/bilibili.protobuf.js, argument=[{showUpList}, {filterTopReplies}, {airborneDm}], requires-body=true, binary-body-mode=true, tag=bilibili.protobuf
+http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/search\/square\? script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_search.js, enable={hideSearch}, tag=bilibili.search
+http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/space\?access_key=.*?&vmid=\d+ script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_fake.js, argument=[{uid}], requires-body=true, tag=bilibili.fake
 
 [MitM]
 hostname = grpc.biliapi.net, app.bilibili.com, api.bilibili.com, api.live.bilibili.com
