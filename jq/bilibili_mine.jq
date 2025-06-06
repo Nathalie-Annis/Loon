@@ -20,3 +20,4 @@ del(.data.live_tip)
 | .data.vip.label.image = "https://i0.hdslb.com/bfs/bangumi/kt/c43d9f30d0026fb3bba3d3823dd0f20c7ccc4f62.png"    # 伪装大会员标签
 | .data.modular_vip_section.title += { text:"Ciallo～(∠・ω< )⌒★", url:"https://b23.tv/d9YZ8f1" }              # 会员中心标题&副标题&活动入口重定向
 | .data.modular_vip_section.subtitle.text = "每天都要开心呀"
+| .data.modular_vip_section.button.text = "会员中心"
