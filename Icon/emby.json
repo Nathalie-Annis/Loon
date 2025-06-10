@@ -1,0 +1,70 @@
+{
+    "name": "Emby透明图标@nathalie",
+    "description": "自用Emby透明图标",
+    "icons": [
+        {
+            "name": "1111",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/1111.png"
+        },
+        {
+            "name": "band1",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/band1.png"
+        },
+        {
+            "name": "band2",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/band2.png"
+        },
+        {
+            "name": "feiyue",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/feiyue.png"
+        },
+        {
+            "name": "jingzhe",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/jingzhe.png"
+        },
+        {
+            "name": "jms",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/jms.png"
+        },
+        {
+            "name": "jsq",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/jsq.png"
+        },
+        {
+            "name": "ll",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/ll.png"
+        },
+        {
+            "name": "moyunge",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/moyunge.png"
+        },
+        {
+            "name": "onyra",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/onyra.png"
+        },
+        {
+            "name": "peach",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/peach.png"
+        },
+        {
+            "name": "pornemby",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/pornemby.png"
+        },
+        {
+            "name": "qdz",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/qdz.png"
+        },
+        {
+            "name": "sdl",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/sdl.png"
+        },
+        {
+            "name": "tanhua",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/tanhua.png"
+        },
+        {
+            "name": "yomo",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/yomo.png"
+        }
+    ]
+}
