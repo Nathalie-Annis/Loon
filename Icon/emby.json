@@ -35,6 +35,10 @@
             "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/ll.png"
         },
         {
+            "name": "misty",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/misty.png"
+        },
+        {
             "name": "moyunge",
             "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/moyunge.png"
         },
@@ -61,6 +65,14 @@
         {
             "name": "tanhua",
             "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/tanhua.png"
+        },
+        {
+            "name": "violet",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/violet.png"
+        },
+        {
+            "name": "yezi",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/yezi.png"
         },
         {
             "name": "yomo",
