@@ -85,6 +85,10 @@
         {
             "name": "yomo",
             "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/yomo.png"
+        },
+        {
+            "name": "reflix",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/reflix.png"
         }
     ]
 }
