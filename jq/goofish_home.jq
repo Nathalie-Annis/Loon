@@ -25,6 +25,26 @@ then
             "widgetId": "38113",
             "showDynamicIcon": "false"
             }]
+        end |
+        if any(.title == "小卖部") 
+        then . 
+        else . + [{
+            "iconUrl": "https://img.alicdn.com/imgextra/i1/O1CN0100GzOQ1rTy5Gf3ju0_!!6000000005633-2-tps-144-144.png",
+            "spm": "a2170.7897990.widgets.17",
+            "title": "小卖部",
+            "targetUrl": "https://h5.m.goofish.com/wow/moyu/moyu-project/mini-detail/pages/theme-new?kun=true&id=0&shoppingGuideThemeId=3585501&bizType=item&taskType=backstage",
+            "clickParam": {
+                "arg1": "Regularentrance",
+                "args": {
+                "idleAdsTaskId": "55038",
+                "location_id": "17",
+                "spm": "a2170.7897990.0.0",
+                "page": "Page_xyHome"
+                }
+            },
+            "widgetId": "",
+            "showDynamicIcon": "false"
+            }]
         end 
         ) |
     .data.homeTopList[0].widgets[0].widgetDO.channelDOList |= reorder(["特惠充值", "小卖部", "鱼鲤鱼鲤", "全部频道", "分类"])
