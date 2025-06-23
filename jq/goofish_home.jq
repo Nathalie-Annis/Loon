@@ -53,7 +53,7 @@ else
 end |
 del(.data.homeTopList[]? | select(.template.name | test("^idlefish_home_widget"))) |
 .data.sections |= map(
-    if .template.name | IN("fish_home_feeds_pager_banner","fish_home_advertise_card_d5","home_fish_real_live_d2","fish_home_content_card","fish_home_feeds_commodity_card_2","fish_home_yunying_card_d3") then 
+    if .template.name | test("fish_home_(advertise_card|content_card|feeds_commodity_card|feeds_pager_banner|yunying_card)|home_fish_real_live") then 
         empty
     else
         del(.data.fishTags.r88)
