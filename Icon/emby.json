@@ -3,6 +3,10 @@
     "description": "自用Emby透明图标",
     "icons": [
         {
+            "name": "105°",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/105°.png"
+        },
+        {
             "name": "1111",
             "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/1111.png"
         },
