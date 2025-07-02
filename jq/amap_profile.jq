@@ -22,11 +22,7 @@
 # 无用的cardList
 del(
     .data.cardList[] | select(
-        (.content.title | IN("我的钱包", "互动专区", "语音和车标", "个性化导航"))
-        or
-        (.content.cardTitle | IN("数字资产上新", "出行黑科技", "限时优惠"))
-        or
-        (.content.more.title | IN("领五一红包"))
+        (.dataKey | IN("MyWalletCard", "GreenTravelCard_function", "PopularActivitiesCard", "MineAssetRenewal", "MineTravelTech", "MineLimitedTimePromotion"))
     )
 ) |
 
