@@ -1,5 +1,5 @@
 if .data.user_equip == null
-then .data = 
+then .data += 
     {
         "user_equip": {
         "package_url": "https://i0.hdslb.com/bfs/garb/zip/61df158ae4ff138f05f4a7f1f645c69bccd1802e.zip",
