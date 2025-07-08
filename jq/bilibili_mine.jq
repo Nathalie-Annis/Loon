@@ -10,7 +10,7 @@ del(.data.live_tip)
         elif $secTitle == "推荐服务"
         then map(select(.title | IN("我的课程","个性装扮","我的钱包","会员购中心")))
         elif $secTitle == "更多服务"
-        then map(select(.title | IN("联系客服","设置")))
+        then map(select(.title | IN("联系客服","设置","我的钱包","稿件管理")))
         else .
         end)
     | select(.items | length>0)                                 # 若被删空就丢弃
