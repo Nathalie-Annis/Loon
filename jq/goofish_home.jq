@@ -45,7 +45,26 @@ then
             "widgetId": "",
             "showDynamicIcon": "false"
             }]
-        end 
+        end |
+        if any(.title == "分类") 
+        then . 
+        else . + [{
+            "showDynamicIcon": "false",
+            "clickParam": {
+                "arg1": "Regularentrance",
+                "args": {
+                    "idleAdsTaskId": "all",
+                    "location_id": "6",
+                    "spm": "a2170.7897990.0.0",
+                    "page": "Page_xyHome"
+                }
+            },
+            "title": "分类",
+            "iconUrl": "https://gw.alicdn.com/imgextra/i1/O1CN01zJIaWx1UvEWFAUu1c_!!6000000002579-2-tps-144-144.png",
+            "spm": "a2170.7897990.widgets.6",
+            "targetUrl": "fleamarket://categorypage"
+            }]
+        end
         ) |
     .data.homeTopList[0].widgets[0].widgetDO.channelDOList |= reorder(["特惠充值", "小卖部", "鱼鲤鱼鲤", "全部频道", "分类"])
 else
