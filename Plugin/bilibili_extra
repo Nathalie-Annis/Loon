@@ -11,6 +11,8 @@ uid=input,"",tag=[个人空间]伪装空间的用户uid,desc=纯数字；多个u
 # 覆盖 特征:api\.bilibili\.com\/pgc\/page\/(bangumi|cinema\/tab)
 ^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=(bangumi_tab|cinema_tab) response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_tabcontent.jq"
 
+# 修改 特征:api\.live\.bilibili\.com\/xlive 添加.card_type | IN() 括号里的"banner_v1"
+
 # 覆盖 与自动更换个性装扮脚本冲突 自行决定是否启用
 # 特征:app\.bilibili\.com\/x\/resource\/show\/skin\? 
 ^https:\/\/app\.bilibili\.com\/x\/resource\/show\/skin\? response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_skin.jq"

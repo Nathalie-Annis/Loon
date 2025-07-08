@@ -1,4 +1,4 @@
-if .data == {}
+if .data.user_equip == null
 then .data = 
     {
         "user_equip": {
