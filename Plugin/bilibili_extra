@@ -11,8 +11,9 @@ uid=input,"",tag=[个人空间]伪装空间的用户uid,desc=纯数字；多个u
 # 覆盖 特征:api\.bilibili\.com\/pgc\/page\/(bangumi|cinema\/tab)
 ^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=(bangumi_tab|cinema_tab) response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_tabcontent.jq"
 
-# 自行决定是否启用
-# 特征:app\.bilibili\.com\/x\/resource\/show\/skin\? 禁用节日装扮自动切换与更换个性装扮脚本冲突
+# 覆盖 与自动更换个性装扮脚本冲突 自行决定是否启用
+# 特征:app\.bilibili\.com\/x\/resource\/show\/skin\? 
+^https:\/\/app\.bilibili\.com\/x\/resource\/show\/skin\? response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_skin.jq"
 
 # 覆盖 特征:app\.bilibili\.com\/x\/resource\/show\/tab\/v2\? 顶栏、底栏自定义 
 ^https:\/\/app\.bilibili\.com\/x\/resource\/show\/tab\/v2\? response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_tab.jq"
