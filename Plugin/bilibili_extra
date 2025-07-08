@@ -1,24 +1,23 @@
-#!author=kokoryh[https://github.com/kokoryh],Nathalie[https://github.com/Nathalie-Annis/Loon]
+#!author=kokoryh[https://github.com/kokoryh],nathalie[https://github.com/Nathalie-Annis/Loon]
 
 [Argument]
-showUpList=select,"auto","true","false",tag=[动态]中[最常访问]的显示方式,desc=true: 始终显示\n- false: 始终隐藏\n- auto: 仅当列表中存在直播状态时显示
-filterTopReplies=switch,true,tag=[评论区]过滤置顶评论广告,desc=true: 开启\n- false: 关闭
-airborne=switch,true,tag=[视频内]空降助手,desc=true: 开启\n- false: 关闭
+# 修改: [视频内]空降助手
 hideSearch=switch,false,tag=[搜索栏]隐藏热搜和发现,desc=true: 开启\n- false: 关闭
 uid=input,"",tag=[个人空间]伪装空间的用户uid,desc=纯数字；多个uid用英文逗号,隔开；不启用时留空
 
 [Rewrite]
-# 修改27行 特征:ap[ip]\.bilibili\.com 去除|v2\/search\/square jq重写
+# 修改: 特征:ap[ip]\.bilibili\.com 去除|v2\/search\/square jq重写
 
-# 覆盖34行 特征:(?:bangumi|cinema\/tab)\?
-^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=(?:bangumi_tab|cinema_tab) response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_tabcontent.jq"
+# 覆盖 特征:api\.bilibili\.com\/pgc\/page\/(bangumi|cinema\/tab)
+^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=(bangumi_tab|cinema_tab) response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_tabcontent.jq"
 
-# 38行 特征:resource\/show\/skin\? 禁用节日装扮自动切换与更换个性装扮脚本冲突，自行决定是否启用
+# 自行决定是否启用
+# 特征:app\.bilibili\.com\/x\/resource\/show\/skin\? 禁用节日装扮自动切换与更换个性装扮脚本冲突
 
-# 覆盖39行 特征:show\/tab\/v2\? 顶栏、底栏自定义 
+# 覆盖 特征:app\.bilibili\.com\/x\/resource\/show\/tab\/v2\? 顶栏、底栏自定义 
 ^https:\/\/app\.bilibili\.com\/x\/resource\/show\/tab\/v2\? response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_tab.jq"
 
-# 覆盖43行 特征:account\/mine(?:\/ipad)?\? 我的界面自定义(保留创作中心、稿件管理、主播中心、直播数据、我的课程、个性装扮、我的钱包、会员购中心、联系客服、设置),去除livetips活动提示,修改粉丝数和会员图标
+# 覆盖 特征:app\.bilibili\.com\/x\/v2\/account\/mine(\/ipad)?\? 我的界面自定义(保留创作中心、稿件管理、主播中心、直播数据、我的课程、个性装扮、我的钱包、会员购中心、联系客服、设置),去除livetips活动提示,修改粉丝数和会员图标
 ^https:\/\/app\.bilibili\.com\/x\/v2\/account\/mine response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_mine.jq"
 
 # 添加项
