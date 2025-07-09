@@ -1,4 +1,4 @@
-//进入巴哈姆特app签到页,点击"觀看廣告領取雙倍巴幣"后就不用管了,5秒后会自动完成
+//进入巴哈姆特app签到页,点击"觀看廣告領取雙倍巴幣"后就不用管了,会自动完成
 if (!$response.body) {
     console.log('响应体为空');
     $done({});
@@ -31,27 +31,25 @@ try {
             alpn: 'h2',
         };
 
-        // 延迟30秒后发起请求，并在请求完成后调用 $done()
-        setTimeout(() => {
-            $httpClient.get(params, function (error, _, data) {
-                if (error) {
-                    console.log('广告签到失败:\n' + error);
-                    $notification.post("巴哈姆特", "广告签到失败", error, attach);
-                } else {
-                    json = JSON.parse(data);
-                    if (json?.data?.finished === 1) {
-                        console.log('广告签到完成');
-                        $notification.post("巴哈姆特", "广告签到完成", "今日已获得双倍巴币", attach);
-                    }
-                    else {
-                        console.log('广告签到失败:\n' + data);
-                        $notification.post("巴哈姆特", "广告签到失败", data, attach);
-                    }
+        // 立即发起请求，并在请求完成后调用 $done()
+        $httpClient.get(params, function (error, _, data) {
+            if (error) {
+                console.log('广告签到失败:\n' + error);
+                $notification.post("巴哈姆特", "广告签到失败", error, attach);
+            } else {
+                json = JSON.parse(data);
+                if (json?.data?.finished === 1) {
+                    console.log('广告签到完成');
+                    $notification.post("巴哈姆特", "广告签到完成", "今日已获得双倍巴币", attach);
                 }
-                $persistentStore.write(false, ["baha_sign_ad"]);
-                $done({ body: data });
-            });
-        }, 5000); // 等待5秒
+                else {
+                    console.log('广告签到失败:\n' + data);
+                    $notification.post("巴哈姆特", "广告签到失败", data, attach);
+                }
+            }
+            $persistentStore.write(false, ["baha_sign_ad"]);
+            $done({ body: data });
+        });
     } else {
         if (json?.data?.finished === 1) {
             console.log('今日已领取过双倍签到奖励');
