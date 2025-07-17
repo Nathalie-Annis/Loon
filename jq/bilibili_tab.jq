@@ -29,7 +29,7 @@ def reorder($order):
         }
     ]
     end |
-    reorder(["推荐","热门","动画","影视","直播"])
+    reorder(["直播","热门","推荐","动画","影视"])
 ) |
 
 .data.top_more |= (
