@@ -1,5 +1,5 @@
 #!name= 动画疯增强
-#!desc= 精简首页,屏蔽动画疯播放广告(黑屏25s,期间可切屏),完成后Loon推送通知,可点击跳回动画疯观看。提供自动签到功能。
+#!desc= 精简首页、屏蔽动画疯播放广告(黑屏25s，期间可切屏)。广告结束后推送通知，可点击跳转动画疯观看。提供签到相关功能。
 #!author = Nathalie Annis
 #!homepage = https://github.com/Nathalie-Annis/Loon/
 #!icon = https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/bahamut.png
@@ -11,7 +11,7 @@ sign = switch,false,tag=巴哈每日签到,desc=
 time = input,"0 8 * * *",tag=每日签到时间,desc=
 uid = input,"",tag=用户名,desc=
 pwd = input,"",tag=用户密码,desc=
-totp = input,"",tag=两步验证Token,desc=16位,关闭请留空
+totp = input,"",tag=两步验证Token,desc=16位，关闭请留空
 signGuild = switch,false,tag=工会签到,desc=
 animeAnswer = switch,true,tag=动漫通答题,desc=
 
