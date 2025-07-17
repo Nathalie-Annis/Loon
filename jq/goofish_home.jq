@@ -71,6 +71,7 @@ else
     .
 end |
 del(.data.homeTopList[]? | select(.template.name | test("^idlefish_home_widget"))) |
+del(.data.widgetReturnDO) |
 .data.sections |= map(
     if .template.name | test("fish_home_(advertise_card|channel_standard_card|content_card|feeds_commodity_card|feeds_pager_banner|yunying_card)|home_fish_real_live") then 
         empty
