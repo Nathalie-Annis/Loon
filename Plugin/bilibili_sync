@@ -1,16 +1,19 @@
-https://github.com/kokoryh/Sparkle/blob/master/release/loon/plugin/bilibili.plugin
+# 此文件用于同步上游
+# https://github.com/kokoryh/Sparkle/blob/master/release/loon/plugin/bilibili.plugin
 
+#!name=哔哩哔哩增强
+#!desc=[粉白通用]拜托，没有广告的哔哩哔哩真的超酷的
 #!author=kokoryh[https://github.com/kokoryh],nathalie[https://github.com/Nathalie-Annis/Loon]
 
 [Argument]
-# 修改: [视频内]空降助手
+# 修改: [视频内]空降助手 [系统]日志等级
 hideSearch=switch,false,tag=[搜索栏]隐藏热搜和发现,desc=true: 开启\n- false: 关闭
 uid=input,"",tag=[个人空间]伪装空间的用户uid,desc=纯数字；多个uid用英文逗号,隔开；不启用时留空
 
 [Rewrite]
 # 修改: 特征:ap[ip]\.bilibili\.com 去除|v2\/search\/square jq重写
 
-# 覆盖 特征:api\.bilibili\.com\/pgc\/page\/(bangumi|cinema\/tab)
+# 添加 特征:api\.bilibili\.com\/pgc\/view\/v2\/app\/season\? 下方
 ^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=(bangumi_tab|cinema_tab) response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_tabcontent.jq"
 
 # 修改 特征:api\.live\.bilibili\.com\/xlive 添加.card_type | IN( 括号里的"banner_v1", 
