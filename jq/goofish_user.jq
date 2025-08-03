@@ -7,8 +7,8 @@ def reorder($order):
     if .template.name == "my_fy25_user_info" then
         .item.level.exContent += {
             "tag": {
-                    "bgColor": "#00471E",
-                    "text": "瓏"
+                  "bgColor": "#00471E",
+                  "text": "瓏"
                 },
             "tips": "𝓒𝓲𝓪𝓵𝓵𝓸～(∠・ω< )⌒☆ 每天都要开心呀～ ",
             "image": "https://gw.alicdn.com/imgextra/i1/O1CN01jZgEHi1HtJqPTQqj3_!!6000000000815-2-tps-264-264.png",
@@ -16,6 +16,8 @@ def reorder($order):
             "swiper": []
         }
     elif .template.name == "my_fy25_slider" then
+        empty
+    elif .template.name == "my_fy25_recycle" then
         empty
     elif .template.name == "xianyu_home_fish_my_banner_card_2023" then
         empty
