@@ -1,7 +1,7 @@
 #!name=拼多多去广告
 #!desc=移除开屏广告、底栏多多视频、会场入口、聊天页面精选推荐及推广，精简首页和个人中心。
 #!openUrl=https://apps.apple.com/app/id1044283059
-#!author=RuCu6[https://github.com/RuCu6], ZenmoFeiShi[https://github.com/ZenmoFeiShi], 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!author=RuCu6[https://github.com/RuCu6], ZenmoFeiShi[https://github.com/ZenmoFeiShi], 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md], nathalie[https://github.com/Nathalie-Annis]
 #!tag=去广告
 #!system=
 #!system_version=
@@ -36,11 +36,8 @@ DOMAIN, th.pinduoduo.com, REJECT
 ^https:\/\/api\.pinduoduo\.com\/search response-body-json-del expansion^https:\/\/api\.pinduoduo\.com\/search response-body-json-del expansion
 ^https:\/\/api\.pinduoduo\.com\/search_hotquery\? reject-dict^https:\/\/api\.pinduoduo\.com\/search_hotquery\? reject-dict
 
-# 搜索词推荐、横幅模块
-^https:\/\/api\.pinduoduo\.com\/api\/alexa\/homepage\/hub\? response-body-json-del result.search_bar_hot_query result.dy_module.irregular_banner_dy^https:\/\/api\.pinduoduo\.com\/api\/alexa\/homepage\/hub\? response-body-json-del result.search_bar_hot_query result.dy_module.irregular_banner_dy
-
 # 精简首页
 ^https:\/\/api\.pinduoduo\.com\/api\/alexa\/homepage\/hub response-body-json-jq 'del(.result.bottom_tabs[] | select(.title!="首页" and .title!="聊天" and .title!="个人中心"))' 'del(.result.dy_module)' '.result.icon_set |= map(select(.title | IN("限时秒杀", "潮流好价", "9块9特卖", "补贴多人团", "超级满减")))' '.result.icon_fold_zone={"title": "其他","link_url": "home-lego-pages.html?lego_minversion=5.78.0&lego_type=v8&lego_ssr_api=%2Fapi%2Fhome-lego-pages%2Fget_config%2Fpdd_home_quick_entrance_pop"}' '.result.all_top_opts |= map(select(.opt_name | IN("母婴", "女装", "美妆", "内衣", "水果") | not))' '.result.icon_set[].style_image=""' '.result.icon_set[0].image="https://commimg.pddpic.com/oms_img_ng/2023-06-27/24471cd2-1dc7-44e5-8d6c-c77f2023df4b.png"' '.result.search_bar_hot_query.shade.query=""' '.result.icon_set[1].image="https://commimg.pddpic.com/oms_img_ng/2023-08-01/4ebf26ec-db08-44f0-a655-d9e2107034bd.png"' '.result.icon_set[2].image="https://commimg.pddpic.com/oms_img_ng/2025-03-09/f1356975-3187-4df0-9a87-e2b05c9d7996.jpeg"'
 
 [MitM]
-hostname=api.pinduoduo.com, api.yangkeduo.comhostname=api.pinduoduo.com, api.yangkeduo.com
+hostname=api.pinduoduo.com, api.yangkeduo.com

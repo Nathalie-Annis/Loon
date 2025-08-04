@@ -1,6 +1,6 @@
 #!name= 动画疯增强
 #!desc= 精简首页、屏蔽动画疯播放广告(黑屏25s，期间可切屏)。广告结束后推送通知，可点击跳转动画疯观看。提供签到相关功能。
-#!author = Nathalie Annis
+#!author = nathalie[https://github.com/Nathalie-Annis]
 #!homepage = https://github.com/Nathalie-Annis/Loon/
 #!icon = https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/bahamut.png
 
