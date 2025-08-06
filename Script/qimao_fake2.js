@@ -3,9 +3,21 @@ if (!$response.body) {
     $done({});
 }
 
-let json = JSON.parse($response.body);
+let idMatch = $request.url.match(/&uid=(\d+)$/);
+let id = idMatch ? idMatch[1] : null;
+console.log("当前访问的用户ID:" + id);
 let nickname = $argument.nickname;
 let avatarbox = $argument.avatarbox;
+let userID = $argument.userID;
+console.log("我的用户ID:" + userID);
+
+if (!(id == userID)) {
+    console.log("正常访问");
+    $done({});
+}
+
+console.log("启用伪装");
+let json = JSON.parse($response.body);
 
 if (json?.data?.extra_info_list?.length > 2) {
     json.data.extra_info_list[0].value = "9999999";
