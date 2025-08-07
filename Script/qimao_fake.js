@@ -25,12 +25,12 @@ if (json?.data?.user_area?.base_info) {
     if (json?.data.user_area.base_info.user_other_data?.length > 0) {
         json.data.user_area.base_info.user_other_data[0].num = "9999999";
     }
-    json.data.user_area.base_info.level_text = "50";
+    json.data.user_area.base_info.level_text = "80";
     if (nickname !== "") {
         json.data.user_area.base_info.nickname = nickname;
     }
     json.data.user_area.base_info.is_vip = "ODYxNjU2NDI5OTM5MzU1NkgqHtLCbFbu2ZpYZWZju3vXXGg6+PwVxDNDBV14nQDA";
-    json.data.user_area.base_info.level_icon = "https://cdn.wtzw.com/bookimg/free/images/app/1_0_0/level/level_icon_50.png";
+    json.data.user_area.base_info.level_icon = "https://cdn.wtzw.com/bookimg/free/images/app/1_0_0/level/level_icon_80.png";
 }
 
 // 修改用户我的金币/今日金币/今日听读信息
@@ -58,17 +58,24 @@ try {
                 if (hideCoin) {
                     return false;  // 如果 hideCoin 为 true，删除类型为 "ads" 的元素
                 } else {
-                    // 修改 item.list，过滤出不包含 "防诈骗指南" 的元素
-                    item.list = item.list.filter(subItem => subItem?.discover_name !== "防诈骗指南");
-                    return true;  // 保留当前 "ads" 类型的元素
+                    // 修改 item.list，保留包含抽奖的元素
+                    item.list = item.list.filter(subItem =>
+                        ["xingyunqi", "wode_faxian_shouji"].includes(subItem?.statistical_code)
+                    );
+                    return item.list.length > 0;  // 如果还有剩余子项就保留
                 }
             }
             else if (item?.type === "other") {
-                // 修改 item.list，保留特定 discover_name 的项
-                item.list = item.list.filter(subItem =>
-                    ["我的评论", "阅读喜好", "帮助与反馈", "设置"].includes(subItem?.first_title)
-                );
-                return true;  // 保留当前 "other" 类型的元素
+                const otherItemOrder = ["下载管理", "我的评论", "我的等级", "阅读喜好", "设置", "我来推书", "必读票", "成为作家"]; // 白名单和排序顺序
+                item.list = item.list
+                    .filter(subItem =>
+                        otherItemOrder.includes(subItem?.first_title)
+                    )
+                    .sort((a, b) =>
+                        otherItemOrder.indexOf(a.first_title) - otherItemOrder.indexOf(b.first_title)
+                    );
+                // 过滤后如果为空，整个 item 被移除
+                return item.list.length > 0;
             }
             else {
                 return true;  // 保留其他类型的元素
