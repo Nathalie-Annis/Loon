@@ -51,7 +51,7 @@ DOMAIN-SUFFIX,chat.bilibili.com,REJECT
 ^https:\/\/app\.bilibili\.com\/x\/v2\/account\/myinfo\? response-body-json-jq '.data.vip |= if . != null and .status == 0 then . + { status: 1, type: 2, due_date: 9005270400000, role: 15 } else . end'
 
 ^https:\/\/api\.bilibili\.com\/x\/vip\/window\/list reject-dict
-^https:\/\/api\.bilibili\.com\/x\/vip\/web\/vip_center\/v2\? response-body-json-jq '.data.banner=[]' '.data.free_welfare=[]' 'del(.data.welfare)'
+^https:\/\/api\.bilibili\.com\/x\/vip\/web\/vip_center\/v2\? response-body-json-jq '.data.banner=[]' '.data.free_welfare=[]' 'del(.data.welfare,.data.buoy)'
 ^https:\/\/api\.bilibili\.com\/x\/garb\/popup reject-dict
 ^https:\/\/mall\.bilibili\.com\/mall-c-search\/home\/index\/v2 response-body-json-replace data.vo.searchUrl.titleVoList []
 

@@ -9,11 +9,11 @@ del(.data.live_tip)
         then map(select(.title | IN("创作中心","稿件管理","主播中心","直播数据")))
         elif $secTitle == "推荐服务"
         then map (
-            if .title == "会员购中心" and has("uri")
+            if (.title | IN("会员购中心","会员购")) and has("uri")
             then .uri = "bilibili://mall/home"
             else .
             end |
-            select(.title | IN("我的课程","个性装扮","我的钱包","会员购中心"))
+            select(.title | IN("我的课程","个性装扮","我的钱包","会员购中心","会员购"))
         )
         elif $secTitle == "更多服务"
         then map(select(.title | IN("联系客服","设置")))
