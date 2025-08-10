@@ -1,5 +1,5 @@
 #!name = 七猫小说去广告
-#!desc = [配合越狱插件使用]去除启动弹窗、热门和图书中的横幅广告、金币签到页广告、底栏书城签到红点标识、青少年模式提醒，精简图书标签和我的页面，提供伪造功能和精简功能开关。仅在7.62.20版本下测试。
+#!desc = [配合越狱插件使用]去除热门和图书中的横幅广告、底栏书城红点标识，精简图书标签和我的页面，提供自定义伪装和精简功能。仅在7.62.20版本下测试。
 #!author = nathalie[https://github.com/Nathalie-Annis]
 #!homepage = https://github.com/Nathalie-Annis/Loon/
 #!icon = https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/qimao.png
@@ -16,6 +16,7 @@ avatarbox=input,"https://cdn.wtzw.com/bookimg/free/png/17198299375688291.png",ta
 [Rewrite]
 ^https:\/\/api-gw\.wtzw\.com\/mc\/h5\/materials reject
 ^https:\/\/api-gw\.wtzw\.com\/legacy\/api\/v1\/user\/red-point reject
+^https:\/\/api-cmnt\.wtzw\.com\/api\/v1\/comment\/book-(evaluates|discussion)\? response-body-json-del data.activity
 ^https:\/\/api-bc\.wtzw\.com\/api\/v(1\/(leader-board|must-read-more|(secondary-)?book-store(\/rank-tag)?)|5\/(category\/get-list|book-store\/recommend)|6\/book-store\/(recommend|tag)|[47]\/book-store) response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/qimao_tag.jq"
 ^https:\/\/xiaoshuo\.wtzw\.com\/api\/v2\/init response-body-json-replace data.teenager_mode {} data.main_activities.popups []
 ^https:\/\/xiaoshuo\.wtzw\.com\/api\/v1\/follow\/friend-list response-body-json-replace data.total_fans_num "9999999"
