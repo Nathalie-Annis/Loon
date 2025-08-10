@@ -1,5 +1,8 @@
 if .data.books then
-    del(.data.books[].tag_type)
+    del(.data.books[].tag_type) |
+    if .data.month_books then
+        del(.data.month_books[].tag_type)
+    end
 elif .data.list then
     del(.data.list[].tag_type,.data.list[].book_list[]?.tag_type)
 elif .data.sections then

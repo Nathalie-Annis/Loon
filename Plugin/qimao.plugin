@@ -1,5 +1,5 @@
 #!name = 七猫小说去广告
-#!desc = [配合越狱插件使用]去除启动弹窗、热门和图书中的横幅广告、金币签到页广告、底栏书城签到红点标识、青少年模式提醒，精简我的页面，提供伪造功能和精简功能开关。仅在7.62.20版本下测试。
+#!desc = [配合越狱插件使用]去除启动弹窗、热门和图书中的横幅广告、金币签到页广告、底栏书城签到红点标识、青少年模式提醒，精简图书标签和我的页面，提供伪造功能和精简功能开关。仅在7.62.20版本下测试。
 #!author = nathalie[https://github.com/Nathalie-Annis]
 #!homepage = https://github.com/Nathalie-Annis/Loon/
 #!icon = https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/qimao.png
