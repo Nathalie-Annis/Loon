@@ -49,4 +49,4 @@ def reorder($order):
 
 .data.top |= map(select(.name | IN("游戏中心") | not)) |
 
-.data.bottom |= reorder(["首页","动态","我的"])
+.data.bottom |= reorder(["首页","关注","动态","我的"])
