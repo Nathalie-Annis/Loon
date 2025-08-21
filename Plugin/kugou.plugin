@@ -1,0 +1,37 @@
+#!name=酷狗概念版增强
+#!desc=去除启动广告，自动领取VIP
+#!homepage=https://raw.githubusercontent.com/Alex0510/Eric/master/surge/Module/kugou.sgmodule
+#!icon=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/kugou.png
+#!tag=酷狗概念版
+
+[Argument]
+sign = switch,false,tag=开启每日签到,desc=
+time = input,"0 8 * * *",tag=每日签到时间,desc=
+
+[Rule]
+URL-REGEX,"https://gateway.kugou.com/ads.gateway/.*",REJECT
+URL-REGEX,"https://gateway3.kugou.com/ads.gateway/.*",REJECT
+URL-REGEX,"https://gatewayretry.kugou.com/ads.gateway/.*",REJECT
+URL-REGEX,"https://gateway.kugou.com/youth/api/user/v1/init.*",REJECT
+URL-REGEX,"^http:\/\/mobilelog\.kugou\.com\/adtrackconfig\.json$",REJECT
+URL-REGEX,"https://tmeadcomm.y.qq.com/maproxy/getPbCompressAd",REJECT
+DOMAIN-SUFFIX,adservice.kugou.com,REJECT
+DOMAIN-SUFFIX,install2.kugou.com,REJECT
+DOMAIN-SUFFIX,adstats.tencentmusic.com,REJECT
+DOMAIN-SUFFIX,tmead.y.qq.com,REJECT
+DOMAIN-SUFFIX,ad.tencentmusic.com,REJECT
+DOMAIN-SUFFIX,api-adservices.apple.com,REJECT
+DOMAIN-SUFFIX,us.l.qq.com,REJECT
+DOMAIN-SUFFIX,p.l.qq.com,REJECT
+DOMAIN-SUFFIX,mc.tencentmusic.com,REJECT
+DOMAIN-SUFFIX,mdt.qq.com,REJECT
+DOMAIN-SUFFIX,gdt.qq.com,REJECT
+DOMAIN-SUFFIX,e.qq.com,REJECT
+
+[Script]
+cron {time} script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/kugou_auto.js, enable={sign}, tag=酷狗领取VIP
+
+http-request https://(gateway|gatewayretry|gateway3).kugou.com/youth/v1/(recharge/receive_vip_listen_song|activity/get_month_vip_record).* script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/kugou.js, enable={sign}, tag=酷狗数据
+
+[MITM]
+hostname = *.kugou.com
