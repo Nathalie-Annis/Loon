@@ -53,7 +53,7 @@ AND,((DOMAIN-SUFFIX,chat.bilibili.com), (OR,((DOMAIN-KEYWORD,stun), (DOMAIN-KEYW
 ^https:\/\/api\.bilibili\.com\/x\/vip\/window\/list reject-dict
 ^https:\/\/api\.bilibili\.com\/x\/vip\/web\/vip_center\/v2\? response-body-json-jq '.data.banner=[]' '.data.free_welfare=[]' 'del(.data.welfare,.data.buoy)'
 ^https:\/\/api\.bilibili\.com\/x\/garb\/popup reject-dict
-^https:\/\/mall\.bilibili\.com\/mall-c-search\/home\/index\/v2 response-body-json-replace data.vo.searchUrl.titleVoList []
+^https:\/\/mall\.bilibili\.com\/mall-c-search\/home\/(feed\/list|index\/v2) response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_mall.jq"
 
 [Script]
 http-request ^https:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.community\.service\.dm\.v1\.DM\/DmSegMobile$ script-path=https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/dist/bilibili.protobuf.request.js, argument=[{logLevel}], requires-body=true, binary-body-mode=true, enable={airborne}, tag=bilibili.airborne
