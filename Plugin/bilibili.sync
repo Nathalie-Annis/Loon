@@ -30,16 +30,20 @@ uid=input,"",tag=[个人空间]伪装空间的用户uid,desc=纯数字；多个u
 ^https:\/\/app\.bilibili\.com\/x\/v2\/account\/mine response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_mine.jq"
 
 # 添加项
-# 我的钱包 去推广
-# 会员购 去横幅和悬浮广告,精简搜索栏和信息流
 # 个性装扮 去弹窗
 # 会员中心 去弹窗,精简无用推广
-^https:\/\/pay\.bilibili\.com\/payplatform\/cashier\/wallet\/getWalletPage\/v3 response-body-json-replace data.coBrandCard []
-^https:\/\/mall\.bilibili\.com\/mall\/noah\/hit_mall_ticket\/list\/v2\? reject-dict
-^https:\/\/mall\.bilibili\.com\/mall-c-search\/home\/(feed\/list|index\/v2)\? response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_mall.jq"
+# 我的钱包 去推广
+# 会员购 全面精简
 ^https:\/\/api\.bilibili\.com\/x\/garb\/popup\? reject-dict
 ^https:\/\/api\.bilibili\.com\/x\/vip\/window\/list\? reject-dict
-^https:\/\/api\.bilibili\.com\/x\/vip\/web\/vip_center\/v2\? response-body-json-jq '.data.banner=[]' '.data.free_welfare=[]' 'del(.data.welfare,.data.buoy)'
+^https:\/\/api\.bilibili\.com\/x\/vip\/web\/vip_center\/v2\? response-body-json-jq '.data.banner = [] | .data.free_welfare = [] | del(.data.welfare,.data.buoy)'
+^https:\/\/pay\.bilibili\.com\/payplatform\/cashier\/wallet\/getWalletPage\/v3 response-body-json-replace data.coBrandCard []
+
+^https:\/\/mall\.bilibili\.com\/mall-dayu\/mall\/internal\/search\/discovery\/carousel reject-dict
+^https:\/\/mall\.bilibili\.com\/mall\/noah\/feed\/sceneRec\? reject-dict
+^https:\/\/mall\.bilibili\.com\/mall\/noah\/hit_mall_ticket\/list\/v2\? reject-dict
+^https:\/\/mall\.bilibili\.com\/mall-c-search\/items\/info\/live\? reject-dict
+^https:\/\/mall\.bilibili\.com\/mall-c-search\/home\/(feed\/list|index\/v2)\? response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_mall.jq"
 
 [Script]
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/search\/square\? script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_search.js, enable={hideSearch}, tag=bilibili.search
