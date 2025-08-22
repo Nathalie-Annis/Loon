@@ -50,10 +50,12 @@ AND,((DOMAIN-SUFFIX,chat.bilibili.com), (OR,((DOMAIN-KEYWORD,stun), (DOMAIN-KEYW
 ^https:\/\/app\.bilibili\.com\/x\/v2\/account\/mine response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_mine.jq"
 ^https:\/\/app\.bilibili\.com\/x\/v2\/account\/myinfo\? response-body-json-jq '.data.vip |= if . != null and .status == 0 then . + { status: 1, type: 2, due_date: 9005270400000, role: 15 } else . end'
 
-^https:\/\/api\.bilibili\.com\/x\/vip\/window\/list reject-dict
+^https:\/\/pay\.bilibili\.com\/payplatform\/cashier\/wallet\/getWalletPage\/v3 response-body-json-replace data.coBrandCard []
+^https:\/\/mall\.bilibili\.com\/mall\/noah\/hit_mall_ticket\/list\/v2\? reject-dict
+^https:\/\/mall\.bilibili\.com\/mall-c-search\/home\/(feed\/list|index\/v2)\? response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_mall.jq"
+^https:\/\/api\.bilibili\.com\/x\/garb\/popup\? reject-dict
+^https:\/\/api\.bilibili\.com\/x\/vip\/window\/list\? reject-dict
 ^https:\/\/api\.bilibili\.com\/x\/vip\/web\/vip_center\/v2\? response-body-json-jq '.data.banner=[]' '.data.free_welfare=[]' 'del(.data.welfare,.data.buoy)'
-^https:\/\/api\.bilibili\.com\/x\/garb\/popup reject-dict
-^https:\/\/mall\.bilibili\.com\/mall-c-search\/home\/(feed\/list|index\/v2) response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_mall.jq"
 
 [Script]
 http-request ^https:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.community\.service\.dm\.v1\.DM\/DmSegMobile$ script-path=https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/dist/bilibili.protobuf.request.js, argument=[{logLevel}], requires-body=true, binary-body-mode=true, enable={airborne}, tag=bilibili.airborne
@@ -63,4 +65,4 @@ http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/search\/square\? script-path
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/space\?access_key=.*?&vmid=\d+ script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_fake.js, argument=[{uid}], requires-body=true, tag=bilibili.fake
 
 [MitM]
-hostname = grpc.biliapi.net, app.bilibili.com, api.bilibili.com, api.live.bilibili.com, live.bilibili.com, line3-h5-mobile-api.biligame.com, mall.bilibili.com
+hostname = grpc.biliapi.net, app.bilibili.com, api.bilibili.com, api.live.bilibili.com, live.bilibili.com, line3-h5-mobile-api.biligame.com, mall.bilibili.com, pay.bilibili.com
