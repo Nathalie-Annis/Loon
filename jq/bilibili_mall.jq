@@ -1,5 +1,12 @@
 if .data.vo.list then
-    .data.vo.list |= map(select(.type? == "mallitems" and .saleType? == 0))
+    .data.vo.list |= map(
+            select(.type? == "mallitems" and .saleType? == 0) |
+            if (.imageUrls | length) > 1 then
+                .imageUrls = [.imageUrls[-1]]
+            else
+                .
+            end
+        )
 elif .data.vo.itemList then
     .data.vo.itemList |= map(select(.feedTag | has("frontTag") | not))
 else 
@@ -19,6 +26,13 @@ else
         .data.vo.allInOneCardVO = null
     end |
     if .data.vo.feeds.list then
-        .data.vo.feeds.list |= map(select(.type? == "mallitems" and .saleType? == 0))
+        .data.vo.feeds.list |= map(
+            select(.type? == "mallitems" and .saleType? == 0) |
+            if (.imageUrls | length) > 1 then
+                .imageUrls = [.imageUrls[-1]]
+            else
+                .
+            end
+        )
     end
 end
