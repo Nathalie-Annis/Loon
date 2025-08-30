@@ -15,6 +15,9 @@ else
     if .data.vo.benefitVO.crazyNight8IconVO then
         .data.vo.benefitVO.crazyNight8IconVO = []
     end |
+    if .data.vo.allInOneCardVO then
+        .data.vo.allInOneCardVO = null
+    end |
     if .data.vo.feeds.list then
         .data.vo.feeds.list |= map(select(.type? == "mallitems" and .saleType? == 0))
     end
