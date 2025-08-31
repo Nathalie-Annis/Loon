@@ -14,6 +14,8 @@ uid=input,"",tag=[个人空间]伪装空间的用户uid,desc=纯数字；多个u
 [Rewrite]
 # 修改: 特征:ap[ip]\.bilibili\.com 去除|v2\/search\/square jq重写
 
+# 删除: 特征:pgc\/page\/channel\?(.*)&mobi_app=iphone&(.*)$
+
 # 添加 特征:api\.bilibili\.com\/pgc\/view\/v2\/app\/season\? 下方
 ^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?access_key=.*?page_name=(bangumi_tab|cinema_tab) response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_tabcontent.jq"
 
