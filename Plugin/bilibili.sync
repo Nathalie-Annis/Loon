@@ -43,6 +43,7 @@ uid=input,"",tag=[个人空间]伪装空间的用户uid,desc=纯数字；多个u
 
 ^https:\/\/mall\.bilibili\.com\/mall\/noah\/feed\/sceneRec\? reject-dict
 ^https:\/\/mall\.bilibili\.com\/mall\/noah\/hit_mall_ticket\/list\/v2\? reject-dict
+^https:\/\/mall\.bilibili\.com\/mall-dayu\/bigshot\/project\/query\/selected reject-dict
 ^https:\/\/mall\.bilibili\.com\/mall-dayu\/mall\/internal\/search\/discovery\/carousel reject-dict
 ^https:\/\/mall\.bilibili\.com\/mall-dayu\/muggle\/iam\? mock-response-body data-type=json data="{"errtag":0,"message":"success","code":0}" status-code=200
 ^https:\/\/mall\.bilibili\.com\/mall-c-search\/items\/info\/live\? reject-dict
