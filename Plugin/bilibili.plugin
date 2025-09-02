@@ -56,6 +56,7 @@ AND,((DOMAIN-SUFFIX,chat.bilibili.com), (OR,((DOMAIN-KEYWORD,stun), (DOMAIN-KEYW
 ^https:\/\/mall\.bilibili\.com\/mall\/noah\/feed\/sceneRec reject-dict
 ^https:\/\/mall\.bilibili\.com\/mall\/noah\/hit_mall_ticket\/list\/v2\? reject-dict
 ^https:\/\/mall\.bilibili\.com\/mall-dayu\/bigshot\/project\/query\/selected reject-dict
+^https:\/\/mall\.bilibili\.com\/mall-dayu\/items\/content\/queryActByItem reject-dict
 ^https:\/\/mall\.bilibili\.com\/mall-dayu\/mall\/internal\/search\/discovery\/carousel reject-dict
 ^https:\/\/mall\.bilibili\.com\/mall-dayu\/muggle\/iam\? mock-response-body data-type=json data="{"errtag":0,"message":"success","code":0}" status-code=200
 ^https:\/\/mall\.bilibili\.com\/mall-c-search\/items\/info\/live\? reject-dict
