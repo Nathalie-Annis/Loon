@@ -1,9 +1,18 @@
+// 大会员标签选择
+const vipImages = {
+    "番剧": "https://i0.hdslb.com/bfs/bangumi/kt/c43d9f30d0026fb3bba3d3823dd0f20c7ccc4f62.png",
+    "影视": "https://i0.hdslb.com/bfs/bangumi/kt/8da0131c523f715962cb9650c517d5fc8407a914.png",
+    "像素": "https://i0.hdslb.com/bfs/bangumi/kt/5d7b3ac0e8a01f85f09156954fda2c3517970923.png",
+    "大好人": "https://i0.hdslb.com/bfs/bangumi/kt/9e267149f2eee1408cefc1c8643794eda5c7b9b2.png"
+};
+
 // 正则匹配URL,捕获组获取id
 let idMatch = $request.url.match(/&vmid=(\d+)/);
 let id = idMatch ? idMatch[1] : null;
 console.log(id);
 let uids = $argument.uid ? $argument.uid.split(',') : [];
 console.log(uids);
+let vipLabel = $argument.vipLabel;
 
 // 如果 id 与 uids 数组中任何一个uid匹配，则执行伪装逻辑
 if (id && uids.length > 0 && uids.includes(id)) {
@@ -17,9 +26,20 @@ if (id && uids.length > 0 && uids.includes(id)) {
         obj.data.card.vip.vipStatus = 1;
         if (obj.data.card.vip.label) {
             obj.data.card.vip.label.text = "百年大会员";
-            //以下显示图片可以任意替换
-            obj.data.card.vip.label.image = "https://i0.hdslb.com/bfs/bangumi/kt/c43d9f30d0026fb3bba3d3823dd0f20c7ccc4f62.png";
             obj.data.card.vip.label.label_theme = "hundred_annual_vip";
+            // 百年大会员标签选择逻辑
+            if (vipLabel === "随机") {
+                // 从现有的图片中随机选择一个
+                const imageUrls = Object.values(vipImages);
+                const randomIndex = Math.floor(Math.random() * imageUrls.length);
+                obj.data.card.vip.label.image = imageUrls[randomIndex];
+            } else if (vipImages[vipLabel]) {
+                // 使用指定类型的图片
+                obj.data.card.vip.label.image = vipImages[vipLabel];
+            } else {
+                // 默认使用番剧图片
+                obj.data.card.vip.label.image = vipImages["番剧"];
+            }
         }
     }
 
