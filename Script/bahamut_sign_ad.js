@@ -3,20 +3,10 @@ if (!$response.body) {
     console.log('响应体为空');
     $done({});
 }
-if ($persistentStore.read(["baha_sign_ad"]) == true) {
-    console.log('已经在签到了');
-    let body = {
-        "data": {
-            "finished": 0
-        }
-    }
-    $done({ body: JSON.stringify(body) });
-}
 try {
     let json = JSON.parse($response.body);
     if (json?.data?.finished === 0) {
         console.log('开始广告签到');
-        $persistentStore.write(true, ["baha_sign_ad"]);
         let attach = {
             "mediaUrl": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/bahamut2.png",
         }
