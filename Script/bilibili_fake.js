@@ -1,5 +1,6 @@
 // 大会员标签选择
 const vipImages = {
+    // "普通": "https://i0.hdslb.com/bfs/vip/52f60c8bdae8d4440edbb96dad72916022adf126.png",
     "番剧": "https://i0.hdslb.com/bfs/bangumi/kt/c43d9f30d0026fb3bba3d3823dd0f20c7ccc4f62.png",
     "影视": "https://i0.hdslb.com/bfs/bangumi/kt/8da0131c523f715962cb9650c517d5fc8407a914.png",
     "像素": "https://i0.hdslb.com/bfs/bangumi/kt/5d7b3ac0e8a01f85f09156954fda2c3517970923.png",
