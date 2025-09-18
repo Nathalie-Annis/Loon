@@ -79,13 +79,28 @@ if (id && uids.length > 0 && uids.includes(id)) {
         };
         // console.log(`https://www.bilibili.com/h5/achieve?navhide=1&mid=${id}`);
         obj.data.card.live_fans_wearing = {
-            "medal_color_end": 15304379,
-            "medal_color_start": 7996451,
+            "medal_color_end": 16765060,
             "medal_name": "彼岸花",
-            "level": 66,
-            "medal_jump_url": `https://live.bilibili.com/p/html/live-fansmedal-wall/index.html?is_live_webview=1&tId=${id}#/medal`,
             "medal_color_border": 16771156,
-            "guard_icon": "https://i0.hdslb.com/bfs/activity-plat/static/ce06d65bc0a8d8aa2a463747ce2a4752/FqYoOmgssP.png"
+            "level": 99,
+            "guard_icon": "https://i0.hdslb.com/bfs/activity-plat/static/ce06d65bc0a8d8aa2a463747ce2a4752/FqYoOmgssP.png",
+            "medal_jump_url": `https://live.bilibili.com/p/html/live-fansmedal-wall/index.html?is_live_webview=1&tId=${id}#/medal`,
+            "medal_color_start": 16736523,
+            "detail_v2": {
+                "medal_name": "彼岸花",
+                "uid": 3115457,
+                "medal_color_border": "#FFFBE0CA",
+                "medal_color_end": "#FFFFE8D5",
+                "first_icon": "https://i0.hdslb.com/bfs/live/bf4f5ea4b54ca7bb358dec4e6c4afcc300c12eb9.png",
+                "level": 99,
+                "medal_color_level": "#FFF4955A",
+                "second_icon": "",
+                "guard_level": 1,
+                "medal_level_bg_color": 0,
+                "medal_color_name": "#FFDA7D38",
+                "medal_id": 354497,
+                "medal_color": "#FFFFE8D5"
+            }
         };
         // console.log(`https://live.bilibili.com/p/html/live-fansmedal-wall/index.html?is_live_webview=1&tId=${id}#/medal`);
     }
