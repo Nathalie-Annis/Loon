@@ -59,6 +59,7 @@ AND,((DOMAIN-SUFFIX,chat.bilibili.com), (OR,((DOMAIN-KEYWORD,stun), (DOMAIN-KEYW
 ^https:\/\/mall\.bilibili\.com\/mall-dayu\/muggle\/iam\? mock-response-body data-type=json data="{"errtag":0,"message":"success","code":0}" status-code=200
 ^https:\/\/mall\.bilibili\.com\/mall-c-search\/items\/info\/live\? reject-dict
 ^https:\/\/mall\.bilibili\.com\/mall-c-search\/home\/(feed\/list|index\/v2)\? response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_mall.jq"
+^https:\/\/show\.bilibili\.com\/api\/ticket-market\/owner\/home\? response-body-json-del data.vo.adListV2 data.vo.config.magic
 
 [Script]
 http-request ^https:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.community\.service\.dm\.v1\.DM\/DmSegMobile$ script-path=https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/dist/bilibili.protobuf.request.js, argument=[{logLevel}], requires-body=true, binary-body-mode=true, enable={airborne}, tag=bilibili.airborne
@@ -68,4 +69,4 @@ http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/search\/square\? script-path
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/space\?access_key=.*?&vmid=\d+ script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_fake.js, argument=[{uid},{vipLabel}], requires-body=true, tag=bilibili.fake
 
 [MitM]
-hostname = grpc.biliapi.net, app.bilibili.com, api.bilibili.com, api.live.bilibili.com, live.bilibili.com, line3-h5-mobile-api.biligame.com, mall.bilibili.com, pay.bilibili.com
+hostname = grpc.biliapi.net, app.bilibili.com, api.bilibili.com, api.live.bilibili.com, live.bilibili.com, line3-h5-mobile-api.biligame.com, mall.bilibili.com, pay.bilibili.com, show.bilibili.com

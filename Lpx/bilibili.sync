@@ -46,10 +46,11 @@ uid=input,"",tag=[个人空间]伪装空间的用户uid,desc=纯数字；多个u
 ^https:\/\/mall\.bilibili\.com\/mall-dayu\/muggle\/iam\? mock-response-body data-type=json data="{"errtag":0,"message":"success","code":0}" status-code=200
 ^https:\/\/mall\.bilibili\.com\/mall-c-search\/items\/info\/live\? reject-dict
 ^https:\/\/mall\.bilibili\.com\/mall-c-search\/home\/(feed\/list|index\/v2)\? response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/bilibili_mall.jq"
+^https:\/\/show\.bilibili\.com\/api\/ticket-market\/owner\/home\? response-body-json-del data.vo.adListV2 data.vo.config.magic
 
 [Script]
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/search\/square\? script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_search.js, enable={hideSearch}, tag=bilibili.search
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/space\?access_key=.*?&vmid=\d+ script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_fake.js, argument=[{uid}], requires-body=true, tag=bilibili.fake
 
 [MitM]
-# 添加 mall.bilibili.com, pay.bilibili.com
+# 添加 mall.bilibili.com, pay.bilibili.com, show.bilibili.com
