@@ -7,7 +7,7 @@ del(.data.live_tip)
     | .items |=                                                 # 根据标题过滤无用项
         (if  $secTitle == "创作中心"
         then map(select(.title | IN("创作中心","稿件管理","主播中心","直播数据")))
-        elif $secTitle == "推荐服务"
+        elif $secTitle == "推荐服务" or $secTitle == "我的服务"
         then map (
             if (.title | IN("会员购中心","会员购")) and has("uri")
             then .uri = "bilibili://mall/home"
