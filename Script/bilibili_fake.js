@@ -4,7 +4,8 @@ const vipImages = {
     "番剧": "https://i0.hdslb.com/bfs/bangumi/kt/c43d9f30d0026fb3bba3d3823dd0f20c7ccc4f62.png",
     "影视": "https://i0.hdslb.com/bfs/bangumi/kt/8da0131c523f715962cb9650c517d5fc8407a914.png",
     "像素": "https://i0.hdslb.com/bfs/bangumi/kt/5d7b3ac0e8a01f85f09156954fda2c3517970923.png",
-    "大好人": "https://i0.hdslb.com/bfs/bangumi/kt/9e267149f2eee1408cefc1c8643794eda5c7b9b2.png"
+    "大好人": "https://i0.hdslb.com/bfs/bangumi/kt/9e267149f2eee1408cefc1c8643794eda5c7b9b2.png",
+    "萌节": "https://i0.hdslb.com/bfs/bangumi/kt/7652c837aac3c936ccb5813935473af0b66c3d06.png"
 };
 
 // 正则匹配URL,捕获组获取id
