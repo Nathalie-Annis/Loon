@@ -30,7 +30,7 @@ del(.data.live_tip)
 #     "https://i0.hdslb.com/bfs/bangumi/kt/9e267149f2eee1408cefc1c8643794eda5c7b9b2.png",                         # 大好人
 #     "https://i0.hdslb.com/bfs/bangumi/kt/7652c837aac3c936ccb5813935473af0b66c3d06.png"                          # 萌节
 # ] | .[now % length])                                                                                            # 随机选择大会员标签
-| .data.modular_vip_section.title += { text:"Ciallo～(∠・ω< )⌒★", url:"https://b23.tv/d9YZ8f1" }                   # 会员中心标题&副标题&活动入口重定向
+| .data.modular_vip_section.title += { text:"Ciallo～(∠・ω< )⌒★", url:"https://www.bilibili.com/blackboard/era/kXP06cmqKtYULNL1.html?" }                   # 会员中心标题&副标题&活动入口重定向
 | .data.modular_vip_section.subtitle.text = "每天都要开心呀"
 | .data.modular_vip_section.button.text = "会员中心"
 | .data.senior_gate = {"member_text":"硬核会员","identity":2,"birthday_conf":null,"bubble":""}
