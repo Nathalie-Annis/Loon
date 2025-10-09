@@ -91,6 +91,10 @@
             "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/sdl.png"
         },
         {
+            "name": "sntp",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/sntp.png"
+        },
+        {
             "name": "tanhua",
             "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/tanhua.png"
         },
@@ -105,6 +109,10 @@
         {
             "name": "yomo",
             "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/yomo.png"
+        },
+        {
+            "name": "emby",
+            "url": "https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/emby.png"
         },
         {
             "name": "reflix",
