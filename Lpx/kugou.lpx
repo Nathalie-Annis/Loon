@@ -5,6 +5,7 @@
 #!tag=酷狗概念版
 
 [Argument]
+token = switch,true,tag=开启数据获取,desc=
 sign = switch,false,tag=开启每日签到,desc=
 time = input,"0 8 * * *",tag=每日签到时间,desc=
 
@@ -31,7 +32,7 @@ time = input,"0 8 * * *",tag=每日签到时间,desc=
 [Script]
 cron {time} script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/kugou_vip.js, enable={sign}, tag=酷狗领取VIP
 
-http-request https://(gateway|gatewayretry|gateway3).kugou.com/youth/v1/activity/get_month_vip_record.* script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/kugou_cookie.js, enable={sign}, tag=酷狗数据
+http-request https://(gateway|gatewayretry|gateway3).kugou.com/youth/v1/activity/get_month_vip_record.* script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/kugou_cookie.js, enable={token}, tag=酷狗数据
 
 [MITM]
 hostname = *.kugou.com
