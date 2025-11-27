@@ -7,9 +7,10 @@
 #!author=kokoryh[https://github.com/kokoryh],nathalie[https://github.com/Nathalie-Annis]
 
 [Argument]
-# 修改: [内嵌网页]净化 [视频内]空降助手 [系统]日志等级
-hideSearch=switch,false,tag=[搜索栏]隐藏热搜和发现,desc=true: 开启\n- false: 关闭
+# 修改: [视频内]空降助手 [系统]日志等级
+hideSearch=switch,false,tag=[搜索栏]隐藏热搜和发现
 uid=input,"",tag=[个人空间]伪装空间的用户uid,desc=纯数字；多个uid用英文逗号,隔开；不启用时留空
+vipLabel=select,"番剧","影视","像素","大好人","萌节","随机",tag=[个人空间]伪装的会员标签样式,desc=均为百年大会员标签，选择随机时，每次打开个人空间会随机更换标签样式
 
 [Rewrite]
 # 修改: 特征:ap[ip]\.bilibili\.com 去除|v2\/search\/square jq重写
@@ -36,12 +37,13 @@ uid=input,"",tag=[个人空间]伪装空间的用户uid,desc=纯数字；多个u
 # 会员中心 去弹窗,精简无用推广
 # 我的钱包 去推广
 # 会员购 全面精简
+
 ^https:\/\/api\.bilibili\.com\/x\/garb\/popup\? reject-dict
 ^https:\/\/api\.bilibili\.com\/x\/vip\/window\/list\? reject-dict
 ^https:\/\/api\.bilibili\.com\/x\/vip\/web\/vip_center\/v2\? response-body-json-jq '.data.banner = [] | .data.free_welfare = [] | del(.data.welfare,.data.buoy)'
 ^https:\/\/pay\.bilibili\.com\/payplatform\/cashier\/wallet\/getWalletPage\/v3 response-body-json-replace data.coBrandCard []
 
-^https:\/\/mall\.bilibili\.com\/mall\/noah\/(feed\/sceneRec|hit_mall_ticket\/list\/v2)\? reject-dict
+^https:\/\/mall\.bilibili\.com\/mall\/noah\/(feed\/sceneRec|hit_mall_ticket\/list\/v2\?) reject-dict
 ^https:\/\/mall\.bilibili\.com\/mall-dayu\/(bigshot\/project\/query\/selected|items\/content\/queryActByItem|mall\/internal\/search\/discovery\/carousel) reject-dict
 ^https:\/\/mall\.bilibili\.com\/mall-dayu\/muggle\/iam\? mock-response-body data-type=json data="{"errtag":0,"message":"success","code":0}" status-code=200
 ^https:\/\/mall\.bilibili\.com\/mall-c-search\/items\/info\/live\? reject-dict
@@ -50,7 +52,7 @@ uid=input,"",tag=[个人空间]伪装空间的用户uid,desc=纯数字；多个u
 
 [Script]
 http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/search\/square\? script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_search.js, enable={hideSearch}, tag=bilibili.search
-http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/space\?access_key=.*?&vmid=\d+ script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_fake.js, argument=[{uid}], requires-body=true, tag=bilibili.fake
+http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/space\?access_key=.*?&vmid=\d+ script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/bilibili_fake.js, argument=[{uid},{vipLabel}], requires-body=true, tag=bilibili.fake
 
 [MitM]
 # 添加 mall.bilibili.com, pay.bilibili.com, show.bilibili.com
