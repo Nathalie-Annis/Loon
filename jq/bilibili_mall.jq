@@ -13,6 +13,9 @@ else
     if .data.vo.searchUrl.titleVoList then
         .data.vo.searchUrl.titleVoList = []
     end |
+    if .data.vo.itemsCardBannerVO.bannerList then
+        .data.vo.itemsCardBannerVO.bannerList = []
+    end |
     if .data.vo.banners then
         .data.vo.banners = []
     end |
