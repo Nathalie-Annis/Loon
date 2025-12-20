@@ -7,7 +7,7 @@
 #!author=kokoryh[https://github.com/kokoryh],nathalie[https://github.com/Nathalie-Annis]
 
 [Argument]
-# 修改: [视频内]空降助手 [系统]日志等级
+# 修改: [评论区]优化加载 [视频内]空降助手 [系统]日志等级
 hideSearch=switch,false,tag=[搜索栏]隐藏热搜和发现
 uid=input,"",tag=[个人空间]伪装空间的用户uid,desc=纯数字；多个uid用英文逗号,隔开；不启用时留空
 vipLabel=select,"番剧","影视","像素","大好人","萌节","随机",tag=[个人空间]伪装的会员标签样式,desc=均为百年大会员标签，选择随机时，每次打开个人空间会随机更换标签样式
