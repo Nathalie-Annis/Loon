@@ -18,6 +18,7 @@ avatarbox=input,"https://cdn.wtzw.com/bookimg/free/png/17198299375688291.png",ta
 ^https:\/\/api-gw\.wtzw\.com\/legacy\/api\/v1\/user\/red-point reject
 ^https:\/\/api-cmnt\.wtzw\.com\/api\/v1\/comment\/book-(evaluates|discussion)\? response-body-json-del data.activity
 ^https:\/\/api-bc\.wtzw\.com\/api\/v(1\/(leader-board|must-read-more|(secondary-)?book-store(\/rank-tag)?)|5\/(category\/get-list|book-store\/recommend)|6\/book-store\/(recommend|tag)|[47]\/book-store) response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/qimao_tag.jq"
+^https:\/\/api-bc\.wtzw\.com\/search\/v1\/words response-body-json-jq jq-path="https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/jq/qimao_tag.jq"
 ^https:\/\/xiaoshuo\.wtzw\.com\/api\/v2\/init response-body-json-del data.main_activities data.teenager_mode data.push_permission_pop data.guide_login_sub_title data.guide_login_icon_url data.red_packet_pop
 ^https:\/\/xiaoshuo\.wtzw\.com\/api\/v1\/follow\/friend-list response-body-json-replace data.total_fans_num "9999999"
 
