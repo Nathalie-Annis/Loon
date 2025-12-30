@@ -3,13 +3,13 @@
 #!author=nathalie[https://github.com/Nathalie-Annis]
 #!icon=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/github.png
 #!homepage=https://github.com/Nathalie-Annis/Loon/
-#!arguments=usePrivate:false,username:"",token:""
+#!arguments=用户名:"",密码:""
 
 [Header Rewrite]
 http-request ^https:\/\/(((raw|gist|avatars)\.githubusercontent)|github)\.com header-replace 'Accept-Language' 'en-us'
 
 [Script]
-引用私有仓库 = type=http-request, pattern=^https?:\/\/(raw|gist)\.githubusercontent.com, script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/github_private.js, timeout=5, argument="[{{{username}}},{{{token}}}]", engine=jsc
+引用私有仓库 = type=http-request, pattern=^https?:\/\/(raw|gist)\.githubusercontent.com, script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/github_private.js, timeout=5, argument="{"username":{{{用户名}}},"token":"{{{密码}}}"}", engine=jsc
 
 [MITM]
 hostname = %APPEND% raw.githubusercontent.com, gist.githubusercontent.com, avatars.githubusercontent.com, github.com
