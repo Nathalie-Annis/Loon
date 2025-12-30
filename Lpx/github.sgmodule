@@ -1,0 +1,15 @@
+#!name=GitHub增强
+#!desc=允许引用Github私有仓库/gist中的订阅分流、重写、脚本等配置文件，并防止GitHub更新资源429问题
+#!author=nathalie[https://github.com/Nathalie-Annis]
+#!icon=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Icon/github.png
+#!homepage=https://github.com/Nathalie-Annis/Loon/
+#!arguments=usePrivate:false,username:"",token:""
+
+[Header Rewrite]
+http-request ^https:\/\/(((raw|gist|avatars)\.githubusercontent)|github)\.com header-replace 'Accept-Language' 'en-us'
+
+[Script]
+引用私有仓库 = type=http-request, pattern=^https?:\/\/(raw|gist)\.githubusercontent.com, script-path=https://raw.githubusercontent.com/Nathalie-Annis/Loon/refs/heads/main/Script/github_private.js, timeout=20, argument="[{{{username}}},{{{token}}}]"
+
+[MITM]
+hostname = %APPEND% raw.githubusercontent.com, gist.githubusercontent.com, avatars.githubusercontent.com, github.com
