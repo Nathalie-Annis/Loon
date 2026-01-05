@@ -20,7 +20,7 @@ AND,((USER-AGENT,Cainiao4iPhone*), (DOMAIN,amdc.m.taobao.com,extended-matching))
 [Body Rewrite]
 //首页
 http-response-jq ^https:\/\/(cn-acs\.m|e2e-mtop)\.cainiao\.com\/gw\/mtop\.cainiao\.app\.e2e\.engine\.page\.fetch 'del(.data.data.data.mainSearch.bizData.searchContents, .data.data.data.operationList)'
-http-response-jq ^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.nbpresentation\.homepage\.merge\.get\.cn '.data |= with_entries(if .key | startswith("mtop.cainiao.nbpresentation.protocol.homepage.get.cn@") then .value.data.result.dataList[1].bizData.items |= map(select(.isEditable == "true")) else . end)'
+http-response-jq ^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.nbpresentation\.homepage\.merge\.get\.cn '.data |= with_entries(if .key | startswith("mtop.cainiao.nbpresentation.protocol.homepage.get.cn@") then .value.data.result.dataList |= map(if .type == "banner_area_v860" then empty elif .type == "icons_scroll_unable_v860" then .bizData.items |= map(select(.isEditable == "true")) else . end) else . end)'
 
 //我的
 http-response-jq ^https:\/\/e2e-mtop\.cainiao\.com\/gw\/mtop\.cainiao\.app\.e2e\.engine\.page\.fetch\.cn 'del(.data.data.banner, .data.data.activity, .data.data.vip)'
