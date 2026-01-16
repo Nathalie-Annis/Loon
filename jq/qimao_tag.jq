@@ -20,6 +20,8 @@ elif .data.sections then
         else .
         end
     ) | del(.data.banners)
+elif .data.book then
+	del(.data.book.tag_type)
 else
     .
 end
